@@ -1,0 +1,386 @@
+
+Sys.setenv(R_GSCMD = "C:/Program Files/gs/gs9.54.0/bin/gswin64c.exe")
+
+rm(list=ls())
+
+###############################################################################
+###############################################################################
+# "Welfare Reform and the Intergenerational Transmission of Dependence"
+#   Robert Paul Hartley, Carlos Lamarche, and James P. Ziliak
+#   Journal of Political Economy, accepted July 22, 2021
+#   Manuscript: Figures
+###############################################################################
+###############################################################################
+
+system("hostname")
+date()
+sessionInfo()
+
+v <- "JPE-MS-2017407"
+
+library(matrixStats)
+library(extrafont)
+library(readxl)
+library(plyr)
+
+# Custom colors
+KYblue <- rgb(0/255, 93/255, 170/255, 1)
+KYdlvndr <- rgb(107/255, 137/255, 180/255, 1)
+KYddh <- rgb(231/255, 163/255, 0/255, 1)
+KYltblgr <- rgb(225/255, 231/255, 240/255, 1)
+KYdgray <- rgb(115/255, 115/255, 115/255, 1)
+KYbb <- rgb(47/255, 151/255, 255/255, 1)
+KYltblue <- rgb(204/255, 223/255, 238/255, 1)
+
+core <- ls()
+
+################################################################################
+#       FIGURE 1. TRENDS IN AFDC/TANF, FOOD STAMPS/SNAP, SSI RECIPIENTS        #
+################################################################################
+{
+  figure <- paste0("Figure_1_",v)
+  postscript(paste0(figure,".eps"), height=hh<-3, width=ww<-3.75, 
+             horizontal=F, pagecentre=F, paper="special")
+  par(mfrow=c(1,1), mar=c(4,4,.25,4), cex=9/12)
+  
+  R <- read.csv(paste0(v,"_Figure_1_output.csv"))
+
+  plot(0, 0, xlim=c(1958,2012), ylim=c(0,46), type="n", 
+       xlab="Year", ylab="Recipients (millions)")
+  axis(side=2, at=c(5,15,25,35,45))
+  rect(1991.5, -100, 1997.5, 100, col=KYltblgr, border=NA)
+  box()
+  
+  lines(R$year, R$ssi, lty=1, lwd=1.5, pch=4, col=KYdlvndr, type="o")
+  lines(R$year, R$snap, lty=1, lwd=1.5, pch=17, col=KYddh, type="o")
+  lines(R$year, R$afdctanf, lty=1, lwd=1.5, pch=16, col=KYblue, type="o")
+
+  legend("topleft", c("Food Stamps/SNAP", "AFDC/TANF", "SSI"),
+         col=c(KYddh, KYblue, KYdlvndr), lty=c(1), lwd=c(1.5), pch=c(17,16,4), 
+         inset=c(.025,0), bty="n")
+  
+  dev.off()
+  embed_fonts(paste0(figure,".eps"), format="ps2write", 
+              options=paste0("-dEmbedAllFonts=true -dDEVICEWIDTHPOINTS=", 
+                             ww*72, " -dDEVICEHEIGHTPOINTS=", hh*72))
+  rm(list=ls()[!(ls() %in% c(core, "core"))])
+}
+
+################################################################################
+#              FIGURE 2. TRENDS IN INTERGENERATIONAL CORRELATIONS              #
+#                  OF INCOME STATUS AND WELFARE PARTICIPATION                  #
+################################################################################
+{
+  figure <- paste0("Figure_2_",v) 
+  postscript(paste0(figure,".eps"), height=hh<-3, width=ww<-6, 
+             horizontal=F, pagecentre=F, paper="special")
+  par(mfrow=c(1,2), mar=c(4,3.5,2,3.5), cex=9/12)
+  
+  IGE <- read_excel(paste0(v,"_Figure_2_output.xlsx"), sheet="Results")
+  
+  plot(0, 0, xlim=c(1978,2012), ylim=c(0,0.6), xlab="", ylab="", xaxt="n", 
+       type="n")
+  axis(side=1, at=seq(1980,2010,5), labels=c(1980,"",1990,"",2000,"",2010))
+  mtext("Year", side=1, line=2.25, cex=par("cex"))
+  mtext("Correlation", side=2, line=2.5, cex=par("cex"))
+  mtext("A. Income status", side=3, line=.75, cex=par("cex"))
+  rect(1991.5, -100, 1997.5, 100, col=KYltblgr, border=NA)
+  box()
+  
+  lines(1978:2012, IGE$POV2, lty=1, lwd=1.5, pch=18, col=KYdlvndr, type="o")
+  lines(1978:2012, IGE$POV1, lty=1, lwd=1.5, pch=17, col=KYddh, type="o")  
+  lines(1978:2012, IGE$INC, lty=1, lwd=1.5, pch=4, col=KYdgray, type="o")  
+
+  legend("bottomleft", 
+         c("Log family income", "100% poverty status", "200% poverty status"),
+         col=c(KYdgray, KYddh, KYdlvndr), lwd=c(1.5), pch=c(4, 17, 18),
+         inset=c(.025,0), cex=8/9, bty="n")
+  
+  plot(0, 0, xlim=c(1978,2012), ylim=c(0,0.6), xlab="", ylab="", xaxt="n", 
+       type="n")
+  axis(side=1, at=seq(1980,2010,5), labels=c(1980,"",1990,"",2000,"",2010))
+  mtext("Year", side=1, line=2.25, cex=par("cex"))
+  mtext("Correlation", side=2, line=2.5, cex=par("cex"))
+  mtext("B. Welfare participation", side=3, line=.75, cex=par("cex"))
+  rect(1991.5, -100, 1997.5, 100, col=KYltblgr, border=NA)
+  box()
+  
+  lines(1978:2012, IGE$maxW2, lty=1, lwd=1.5, pch=16, col=KYblue, type="o")
+  lines(1978:2012, IGE$maxW1, lty=1, lwd=1.5, pch=15, col="black", type="o")
+  lines(1978:2012, IGE$avgW2, lwd=1.5, lty=2, pch=1, col=KYblue, type="o")
+  lines(1978:2012, IGE$avgW1, lwd=1.5, lty=2, pch=0, col="black", type="o")
+
+  legend("topleft", c("Any AFDC/TANF, SNAP, SSI","Any AFDC/TANF"),
+         col=c(KYblue,"black"), lty=c(1), lwd=c(1.5), pch=c(16,15), cex=16/18, 
+         x.intersp=3/3, inset=c(.025,0), bty="n")
+  legend("bottomleft", c("Avg. AFDC/TANF, SNAP, SSI","Avg. AFDC/TANF"),
+         col=c(KYblue,"black"), lty=c(2), lwd=c(1.5), pch=c(1,0), cex=16/18, 
+         x.intersp=3/3, inset=c(.025,0), bty="n")
+  
+  dev.off()
+  embed_fonts(paste0(figure,".eps"), format="ps2write", 
+              options=paste0("-dEmbedAllFonts=true -dDEVICEWIDTHPOINTS=", 
+                             ww*72, " -dDEVICEHEIGHTPOINTS=", hh*72))
+  rm(list=ls()[!(ls() %in% c(core, "core"))])
+}
+
+################################################################################
+#               FIGURE 3. INTERGENERATIONAL CORRELATIONS WITHIN                #
+#               PRE-/POST-REFORM REGIMES, BY WELFARE DEFINITION                #
+################################################################################
+{
+  figure <- paste0("Figure_3_",v)
+  postscript(paste0(figure,".eps"), height=hh<-3, width=ww<-6, 
+             horizontal=F, pagecentre=F, paper="special")
+  par(mfrow=c(1,2), mar=c(4,3.5,2,3.5), cex=9/12)
+  
+  R <- list(NULL)
+  results <- c("b.avg", "ll.avg", "ul.avg", "b.max", "ll.max", "ul.max")
+  for (r in results) {
+    R[[r]] <- as.matrix(read_excel(
+      paste0(v,"_Figure_3_output.xlsx"), sheet=r, range="B3:I6", 
+      col_types="numeric", col_names=paste(rep(rep(c("W1","W2"),each=2),2),
+                                           rep(c("R0","R1"),4),
+                                           rep(c("S1","S2"),each=4), sep=".")
+    ))
+  }
+  
+  bp <- barplot(matrix(nrow=4,ncol=8), beside=TRUE, col=NA, border=NA, 
+                ylim=c(-.05,.65), yaxs="i", ylab="", 
+                space=c(rep(.2,16),3,rep(.2,15)), names.arg=rep("",8))
+  mtext("Correlation", side=2, line=2.5, cex=par("cex"))
+  mtext("A. Daughter's average participation", side=3, line=.75, cex=par("cex"))
+  
+  segments(x0=bp, y0=R$ll.avg, y1=R$ul.avg, 
+           col=rep(rep(c(KYblue,KYddh),each=8),2))
+  points(bp, R$b.avg, pch=rep(rep(c(21,16,24,17),each=4),2),
+         col=rep(rep(c(KYblue,KYddh),each=8),2), bg="white")
+  text(bp, rowMaxs(cbind(as.vector(R$ll.avg),c(R$ll.max[1,2]))),
+       rep(1:4,8), cex=7/9, pos=1, offset=.25,
+       col=rep(rep(c(KYblue,KYddh),each=8),2))
+  
+  legend(par("usr")[1]+.01*par("usr")[1:2]%*%c(-1,1),
+         par("usr")[4]+.01*par("usr")[3:4]%*%c(-1,1),
+         c("AFDC [pre-reform]", "TANF [post-reform]", 
+           "AFDC, SNAP, SSI [pre-reform]", "TANF, SNAP, SSI [post-reform]"),
+         col=c(KYblue, KYblue, KYddh, KYddh), pch=c(21,16,24,17), 
+         bg="white", cex=8/9, xjust=0, yjust=1, bty="n")
+  
+  axis(side=1, at=c(mean(bp[1:4,1:4]),mean(bp[1:4,5:8])), 
+       labels=c("Sample\nweights\nonly", "Inverse\ndaughter\nweights"),
+       lwd=0, tck=FALSE, padj=2/3)
+  axis(side=1, at=c(bp[1,c(1,5)], bp[4,c(4,8)]), labels=rep("",4))
+  segments(x0=bp[1,c(1,5)], x1=bp[4,c(4,8)], 
+           y0=par("usr")[3]-.04*.625, xpd=TRUE)
+  box()
+  
+  bp <- barplot(matrix(nrow=4,ncol=8), beside=TRUE, col=NA, border=NA, 
+                ylim=c(-.05,.65), yaxs="i", ylab="", 
+                space=c(rep(.2,16),3,rep(.2,15)), names.arg=rep("",8))
+  mtext("Correlation", side=2, line=2.5, cex=par("cex"))
+  mtext("B. Any daughter participation", side=3, line=.75, cex=par("cex"))
+  
+  segments(x0=bp, y0=R$ll.max, y1=R$ul.max, 
+           col=rep(rep(c(KYblue,KYddh),each=8),2))
+  points(bp, R$b.max, pch=rep(rep(c(21,16,24,17),each=4),2),
+         col=rep(rep(c(KYblue,KYddh),each=8),2), bg="white")
+  text(bp, rowMaxs(cbind(as.vector(R$ll.max),c(R$ll.max[1,2]))),
+       rep(1:4,8), cex=7/9, pos=1, offset=.25,
+       col=rep(rep(c(KYblue,KYddh),each=8),2))
+  
+  legend(par("usr")[1]+.01*par("usr")[1:2]%*%c(-1,1),
+         par("usr")[4]+.01*par("usr")[3:4]%*%c(-1,1),
+         c("AFDC [pre-reform]", "TANF [post-reform]", 
+           "AFDC, SNAP, SSI [pre-reform]", "TANF, SNAP, SSI [post-reform]"),
+         col=c(KYblue, KYblue, KYddh, KYddh), pch=c(21,16,24,17), 
+         bg="white", cex=8/9, xjust=0, yjust=1, bty="n")
+  
+  axis(side=1, at=c(mean(bp[1:4,1:4]),mean(bp[1:4,5:8])), 
+       labels=c("Sample\nweights\nonly", "Inverse\ndaughter\nweights"),
+       lwd=0, tck=FALSE, padj=2/3)
+  axis(side=1, at=c(bp[1,c(1,5)], bp[4,c(4,8)]), labels=rep("",4))
+  segments(x0=bp[1,c(1,5)], x1=bp[4,c(4,8)], 
+           y0=par("usr")[3]-.04*.625, xpd=TRUE)
+  box()
+  
+  dev.off()
+  embed_fonts(paste0(figure,".eps"), format="ps2write", 
+              options=paste0("-dEmbedAllFonts=true -dDEVICEWIDTHPOINTS=", 
+                             ww*72, " -dDEVICEHEIGHTPOINTS=", hh*72))
+  rm(list=ls()[!(ls() %in% c(core, "core"))])
+}
+
+################################################################################
+#   FIGURE 4. YEAR-TO-YEAR PERCENT CHANGES IN DEVIATIONS FROM STATE AND YEAR   #
+# AVERAGES OF REAL AFDC/TANF BENEFIT STANDARDS FOR A FAMILY OF FOUR, BY STATE  #
+################################################################################
+{
+  figure <- paste0("Figure_4_",v)
+  postscript(paste0(figure,".eps"), height=hh<-3, width=ww<-3.75, 
+             horizontal=F, pagecentre=F, paper="special")
+  par(mfrow=c(1,1), mar=c(4,4,.25,4), cex=9/12)
+  
+  data <- read.csv(paste0(v,"_Figure_4_output.csv"))
+  q <- ddply(data,.(year),summarise,
+             X10 = quantile(pbenpartial, probs = .1, na.rm=TRUE),
+             X25 = quantile(pbenpartial, probs = .25, na.rm=TRUE),
+             X50 = quantile(pbenpartial, probs = .5, na.rm=TRUE),
+             X75 = quantile(pbenpartial, probs = .75, na.rm=TRUE),
+             X90 = quantile(pbenpartial, probs = .9, na.rm=TRUE))
+  
+  plot(0, 0, xlim=c(1968,2012), ylim=c(-50,50), type="n", xlab="Year", 
+       ylab="Percent change")
+  rect(1991.5, par("usr")[3], 1997.5, par("usr")[4], col=KYltblgr, border=NA)
+  box()
+  
+  rect(xleft=data$year-c(1/3), xright=data$year+c(1/3),
+       ybottom=q$X25, ytop=q$X75, col="white")
+  segments(x0=data$year-c(1/3), x1=data$year+c(1/3), y0=c(q$X10, q$X50, q$X90))
+  segments(x0=data$year, y0=c(q$X10,q$X90), y1=c(q$X25,q$X75))
+  
+  text(data$year[which(data$pbenpartial > 1 + q$X90)], 
+       data$pbenpartial[which(data$pbenpartial > 1 + q$X90)], 
+       data$state_name[which(data$pbenpartial > 1 + q$X90)], cex=7/9)
+  text(data$year[which(data$pbenpartial < -1 + q$X10)], 
+       data$pbenpartial[which(data$pbenpartial < -1 + q$X10)], 
+       data$state_name[which(data$pbenpartial < -1 + q$X10)], cex=7/9)
+  
+  dev.off()
+  embed_fonts(paste0(figure,".eps"), format="ps2write", 
+              options=paste0("-dEmbedAllFonts=true -dDEVICEWIDTHPOINTS=", 
+                             ww*72, " -dDEVICEHEIGHTPOINTS=", hh*72))
+  rm(list=ls()[!(ls() %in% c(core, "core"))])
+}
+
+################################################################################
+# FIGURE 5. TIMING OF WELFARE REFORM EFFECTS ON INTERGENERATIONAL TRANSMISSION #
+################################################################################
+{
+  figure <- paste0("Figure_5_",v)
+  postscript(paste0(figure,".eps"), height=hh<-3, width=ww<-6, 
+             horizontal=F, pagecentre=F, paper="special")
+  par(mfrow=c(1,2), mar=c(4,3.5,2,3.5), cex=9/12)
+  
+  outcomes <- c("D1", "D2")
+  outcome.names <- c("AFDC/TANF", "AFDC/TANF, SNAP, or SSI")
+  for (o in outcomes) {
+    k <- which(outcomes == o)
+    R <- read_excel(paste0(v,"_Figure_5_output.xlsx"), sheet=o)
+    ALL <- -17:17
+    X <- -10:15
+    
+    plot(1, 1, xlim=range(-10:15), ylim=c(-.5,.5), xlab="", ylab="", yaxs="i",
+         type="n")
+    mtext("Years before/after reform", side=1, line=2.25, cex=par("cex"))
+    mtext("Reform interaction effect", side=2, line=2.5, cex=par("cex"))
+    mtext(paste0(LETTERS[k],". ",outcome.names[k]), side=3, line=.75, 
+          cex=par("cex"))
+    
+    polygon(x=c(X[X<0],rev(X[X<0])), 
+            y=c(R$IV_ll[which(ALL %in% X[X<0])],
+                rev(R$IV_ul[which(ALL %in% X[X<0])])), 
+            col=KYltblue, border=NA)
+    polygon(x=c(X[X>0],rev(X[X>0])), 
+            y=c(R$IV_ll[which(ALL %in% X[X>0])],
+                rev(R$IV_ul[which(ALL %in% X[X>0])])),
+            col=KYltblue, border=NA)
+    abline(h=0, lty=3)
+    box()
+    
+    lines(X, R$OLS[which(ALL %in% X)], lty=1, lwd=1.5, pch=0, cex=9/12, 
+          col=KYbb, type="o")
+    lines(X, R$IV[which(ALL %in% X)], lty=1, lwd=1.5, pch=16, cex=9/12, 
+          col=KYblue, type="o")
+    lines(X, R$LINE[which(ALL %in% X)], lty=1, lwd=1.5, pch=2, cex=9/12, 
+          col=KYddh, type="o")
+    lines(X, R$QUAD[which(ALL %in% X)], lty=1, lwd=1.5, pch=4, cex=9/12, 
+          col=KYdgray, type="o")
+
+    legend(par("usr")[1]+.03*par("usr")[1:2]%*%c(-1,1),
+           par("usr")[4]-0*par("usr")[3:4]%*%c(-1,1), 
+           c(
+             "OLS estimates",
+             "IV estimates (95-percent C.I.)",
+             "... with linear state trends",
+             "... with quadratic state trends"
+           ), 
+           col=c(KYbb, KYblue, KYddh, KYdgray), lwd=c(1.5), lty=c(1,1,1,1), 
+           pch=c(0,16,2,4), x.intersp=.8, xjust=0, yjust=1, cex=8/9, bty="n")
+    
+  }
+  
+  dev.off()
+  embed_fonts(paste0(figure,".eps"), format="ps2write", 
+              options=paste0("-dEmbedAllFonts=true -dDEVICEWIDTHPOINTS=", 
+                             ww*72, " -dDEVICEHEIGHTPOINTS=", hh*72))
+  rm(list=ls()[!(ls() %in% c(core, "core"))])
+}
+
+################################################################################
+#                FIGURE 6. TIMING OF WELFARE REFORM EFFECTS FOR                #
+#                   ADDITIONAL DAUGHTER OUTCOMES OF INTEREST                   #
+################################################################################
+{
+  figure <- paste0("Figure_6_",v)
+  postscript(paste0(figure,".eps"), height=hh<-5.75, width=ww<-6, 
+             horizontal=F, pagecentre=F, paper="special")
+  par(mfrow=c(2, 2), mar=c(4,3.5,2,3.5), cex=9/12)
+  
+  outcomes <- c("D_noearn", "D_EPOV100", "D_single", "D_movedlastyear")
+  outcome.names <- c("No family earnings", "Earnings below 100% poverty",
+                     "Unmarried/non-cohabiting", "Moved states since childhood")
+  for (o in outcomes) {
+    k <- which(outcomes == o)
+    R <- read_excel(paste0(v,"_Figure_6_output.xlsx"), sheet=o)
+    ALL <- -17:17
+    X <- -10:15
+    
+    plot(1, 1, xlim=range(-10:15), ylim=c(-.8,.8), xlab="", ylab="", yaxt="n", 
+         type="n")
+    for (i in -1:2/2)
+      axis(side=2, at=i, labels=sprintf("%.1f",i))
+    mtext("Years before/after welfare reform", side=1, line=2.25, 
+          cex=par("cex"))
+    mtext("Reform interaction effect", side=2, line=2.5, cex=par("cex"))
+    mtext(paste0(LETTERS[k],". ",outcome.names[k]), side=3, line=.75, 
+          cex=par("cex"))
+    
+    polygon(x=c(X[X<0],rev(X[X<0])), 
+            y=c(R$IV_ll[which(ALL %in% X[X<0])],
+                rev(R$IV_ul[which(ALL %in% X[X<0])])), 
+            col=KYltblue, border=NA)
+    polygon(x=c(X[X>0],rev(X[X>0])), 
+            y=c(R$IV_ll[which(ALL %in% X[X>0])],
+                rev(R$IV_ul[which(ALL %in% X[X>0])])), 
+            col=KYltblue, border=NA)
+    abline(h=0, lty=3)
+    box()
+    
+    lines(X, R$OLS[which(ALL %in% X)], lty=1, lwd=1.5, pch=0, cex=9/12, 
+          col=KYbb, type="o")
+    lines(X, R$IV[which(ALL %in% X)], lty=1, lwd=1.5, pch=16, cex=9/12, 
+          col=KYblue, type="o")
+    lines(X, R$LINE[which(ALL %in% X)], lty=1, lwd=1.5, pch=2, cex=9/12, 
+          col=KYddh, type="o")
+    lines(X, R$QUAD[which(ALL %in% X)], lty=1, lwd=1.5, pch=4, cex=9/12, 
+          col=KYdgray, type="o")
+
+    legend(par("usr")[1]+.03*par("usr")[1:2]%*%c(-1,1),
+           par("usr")[4]-0*par("usr")[3:4]%*%c(-1,1), 
+           c(
+             "OLS estimates",
+             "IV estimates (95-percent C.I.)",
+             "... with linear state trends",
+             "... with quadratic state trends"
+           ), 
+           col=c(KYbb, KYblue, KYddh, KYdgray), lwd=c(1.5), lty=c(1), 
+           pch=c(0,16,2,4), x.intersp=.8, xjust=0, yjust=1, cex=8/9, bty="n")
+    
+  }
+  
+  dev.off()
+  embed_fonts(paste0(figure,".eps"), format="ps2write", 
+              options=paste0("-dEmbedAllFonts=true -dDEVICEWIDTHPOINTS=", 
+                             ww*72, " -dDEVICEHEIGHTPOINTS=", hh*72))
+  rm(list=ls()[!(ls() %in% c(core, "core"))])
+}

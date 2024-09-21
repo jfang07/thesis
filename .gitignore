@@ -1,0 +1,17 @@
+# Data files
+*.dta
+*.csv
+*.xlsx
+*.txt
+*.dat
+
+# Output files
+*.pdf
+*.jpg
+*.png
+*.tex
+
+# R files
+.RData
+.RDataTmp
+.Rhistory
