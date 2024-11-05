@@ -22,8 +22,17 @@ This folder houses the project's R scripts and Stata do-files. To replicate the 
 * `robustness_checks.do`: this script runs regressions on data based on an alternative rank specification and data on the placebo group.
 ### `data` folder
 This folder should house the project's data and codebook files. Currently, the data and codebook files are stored in a separate DropBox folder and are available upon request.
-### `Hartley et al. (2022)` folder
-This folder houses the replication package for the journal article "Welfare Reform and the Intergenerational Transmission of Dependence" (2022) by Robert Paul Hartley,  Carlos Lamarche, and James P. Ziliak.
+* `family.xlsx`: family-level data. Source: University of Michigan Panel Study of Income Dynamics.
+* `number.xlsx`: data on number of individuals in each family. Source: University of Michigan Panel Study of Income Dynamics.
+* `individual.xlsx`: individual-level data. Source: University of Michigan Panel Study of Income Dynamics.
+* `pid_mar_emp.xlsx`: individual-level family mapping, marriage, and employment data. Source: University of Michigan Panel Study of Income Dynamics.
+* `indiv_wages.xlsx`: individual-level data on wages. Source: University of Michigan Panel Study of Income Dynamics.
+* `DPCERD3A086NBEA.csv`: national-level data on the personal consumption expenditure (PCE) deflator by year. Source: Bureau of Economic Analysis.
+* `ben_data.txt`: state-level data unemployment and population data used to calculate state-level unemployment rate. Source: Robert Moffitt's Welfare Benefits Data Base.
+* `UKCPR_National_Welfare_Data_Update_020623.xlsx`: state-level data on policy environment. Source: University of Kentucky Center of Poverty Research.
+* `JPE-MS-2017407_state-level_data.dta`: state-level data on AFDC/TANF recipiency and benefit standards. Source: replication package for the journal article "Welfare Reform and the Intergenerational Transmission of Dependence" (2022) by Robert Paul Hartley,  Carlos Lamarche, and James P. Ziliak.
+* `cps_00001.dat`: individual-level poverty and population data used to calculate state-level poverty rate. Source: Bureau of Labor Statistics Current Population Survey Annual Social and Economic Supplement.
+* `cps_00004.dat`: individual-level wage data used to construct cohort-specific national wage distributions. Source: Bureau of Labor Statistics Current Population Survey Annual Social and Economic Supplement.
 
 
 
