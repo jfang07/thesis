@@ -14,8 +14,8 @@ This folder houses the project's R scripts and Stata do-files. To replicate the 
 * `exposure.R`: this script matches individuals with their mothers when the individual was under the age of 18. It also creates a variable for exposure to welfare reform in this period.
 * `main_merging.R`: this script matches individuals with their mothers when the individual reaches adulthood. It also merges in childhood-period data, individual wage data, and state-level controls.
 * `wage_distribution.do`: this script constructs national wage distributions by birth cohort at the age of 40.
-* `ranking.R`: this script ranks the lifetime earnings each individual and their mother on their corresponding birth cohort's wage distribution at 40 years old. It also creates a separate data set for the placebo group. 
-* `data_cleaning.do`: this script performs remaining data cleaning needed after constructing the main data set. It also cleans the separate data set for the placebo group. 
+* `ranking.R`: this script ranks the lifetime earnings each individual and their mother on their corresponding birth cohort's wage distribution at 40 years old. It also creates a separate data set for the placebo group.
+* `data_cleaning.do`: this script performs remaining data cleaning needed after constructing the main data set. It also cleans the separate data set for the placebo group.
 * `data_visualization.do`: this script generates various charts to show key distributions and trends over time.
 * `data_visualization for robustness.do`: this script generates various charts to show key distributions and trends over time, specifically for the placebo group.
 * `data_analysis.do`: this script generates summary statistics and runs regressions of various specifications.
@@ -33,7 +33,3 @@ This folder should house the project's data and codebook files. Currently, the d
 * `JPE-MS-2017407_state-level_data.dta`: state-level data on AFDC/TANF recipiency and benefit standards. Source: replication package for the journal article "Welfare Reform and the Intergenerational Transmission of Dependence" (2022) by Robert Paul Hartley,  Carlos Lamarche, and James P. Ziliak.
 * `cps_00001.dat`: individual-level poverty and population data used to calculate state-level poverty rate. Source: Bureau of Labor Statistics Current Population Survey Annual Social and Economic Supplement.
 * `cps_00004.dat`: individual-level wage data used to construct cohort-specific national wage distributions. Source: Bureau of Labor Statistics Current Population Survey Annual Social and Economic Supplement.
-
-
-
-

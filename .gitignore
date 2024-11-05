@@ -4,6 +4,7 @@
 *.xlsx
 *.txt
 *.dat
+*.zip
 
 # Output files
 *.pdf
@@ -16,3 +17,7 @@
 .RDataTmp
 .Rhistory
 *.Rout
+.Rproj.user
+
+# Miscellaneous
+desktop.ini

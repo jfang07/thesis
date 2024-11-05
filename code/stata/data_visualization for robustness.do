@@ -17,13 +17,13 @@ cd "Thesis"
 *ssc install _gwtmean
 
 * Load data
-use test_data2.dta, clear
+use test_data.dta, clear
 
 * Describe data
 d
 
 **# Data exploration -----------------------
-sum 
+sum
 bys reform_exp sex: sum
 
 * Generate summary statistics
@@ -73,11 +73,11 @@ egen avg_wag = wtmean(adj_indiv_wages*100), weight(weight) by(age)
 egen avg_wag_sex = wtmean(adj_indiv_wages*100), weight(weight) by(age sex)
 
 * Generate necessary percentages for plotting
-bys year sex: egen ct_wage_obs = total((adj_indiv_wages > 0)*weight) 
+bys year sex: egen ct_wage_obs = total((adj_indiv_wages > 0)*weight)
 bys year sex: egen ct = total(weight)
-gen pct_wage_obs_sex = ct_wage_obs/ct*100 
-bys year sex: egen ct_lfp = total(lfp*weight) 
-gen pct_lfp_sex = ct_lfp/ct*100 
+gen pct_wage_obs_sex = ct_wage_obs/ct*100
+bys year sex: egen ct_lfp = total(lfp*weight)
+gen pct_lfp_sex = ct_lfp/ct*100
 
 * Father-child pairs **********************************
 

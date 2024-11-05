@@ -1,3 +1,9 @@
+# Title: Family-level data cleaning
+# Author: Jade Fang
+# Last Modified: 11/5/2024
+
+# Set up ------------------------------------------------------------------
+
 # Get working directory
 getwd() # we are in the Documents folder
 
@@ -20,8 +26,8 @@ pacman::p_load(readxl, readstata13, tidyverse, matrixStats, DescTools, zoo,
 # FAMILY ##################################################################
 
 # Load data
-family <- read_excel("./family/family.xlsx")
-number <- read_excel("./number/number.xlsx")
+family <- read_excel("data/family/family.xlsx")
+number <- read_excel("data/number/number.xlsx")
 
 # Data exploration -------------------------------------------------------
 
