@@ -1,14 +1,8 @@
 # Title: Family-level data cleaning
 # Author: Jade Fang
-# Last Modified: 11/5/2024
+# Last Modified: 1/20/2025
 
 # Set up ------------------------------------------------------------------
-
-# Get working directory
-getwd() # we are in the Documents folder
-
-# Go to thesis folder if needed
-setwd("./Thesis")
 
 # Clear environment
 rm(list = ls())
@@ -19,15 +13,21 @@ cat("\014")
 # Set random seed for reproducibility
 set.seed(1)
 
+# Install pacman package manager if needed
+# install.packages("pacman")
+
 # Load packages
-pacman::p_load(readxl, readstata13, tidyverse, matrixStats, DescTools, zoo, 
-               haven, Hmisc, cNORM, mark)
+pacman::p_load(readxl, tidyverse, matrixStats, DescTools, zoo, 
+               haven, Hmisc, cNORM, mark, R.utils)
+
+# Get working directory
+wd <- getwd()
 
 # FAMILY ##################################################################
 
 # Load data
-family <- read_excel("data/family/family.xlsx")
-number <- read_excel("data/number/number.xlsx")
+family <- read_dta("data/family.dta")
+number <- read_dta("data/number.dta")
 
 # Data exploration -------------------------------------------------------
 
@@ -184,7 +184,7 @@ dim(long_fam)
 dim(long_num)
 
 # Merge
-long_fam_merged <- merge(long_num, long_fam, by = c("index", "year","int_num"))
+long_fam_merged <- inner_join(long_num, long_fam, by = c("index", "year","int_num"))
 #View(long_fam_merged)
 
 # Check what didn't merge
@@ -246,4 +246,4 @@ for (var in names(long_fam_merged_dropped)){
 }
 
 # Export data
-write_dta(long_fam_merged_dropped, path = "family.dta")
+write_dta(long_fam_merged_dropped, path = "data/family.dta")
