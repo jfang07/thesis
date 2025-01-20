@@ -18,16 +18,12 @@ set.seed(1)
 
 # Load packages
 pacman::p_load(readxl, tidyverse, matrixStats, DescTools, zoo, 
-               haven, Hmisc, cNORM, mark, R.utils)
-
-# Get working directory
-wd <- getwd()
-
+               haven, Hmisc, cNORM, mark)
 # FAMILY ##################################################################
 
 # Load data
-family <- read_dta("data/family.dta")
-number <- read_dta("data/number.dta")
+family <- read_dta("data/psid/family_raw.dta")
+number <- read_dta("data/psid/number_raw.dta")
 
 # Data exploration -------------------------------------------------------
 

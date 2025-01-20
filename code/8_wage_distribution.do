@@ -1,10 +1,11 @@
-* File Name:
-* Author: Joshua Fang
-* Late Updated: 
+* File Name: wage_distribution.do
+* Author: Jade Fang
+* Late Updated: 1/20/2025
 
 * NOTE: You need to set the Stata working directory to the path
 * where the data file is located.
 
+cd data/cps
 
 set more off
 
@@ -143,10 +144,10 @@ drop if incwage >= 99999998
 
 * Merge with PCE data
 sort year
-merge m:1 year using pce.dta  
+merge m:1 year using ../bea/pce.dta
 
 * Deflate wages
-gen adj_wages = incwage/pce*100 
+gen adj_wages = incwage/pce*100
 gen cohort = year - age
 
 * Keep only ages 25-40
@@ -171,5 +172,7 @@ size(medsmall))
 * Note decline after 1980 due to individuals being too young (under 40)
 
 * Export data
-save wage_distrib.dta, replace
+save ../wage_distrib.dta, replace
 
+* Return to main directory
+cd ../..

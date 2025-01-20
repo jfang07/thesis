@@ -5,25 +5,18 @@
 * Clear environment
 clear all
 
-* Get working directory
-pwd
-
-* Set working directory
-cd ..
-cd "Thesis"
-
 * Install packages if needed
 *ssc install outreg2
 *ssc install _gwtmean
 
 * Load data
-use cleaner_data.dta, clear
+use data/cleaner_data.dta, clear
 
 * Describe data
 d
 
 **# Data exploration -----------------------
-sum 
+sum
 bys reform_exp: sum
 bys reform_exp sex: sum
 
@@ -41,7 +34,7 @@ foreach var in rank_indiv abs_mob_indiv count_wages educ lfp mar hours_hd avg_ad
 avg_adj_wages_hd_exp num_fam_hd age rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom mod_mar_hd_exp ///
 count_wages_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd {
 	di "`var'"
-	ttest `var', by(reform_exp) unequal 
+	ttest `var', by(reform_exp) unequal
 }
 
 
@@ -59,7 +52,7 @@ foreach var in rank_indiv abs_mob_indiv count_wages educ lfp mar hours_hd avg_ad
 avg_adj_wages_hd_exp num_fam_hd age rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom mod_mar_hd_exp ///
 count_wages_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd {
 	di "`var'"
-	ttest `var' if sex == 1, by(reform_exp) unequal 
+	ttest `var' if sex == 1, by(reform_exp) unequal
 }
 
 
@@ -77,7 +70,7 @@ foreach var in rank_indiv abs_mob_indiv count_wages educ lfp mar hours_hd avg_ad
 avg_adj_wages_hd_exp num_fam_hd age rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom mod_mar_hd_exp ///
 count_wages_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd {
 	di "`var'"
-	ttest `var' if sex == 2, by(reform_exp) unequal 
+	ttest `var' if sex == 2, by(reform_exp) unequal
 }
 
 **# Data visualization ----------------------
@@ -105,7 +98,7 @@ bys year sex: egen n_sex = count(id)
 
 * Generate necessary percentages for plotting
 egen pct_wage_obs_sex = wtmean((adj_indiv_wages > 0)*100), weight(weight) by (year sex)
-bys year sex: egen ct_lfp = total(lfp*weight) 
+bys year sex: egen ct_lfp = total(lfp*weight)
 bys year sex: egen ct = total(weight)
 gen pct_lfp_sex = ct_lfp/ct*100
 
@@ -117,7 +110,7 @@ xlabel(#10) xtitle("Year") ylabel(#10) ytitle("Counts") ///
 title("Number of Observations in the Data Set By Year", size(medlarge))
 
 * Export plot
-graph export n.jpg, replace quality(100) width(1500) height(1000)
+graph export output/n.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot distribution of cohort counts
 hist cohort, freq ///
@@ -126,44 +119,44 @@ title("Distribution of Observations by Cohort", ///
 size(medlarge))
 
 * Export plot
-graph export cohort.jpg, replace quality(100) width(1500) height(1000)
+graph export output/cohort.jpg, replace quality(100) width(1500) height(1000)
 
 * Distribution of wage observation frequencies
 hist count_wages, freq ///
 xlabel(#10)  title("Distribution of Children's Wage Observation Frequencies", size(medlarge)) ///
 ytitle("Counts")
-graph export count_wages.jpg, replace quality(100) width(1500) height(1000)
+graph export output/count_wages.jpg, replace quality(100) width(1500) height(1000)
 
 
 * Distribution of wage observation frequencies for mothers
 hist count_wages_hd_exp, freq ///
 xlabel(#10)  title("Distribution of Mothers' Wage Observation Frequencies", size(medlarge)) ///
 ytitle("Counts")
-graph export count_wages_hd_exp.jpg, replace quality(100) width(1500) height(1000)
+graph export output/count_wages_hd_exp.jpg, replace quality(100) width(1500) height(1000)
 
 * Distribution of inclusive ranks
-twoway (histogram rank_indiv if reform_exp==0, width(5) color(blue%30) xlabel(#10)) ///        
-       (histogram rank_indiv if reform_exp ==1, width(5) color(red%30) xlabel(#10)), ///   
+twoway (histogram rank_indiv if reform_exp==0, width(5) color(blue%30) xlabel(#10)) ///
+       (histogram rank_indiv if reform_exp ==1, width(5) color(red%30) xlabel(#10)), ///
        legend(order(1 "Pre-Reform" 2 "Post-Reform" )) title("Distribution of Children's Ranks by Reform", size(medlarge))
-graph export rank_distrib.jpg, replace quality(100) width(1500) height(1000)  
+graph export output/rank_distrib.jpg, replace quality(100) width(1500) height(1000)
 
 * Distribution of exclusive ranks
-twoway (histogram rank_indiv2 if reform_exp==0, width(5) color(blue%30) xlabel(#10)) ///        
-       (histogram rank_indiv2 if reform_exp ==1, width(5) color(red%30) xlabel(#10)), ///   
+twoway (histogram rank_indiv2 if reform_exp==0, width(5) color(blue%30) xlabel(#10)) ///
+       (histogram rank_indiv2 if reform_exp ==1, width(5) color(red%30) xlabel(#10)), ///
        legend(order(1 "Pre-Reform" 2 "Post-Reform" )) title("Alternative Distribution of Children's Ranks by Reform", size(medlarge))
-graph export rank_distrib2.jpg, replace quality(100) width(1500) height(1000)  
-	   
+graph export output/rank_distrib2.jpg, replace quality(100) width(1500) height(1000)
+
 * Distribution of mothers' inclusive ranks
-twoway (histogram rank_hd_exp if reform_exp==0, width(5) xlabel(#10) color(blue%30))  ///        
-       (histogram rank_hd_exp if reform_exp==1, width(5) xlabel(#10) color(red%30)), ///   
+twoway (histogram rank_hd_exp if reform_exp==0, width(5) xlabel(#10) color(blue%30))  ///
+       (histogram rank_hd_exp if reform_exp==1, width(5) xlabel(#10) color(red%30)), ///
        legend(order(1 "Pre-Reform" 2 "Post-Reform" )) title("Distribution of Mothers' Ranks by Reform", size(medlarge))
-graph export rank_mom_distrib.jpg, replace quality(100) width(1500) height(1000)
+graph export output/rank_mom_distrib.jpg, replace quality(100) width(1500) height(1000)
 
 * Distribution of mothers' exclusive ranks
-twoway (histogram rank_hd_exp2 if reform_exp==0, width(5) xlabel(#10) color(blue%30))  ///        
-       (histogram rank_hd_exp2 if reform_exp==1, width(5) xlabel(#10) color(red%30)), ///   
+twoway (histogram rank_hd_exp2 if reform_exp==0, width(5) xlabel(#10) color(blue%30))  ///
+       (histogram rank_hd_exp2 if reform_exp==1, width(5) xlabel(#10) color(red%30)), ///
        legend(order(1 "Pre-Reform" 2 "Post-Reform")) title("Alternative Distribution of Mothers' Ranks by Reform", size(medlarge))
-graph export rank_mom_distrib2.jpg, replace quality(100) width(1500) height(1000)
+graph export output/rank_mom_distrib2.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot race by reform
 * Need to tweak in graph editor to make title fit
@@ -174,7 +167,7 @@ title("Weighted Distribution of Race for Child's Household Head by Reform", ///
 size(medsmall)) blabel(bar, format(%4.1f)) asyvars
 
 * Export plot
-graph export race_by_reform.jpg, replace quality(100) width(1500) height(1000)
+graph export output/race_by_reform.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot Hispanicity by reform
 catplot reform_exp hisp_hd [aw=weight], ///
@@ -185,7 +178,7 @@ title("Weighted Distribution of Hispanicity for Child's Household Head by Reform
 size(medsmall)) blabel(bar, format(%4.1f)) asyvars
 
 * Export plot
-graph export hisp_by_reform.jpg, replace quality(100) width(1500) height(1000)
+graph export output/hisp_by_reform.jpg, replace quality(100) width(1500) height(1000)
 
 * Mother-child pairs **********************************
 
@@ -208,7 +201,7 @@ title("Weighted Mean Percentile Ranks Over Time for Mother-Child Pairs", ///
 size(medium))
 
 * Export plot
-graph export ranks.jpg, replace quality(100) width(1500) height(1000)
+graph export output/ranks.jpg, replace quality(100) width(1500) height(1000)
 
 
 * Plot individual absolute mobility over time for mother-child pairs
@@ -225,7 +218,7 @@ ytitle("Weighted AFDC/TANF Participation Rate (%)", size(medsmall)) ///
 title("Weighted AFDC/TANF Participation Rate Over Time", size(medlarge))
 
 * Export plot
-graph export particip.jpg, replace quality(100) width(1500) height(1000)
+graph export output/particip.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot marriage rate over time
 twoway line avg_mar year, sort ///
@@ -234,7 +227,7 @@ ytitle("Weighted Marriage Rate (%)", size(medium)) ///
 title("Weighted Marriage Rate Over Time", size(medlarge))
 
 * Export plot
-graph export mar.jpg, replace quality(100) width(1500) height(1000)
+graph export output/mar.jpg, replace quality(100) width(1500) height(1000)
 
 
 * Plot average wage over life course
@@ -250,7 +243,7 @@ ylabel(#10) title("Weighted Distribution of Race ", ///
 size(medlarge))
 
 * Export plot
-graph export race.jpg, replace quality(100) width(1500) height(1000)
+graph export output/race.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot Hispanicity
 graph bar [aw=weight], over(hisp_hd, relabel(1 "Not Hispanic" 2 "Hispanic")) ///
@@ -258,7 +251,7 @@ title("Weighted Distribution of Hispanicity ", ///
 size(medlarge))
 
 * Export plot
-graph export hisp.jpg, replace quality(100) width(1500) height(1000)
+graph export output/hisp.jpg, replace quality(100) width(1500) height(1000)
 
 
 * Disaggregating by adult child sex **********************************
@@ -273,7 +266,7 @@ title("Weighted Mean Percentile Ranks Over Time for Mother-Son Pairs", ///
 size(medium))
 
 * Export plot
-graph export ranks_sons.jpg, replace quality(100) width(1500) height(1000)
+graph export output/ranks_sons.jpg, replace quality(100) width(1500) height(1000)
 
 
 * Plot individual ranks over time for mother-daughter pairs
@@ -287,7 +280,7 @@ size(medium))
 * There appears to be an increasing trend. How come?
 
 * Export plot
-graph export ranks_daughters.jpg, replace quality(100) width(1500) height(1000)
+graph export output/ranks_daughters.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot individual absolute mobility rate over time pairs by sex
 twoway line avg_abs_mob_indiv_sex_yr year if sex == 1, sort || ///
@@ -301,7 +294,7 @@ title("Weighted Absolute Mobility Rate Over Time", ///
 size(medlarge))
 
 * Export plot
-graph export abs_mob_by_sex.jpg, replace quality(100) width(1500) height(1000)
+graph export output/abs_mob_by_sex.jpg, replace quality(100) width(1500) height(1000)
 
 // Anomaly is due to small number of observations.
 
@@ -316,7 +309,7 @@ title("Weighted AFDC/TANF Participation Rate Over Time", ///
 size(medlarge))
 
 * Export plot
-graph export particip_by_sex.jpg, replace quality(100) width(1500) height(1100)
+graph export output/particip_by_sex.jpg, replace quality(100) width(1500) height(1100)
 
 * Plot average wage over life course
 twoway line avg_wag_sex age if sex == 1, sort || ///
@@ -336,7 +329,7 @@ title("Weighted Marriage Rate Over Time by Sex", ///
 size(medlarge))
 
 * Export plot
-graph export mar_by_sex.jpg, replace quality(100) width(1500) height(1000)
+graph export output/mar_by_sex.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot labor force participation rate by sex over time
 twoway line pct_lfp_sex year if sex == 1, sort || ///
@@ -348,7 +341,7 @@ title("Weighted Labor Force Participation Rate Over Time by Sex", ///
 size(medlarge))
 
 * Export plot
-graph export lfp_by_sex.jpg, replace quality(100) width(1500) height(1000)
+graph export output/lfp_by_sex.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot wage observation rate by sex over time
 twoway line pct_wage_obs_sex year if sex == 1, sort || ///
@@ -360,10 +353,10 @@ title("Weighted Positive Wage Observation Rate Over Time by Sex", ///
 size(medlarge))
 
 * Export plot
-graph export wage_obs_by_sex.jpg, replace quality(100) width(1500) height(1000)
+graph export output/wage_obs_by_sex.jpg, replace quality(100) width(1500) height(1000)
 
 * Export plot
-graph export hisp_by_sex.jpg, replace quality(100) width(1500) height(1000)
+graph export output/hisp_by_sex.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot race by reform for sons
 catplot reform_exp race_hd [aw=weight] if sex == 1, ///
@@ -373,7 +366,7 @@ title("Weighted Distribution of Race for Sons by Reform", ///
 size(medium)) blabel(bar, format(%4.1f)) asyvars
 
 * Export plot
-graph export race_by_reform_sons.jpg, replace quality(100) width(1500) height(1000)
+graph export output/race_by_reform_sons.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot Hispanicity by reform for sons
 catplot reform_exp hisp_hd [aw=weight] if sex == 1, ///
@@ -384,7 +377,7 @@ title("Weighted Distribution of Hispanicity for Sons by Reform", ///
 size(medium)) blabel(bar, format(%4.1f)) asyvars
 
 * Export plot
-graph export hisp_by_reform_sons.jpg, replace quality(100) width(1500) height(1000)
+graph export output/hisp_by_reform_sons.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot race by reform for daughters
 * Need to tweak in graph editor to make sure title fits
@@ -395,7 +388,7 @@ title("Weighted Distribution of Race for Daughter's Household Head by Reform", /
 size(medsmall)) blabel(bar, format(%4.1f)) asyvars
 
 * Export plot
-graph export race_by_reform_daughters.jpg, replace quality(100) width(1500) height(1000)
+graph export output/race_by_reform_daughters.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot Hispanicity by reform for daughters
 * Need to tweak in graph editor to make sure the title fits
@@ -407,52 +400,52 @@ title("Weighted Distribution of Hispanicity for Daughter's Household Head by Ref
 size(medsmall)) blabel(bar, format(%4.1f)) asyvars
 
 * Export plot
-graph export hisp_by_reform_daughters.jpg, replace quality(100) width(1500) height(1000)
+graph export output/hisp_by_reform_daughters.jpg, replace quality(100) width(1500) height(1000)
 
 * Distribution of inclusive ranks for sons
-twoway (histogram rank_indiv if reform_exp==0 & sex == 1, width(5) color(blue%30) xlabel(#10)) ///        
-       (histogram rank_indiv if reform_exp ==1 & sex == 1, width(5) color(red%30) xlabel(#10)), ///   
+twoway (histogram rank_indiv if reform_exp==0 & sex == 1, width(5) color(blue%30) xlabel(#10)) ///
+       (histogram rank_indiv if reform_exp ==1 & sex == 1, width(5) color(red%30) xlabel(#10)), ///
        legend(order(1 "Pre-Reform" 2 "Post-Reform" )) title("Distribution of Sons' Ranks by Reform", size(medlarge))
-graph export rank_distrib_sons.jpg, replace quality(100) width(1500) height(1000)  
+graph export output/rank_distrib_sons.jpg, replace quality(100) width(1500) height(1000)
 
 * Distribution of exclusive ranks for sons
-twoway (histogram rank_indiv2 if reform_exp==0 & sex == 1, width(5) color(blue%30) xlabel(#10)) ///        
-       (histogram rank_indiv2 if reform_exp ==1 & sex == 1, width(5) color(red%30) xlabel(#10)), ///   
+twoway (histogram rank_indiv2 if reform_exp==0 & sex == 1, width(5) color(blue%30) xlabel(#10)) ///
+       (histogram rank_indiv2 if reform_exp ==1 & sex == 1, width(5) color(red%30) xlabel(#10)), ///
        legend(order(1 "Pre-Reform" 2 "Post-Reform" )) title("Alternative Distribution of Sons' Ranks by Reform", size(medlarge))
-graph export rank_distrib2_sons.jpg, replace quality(100) width(1500) height(1000)  
-	   
+graph export output/rank_distrib2_sons.jpg, replace quality(100) width(1500) height(1000)
+
 * Distribution of mothers' inclusive ranks for sons
-twoway (histogram rank_hd_exp if reform_exp==0 & sex == 1, width(5) xlabel(#10) color(blue%30))  ///        
-       (histogram rank_hd_exp if reform_exp==1 & sex == 1, width(5) xlabel(#10) color(red%30)), ///   
+twoway (histogram rank_hd_exp if reform_exp==0 & sex == 1, width(5) xlabel(#10) color(blue%30))  ///
+       (histogram rank_hd_exp if reform_exp==1 & sex == 1, width(5) xlabel(#10) color(red%30)), ///
        legend(order(1 "Pre-Reform" 2 "Post-Reform" )) title("Distribution of Mothers' Ranks for Sons by Reform", size(medlarge))
-graph export rank_mom_distrib_sons.jpg, replace quality(100) width(1500) height(1000)
+graph export output/rank_mom_distrib_sons.jpg, replace quality(100) width(1500) height(1000)
 
 * Distribution of mothers' exclusive ranks for sons
-twoway (histogram rank_hd_exp2 if reform_exp==0 & sex == 1, width(5) xlabel(#10) color(blue%30))  ///        
-       (histogram rank_hd_exp2 if reform_exp==1 & sex == 1, width(5) xlabel(#10) color(red%30)), ///   
+twoway (histogram rank_hd_exp2 if reform_exp==0 & sex == 1, width(5) xlabel(#10) color(blue%30))  ///
+       (histogram rank_hd_exp2 if reform_exp==1 & sex == 1, width(5) xlabel(#10) color(red%30)), ///
        legend(order(1 "Pre-Reform" 2 "Post-Reform")) title("Alternative Distribution of Mothers' Ranks for Sons by Reform", size(medlarge))
-graph export rank_mom_distrib2_sons.jpg, replace quality(100) width(1500) height(1000)
+graph export output/rank_mom_distrib2_sons.jpg, replace quality(100) width(1500) height(1000)
 
 * Distribution of inclusive ranks for daughters
-twoway (histogram rank_indiv if reform_exp==0 & sex == 2, width(5) color(blue%30) xlabel(#10)) ///        
-       (histogram rank_indiv if reform_exp ==1 & sex == 2, width(5) color(red%30) xlabel(#10)), ///   
+twoway (histogram rank_indiv if reform_exp==0 & sex == 2, width(5) color(blue%30) xlabel(#10)) ///
+       (histogram rank_indiv if reform_exp ==1 & sex == 2, width(5) color(red%30) xlabel(#10)), ///
        legend(order(1 "Pre-Reform" 2 "Post-Reform" )) title("Distribution of Daughters' Ranks by Reform", size(medlarge))
-graph export rank_distrib_daughters.jpg, replace quality(100) width(1500) height(1000)  
+graph export output/rank_distrib_daughters.jpg, replace quality(100) width(1500) height(1000)
 
 * Distribution of exclusive ranks for daughters
-twoway (histogram rank_indiv2 if reform_exp==0 & sex == 2, width(5) color(blue%30) xlabel(#10)) ///        
-       (histogram rank_indiv2 if reform_exp ==1 & sex == 2, width(5) color(red%30) xlabel(#10)), ///   
+twoway (histogram rank_indiv2 if reform_exp==0 & sex == 2, width(5) color(blue%30) xlabel(#10)) ///
+       (histogram rank_indiv2 if reform_exp ==1 & sex == 2, width(5) color(red%30) xlabel(#10)), ///
        legend(order(1 "Pre-Reform" 2 "Post-Reform" )) title("Alternative Distribution of Daughters' Ranks by Reform", size(medlarge))
-graph export rank_distrib2_daughters.jpg, replace quality(100) width(1500) height(1000)  
-	   
+graph export output/rank_distrib2_daughters.jpg, replace quality(100) width(1500) height(1000)
+
 * Distribution of mothers' inclusive ranks for daughters
-twoway (histogram rank_hd_exp if reform_exp==0 & sex == 2, width(5) xlabel(#10) color(blue%30))  ///        
-       (histogram rank_hd_exp if reform_exp==1 & sex == 2, width(5) xlabel(#10) color(red%30)), ///   
+twoway (histogram rank_hd_exp if reform_exp==0 & sex == 2, width(5) xlabel(#10) color(blue%30))  ///
+       (histogram rank_hd_exp if reform_exp==1 & sex == 2, width(5) xlabel(#10) color(red%30)), ///
        legend(order(1 "Pre-Reform" 2 "Post-Reform" )) title("Distribution of Mothers' Ranks for Daughters by Reform", size(medlarge))
-graph export rank_mom_distrib_daughters.jpg, replace quality(100) width(1500) height(1000)
+graph export output/rank_mom_distrib_daughters.jpg, replace quality(100) width(1500) height(1000)
 
 * Distribution of mothers' exclusive ranks for daughters
-twoway (histogram rank_hd_exp2 if reform_exp==0 & sex == 2, width(5) xlabel(#10) color(blue%30))  ///        
-       (histogram rank_hd_exp2 if reform_exp==1 & sex == 2, width(5) xlabel(#10) color(red%30)), ///   
+twoway (histogram rank_hd_exp2 if reform_exp==0 & sex == 2, width(5) xlabel(#10) color(blue%30))  ///
+       (histogram rank_hd_exp2 if reform_exp==1 & sex == 2, width(5) xlabel(#10) color(red%30)), ///
        legend(order(1 "Pre-Reform" 2 "Post-Reform")) title("Alternative Distribution of Mothers' Ranks for Daughters by Reform", size(medlarge))
-graph export rank_mom_distrib2_daughters.jpg, replace quality(100) width(1500) height(1000)
+graph export output/rank_mom_distrib2_daughters.jpg, replace quality(100) width(1500) height(1000)

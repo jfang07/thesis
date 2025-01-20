@@ -100,7 +100,7 @@ title("Weighted Mean Percentile Ranks Over Time for Father-Child Pairs", ///
 size(medium))
 
 * Export plot
-graph export ranks_test_rob2.jpg, replace quality(100) width(1500) height(1000)
+graph export output/ranks_test_rob2.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot absolute mobility over time for Father-child pairs
 twoway line avg_abs_mob year, sort xlabel(#10) xtitle("Year") ylabel(#10) ///
@@ -115,7 +115,7 @@ title("Weighted Mean Absolute Mobility Rate Over Time for Father-Child Pairs", /
 size(medium))
 
 * Export plot
-graph export abs_mob_test_rob2.jpg, replace quality(100) width(1500) height(1000)
+graph export output/abs_mob_test_rob2.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot AFDC/TANF participation rate over time
 twoway line avg_cur_particip year, sort ///
@@ -124,7 +124,7 @@ ytitle("Weighted AFDC/TANF Participation Rate (%)", size(medsmall)) ///
 title("Weighted AFDC/TANF Participation Rate Over Time", size(medsmall))
 
 * Export plot
-graph export particip_test_rob2.jpg, replace quality(100) width(1500) height(1000)
+graph export output/particip_test_rob2.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot marriage rate over time
 twoway line avg_mar year, sort ///
@@ -133,7 +133,7 @@ ytitle("Weighted Marriage Rate (%)", size(medium)) ///
 title("Weighted Marriage Rate Over Time", size(medium))
 
 * Export plot
-graph export mar_test_rob2.jpg, replace quality(100) width(1500) height(1000)
+graph export output/mar_test_rob2.jpg, replace quality(100) width(1500) height(1000)
 
 
 * Plot average wage over life course
@@ -149,7 +149,7 @@ ylabel(#10) title("Weighted Distribution of Race Aggregated Over 1968-2021", ///
 size(medium))
 
 * Export plot
-graph export race_test_rob2.jpg, replace quality(100) width(1500) height(1000)
+graph export output/race_test_rob2.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot Hispanicity
 graph bar [aw=weight], over(hisp_hd, relabel(1 "Not Hispanic" 2 "Hispanic")) ///
@@ -157,7 +157,7 @@ title("Weighted Distribution of Hispanicity Aggregated Over 1968-2021", ///
 size(medium))
 
 * Export plot
-graph export hisp_test_rob2.jpg, replace quality(100) width(1500) height(1000)
+graph export output/hisp_test_rob2.jpg, replace quality(100) width(1500) height(1000)
 
 
 * Disaggregating by adult child sex **********************************
@@ -181,7 +181,7 @@ title("Weighted Mean Percentile Ranks Over Time for Father-Son Pairs", ///
 size(medium))
 
 * Export plot
-graph export ranks_sons_test_rob2.jpg, replace quality(100) width(1500) height(1000)
+graph export output/ranks_sons_test_rob2.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot ranks over time for Father-daughter pairs
 *twoway line avg_rank_sex year if sex == 2, sort || ///
@@ -203,7 +203,7 @@ size(medium))
 * There appears to be an increasing trend. How come?
 
 * Export plot
-graph export ranks_daughters_test_rob2.jpg, replace quality(100) width(1500) height(1000)
+graph export output/ranks_daughters_test_rob2.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot absolute mobility over time pairs by sex
 twoway line avg_abs_mob_sex year if sex == 1, sort || ///
@@ -226,7 +226,7 @@ title("Weighted Mean Absolute Mobility Rate Over Time", ///
 size(medium))
 
 * Export plot
-graph export abs_mob_by_sex_test_rob2.jpg, replace quality(100) width(1500) height(1000)
+graph export output/abs_mob_by_sex_test_rob2.jpg, replace quality(100) width(1500) height(1000)
 
 // Anomaly is due to small number of observations.
 
@@ -240,7 +240,7 @@ title("Weighted AFDC/TANF Participation Rate Over Time by Sex", ///
 size(medsmall))
 
 * Export plot
-graph export particip_by_sex_test_rob2.jpg, replace quality(100) width(1500) height(1100)
+graph export output/particip_by_sex_test_rob2.jpg, replace quality(100) width(1500) height(1100)
 
 * Plot average wage over life course
 twoway line avg_wag_sex age if sex == 1, sort || ///
@@ -260,7 +260,7 @@ title("Weighted Marriage Rate Over Time by Sex", ///
 size(medsmall))
 
 * Export plot
-graph export mar_by_sex_test_rob2.jpg, replace quality(100) width(1500) height(1000)
+graph export output/mar_by_sex_test_rob2.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot labor force participation rate by sex over time
 twoway line pct_lfp_sex year if sex == 1, sort || ///
@@ -272,7 +272,7 @@ title("Weighted Labor Force Participation Rate Over Time by Sex", ///
 size(medsmall))
 
 * Export plot
-graph export lfp_by_sex_test_rob2.jpg, replace quality(100) width(1500) height(1000)
+graph export output/lfp_by_sex_test_rob2.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot wage observation rate by sex over time
 twoway line pct_wage_obs_sex year if sex == 1, sort || ///
@@ -284,7 +284,7 @@ title("Weighted Positive Wage Observation Rate Over Time by Sex", ///
 size(medsmall))
 
 * Export plot
-graph export wage_obs_by_sex_test_rob2.jpg, replace quality(100) width(1500) height(1000)
+graph export output/wage_obs_by_sex_test_rob2.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot race by sex
 catplot sex race_hd [aw=weight], ///
@@ -295,7 +295,7 @@ title("Weighted Distribution of Race by Sex Aggregated Over 1968-2021", ///
 size(medsmall)) blabel(bar, format(%4.1f)) asyvars
 
 * Export plot
-graph export race_by_sex_test_rob2.jpg, replace quality(100) width(1500) height(1000)
+graph export output/race_by_sex_test_rob2.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot Hispanicity by sex
 catplot sex hisp_hd [aw=weight], ///
@@ -306,4 +306,4 @@ title("Weighted Distribution of Hispanicity by Sex Aggregated Over 1968-2021", /
 size(medsmall)) blabel(bar, format(%4.1f)) asyvars
 
 * Export plot
-graph export hisp_by_sex_test_rob2.jpg, replace quality(100) width(1500) height(1000)
+graph export output/hisp_by_sex_test_rob2.jpg, replace quality(100) width(1500) height(1000)

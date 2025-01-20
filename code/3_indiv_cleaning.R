@@ -1,8 +1,6 @@
-# Get working directory
-getwd() # we are in the Documents folder
-
-# Go to thesis folder if needed
-setwd("./Thesis")
+# Title: Individual-level data cleaning
+# Author: Jade Fang
+# Last Modified: 1/20/2025
 
 # Clear environment
 rm(list = ls())
@@ -13,14 +11,17 @@ cat("\014")
 # Set random seed for reproducibility
 set.seed(1)
 
+# Install pacman package manager if needed
+# install.packages("pacman")
+
 # Load packages
-pacman::p_load(readxl, readstata13, tidyverse, matrixStats, DescTools, zoo, 
+pacman::p_load(readxl, tidyverse, matrixStats, DescTools, zoo, 
                haven, Hmisc, cNORM, mark)
 
 # INDIVIDUAL#############################################################
 
 # Load data
-individual <- read_excel("./individual/individual.xlsx")
+individual <- read_dta("data/psid/individual_raw.dta")
 
 # Data exploration------------------
 
@@ -33,7 +34,7 @@ names(individual)
 # Data wrangling -----------------------
 
 # Create vectors of new variable names for individual
-new_indiv_names <- c('release_num68', 'int_num68', 'person_num', 'sex', 
+new_indiv_names <- c('release_num68', 'int_num68', 'person_num', 'sex', 'samp_or_not',
                      'person_num_mom', 'relat_to_head68', 'age68', 'wtr_moved_inout68',
                      'educ68', 'weight68', 'int_num69', 'seq_num69', 'relat_to_head69',
                      'age69', 'wtr_moved_inout69', 'weight69', 'int_num70', 'seq_num70',
@@ -106,7 +107,7 @@ individual <- individual %>%
   mutate(id = int_num68*1000 + person_num)
 
 # Load parental identification, marriage, and employment data
-pid_mar_emp <- read_excel("./pid_mar_emp/pid_mar_emp.xlsx")
+pid_mar_emp <- read_dta("data/psid/pid_mar_emp_raw.dta")
 
 # We want to generate new variable names.
 
@@ -133,7 +134,7 @@ years_dup <-  rep(years,  each = 5)
 # Create new variable names
 new_names0 <- paste(stub0, years0_dup, sep = "")
 new_names <- paste(stub, years_dup, sep = "")
-new_pid_mar_emp_names <- c("release", "int_num68", "person_num", 
+new_pid_mar_emp_names <- c("release", "int_num68", "person_num", "sex","samp_or_not",
                            "person_num_mom", "person_num_dad", 
                            "relat_to_head68", "mar68", new_names0, new_names)
 
@@ -166,7 +167,7 @@ names(indiv_pid_mar_emp)
 #View(indiv_pid_mar_emp)
 
 # Load individual wage data
-indiv_wages <- read_excel("./indiv_wages/indiv_wages.xlsx")
+indiv_wages <- read_dta("data/psid/indiv_wages_raw.dta")
 
 # We want to generate new variable names.
 
@@ -190,7 +191,7 @@ years_indiv_wages_dup <-  rep(years_indiv_wages,  each = 4)
 
 # Create new variable names
 new_indiv_wages_stub_names <- paste(stub_indiv_wages, years_indiv_wages_dup, sep = "")
-new_indiv_wages_names <- c("release", "int_num68", "person_num", new_indiv_wages_stub_names)
+new_indiv_wages_names <- c("release", "int_num68", "person_num","sex", "samp_or_not", new_indiv_wages_stub_names)
 
 # Check lengths
 length(new_indiv_wages_names)
@@ -307,4 +308,4 @@ long_indiv_dropped <- long_indiv_filled %>%
 summary(long_indiv_dropped)
 
 # Export data
-write_dta(long_indiv_dropped, path = "indiv.dta")
+write_dta(long_indiv_dropped, path = "data/indiv.dta")

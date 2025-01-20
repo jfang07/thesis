@@ -3,18 +3,14 @@
 * Last Updated: 4/10/2024
 
 
-* Clear enironment
+* Clear environment
 clear all
-
-* Set working directory
-cd ..
-cd "Thesis"
 
 * Install outreg2 if needed
 *ssc install outreg2
 
 * Load data
-use data.dta, clear
+use data/data.dta, clear
 
 * Describe data
 d
@@ -35,8 +31,8 @@ foreach var of varlist _all {
 * Use LOCF to fill in time-invariant variables
 foreach var of varlist race_hd hisp_hd avg_adj_ben4_hd_exp ///
 max_adj_ben4_hd_exp reform_exp avg_age_hd_exp mod_state_hd_exp ///
-avg_adj_wages_hd avg_adj_indiv_wages  avg_adj_wages_hd_exp { 
-    bysort id (year): replace `var' = `var'[_n-1] if missing(`var') 
+avg_adj_wages_hd avg_adj_indiv_wages  avg_adj_wages_hd_exp {
+    bysort id (year): replace `var' = `var'[_n-1] if missing(`var')
 }
 
 * Interpolate and extrapolate time-variant variables
@@ -49,7 +45,7 @@ foreach var of varlist educ age_hd hours_hd educ_hd adj_wages_hd ///
 
 * Repeat for state controls
 foreach var of varlist  unemp_hd povrate_hd recip_rate_hd adj_ben4_hd adj_eitc3_hd {
-	bysort state (year): ipolate `var' year, gen(`var'_filled)
+	bysort state_hd (year): ipolate `var' year, gen(`var'_filled)
 	drop `var'
 	rename `var'_filled `var'
 }
@@ -58,7 +54,7 @@ foreach var of varlist  unemp_hd povrate_hd recip_rate_hd adj_ben4_hd adj_eitc3_
 foreach var of varlist _all {
 	ds `var'
     count if missing(`var')
-} 
+}
 
 * Check key distributions
 hist age // right skewed, most people in 20s-30s
@@ -74,14 +70,14 @@ hist avg_adj_indiv_wages // right skewed, most people earn little
 hist avg_adj_wages_hd_exp // right skewed, more spread, and most people earn little
 
 * Check race
-tab race
+tab race_hd
 
 * Fix miscoded race
-replace race = 3 if race == 5 & year < 2004 // grouping pre-2004 Latino with Indigenous
-replace race = 4 if race == 5 & year >= 2004 // grouping post-2005 Pacific Islander with Asian
+replace race_hd = 3 if race_hd == 5 & year < 2004 // grouping pre-2004 Latino with Indigenous
+replace race_hd = 4 if race_hd == 5 & year >= 2004 // grouping post-2005 Pacific Islander with Asian
 
 * Check race again
-tab race
+tab race_hd
 
 * Recode relationship to head as a head indicator
 replace relat_to_head = 0 if relat_to_head == 20 | relat_to_head == 2
@@ -155,13 +151,13 @@ label define lfp 0 "Not in labor force" 1 "In labor force"
 label values lfp lfp
 
 * Save data set
-save cleaner_data.dta, replace
+save data/cleaner_data.dta, replace
 
 
 **# Repeat for placebo test
 
 * Data cleaning ******************************
-use test_data.dta, clear
+use data/test_data.dta, clear
 
 * Check missing values
 foreach var of varlist _all {
@@ -172,8 +168,8 @@ foreach var of varlist _all {
 * Use LOCF to fill in time-invariant variables
 foreach var of varlist race_hd hisp_hd avg_adj_ben4_hd_exp ///
 max_adj_ben4_hd_exp reform_exp avg_age_hd_exp mod_state_hd_exp ///
-avg_adj_wages_hd avg_adj_indiv_wages  avg_adj_wages_hd_exp { 
-    bysort id (year): replace `var' = `var'[_n-1] if missing(`var') 
+avg_adj_wages_hd avg_adj_indiv_wages  avg_adj_wages_hd_exp {
+    bysort id (year): replace `var' = `var'[_n-1] if missing(`var')
 }
 
 * Interpolate and extrapolate time-variant variables
@@ -195,7 +191,7 @@ foreach var of varlist  unemp_hd povrate_hd recip_rate_hd adj_ben4_hd adj_eitc3_
 foreach var of varlist _all {
 	ds `var'
     count if missing(`var')
-} 
+}
 
 * Check key distributions
 hist age // right skewed, most people in 20s-30s
@@ -211,19 +207,19 @@ hist avg_adj_indiv_wages // right skewed, most people earn little
 hist avg_adj_wages_hd_exp // right skewed, more spread, and most people earn little
 
 * Check race
-tab race
+tab race_hd
 
 * Fix miscoded race
-replace race = 3 if race == 5 & year < 2004 // grouping pre-2004 Latino with Indigenous
-replace race = 4 if race == 5 & year >= 2004 // grouping post-2005 Pacific Islander with Asian
+replace race_hd = 3 if race_hd == 5 & year < 2004 // grouping pre-2004 Latino with Indigenous
+replace race_hd = 4 if race_hd == 5 & year >= 2004 // grouping post-2005 Pacific Islander with Asian
 
 * Check race again
-tab race // there is still a 6, which should not be therew
+tab race_hd // there is still a 6, which should not be therew
 
 * Examine miscoded race
-list id if race == 6
-tab race if id == 5012007 // supposed to be 2
-replace race = 2 if race == 6
+list id if race_hd == 6
+tab race_hd if id == 5012007 // supposed to be 2
+replace race_hd = 2 if race_hd == 6
 
 * Recode relationship to head as a head indicator
 replace relat_to_head = 0 if relat_to_head == 20 | relat_to_head == 2
@@ -297,4 +293,4 @@ label define lfp 0 "Not in labor force" 1 "In labor force"
 label values lfp lfp
 
 * Load data
-save cleaner_test_data.dta, replace
+save data/cleaner_test_data.dta, replace

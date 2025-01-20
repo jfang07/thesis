@@ -1,25 +1,22 @@
-# Get working directory
-getwd() # we are in the Documents folder
-
-# Go to thesis folder if needed
-setwd("./Thesis")
-
+# Need to run outside of ARC environment due to incompatibilities with DescTools
 # Clear environment
 rm(list = ls())
 
 # Clear console
 cat("\014")
 
+# Save working directory
+wd <- getwd()
 # Set random seed for reproducibility
 set.seed(1)
-
+install.packages("pacman")
 # Load packages
-pacman::p_load(readxl, readstata13, tidyverse, matrixStats, DescTools, zoo, 
-               haven, Hmisc, cNORM, mark)
+pacman::p_load(tidyverse, matrixStats, zoo, 
+               haven, Hmisc, cNORM, mark, DescTools)
 
 # Load data
-long_indiv_dropped <- read.dta13("indiv.dta")
-merged_dts_ctrls <- read.dta13("merged_dts_ctrls.dta")
+long_indiv_dropped <- read_dta("data/psid/indiv.dta")
+merged_dts_ctrls <- read_dta("data/merged_dts_ctrls.dta")
 mom_educ <- long_indiv_dropped %>% 
   select(id, educ, year) 
 
@@ -132,4 +129,4 @@ dim(merged_exp)
 #View(merged_exp)
 
 # Export data set
-write_dta(merged_exp, path = "merged_exp.dta")
+write_dta(merged_exp, path = "data/merged_exp.dta")

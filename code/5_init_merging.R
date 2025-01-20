@@ -1,9 +1,3 @@
-# Get working directory
-getwd() # we are in the Documents folder
-
-# Go to thesis folder if needed
-setwd("./Thesis")
-
 # Clear environment
 rm(list = ls())
 
@@ -18,8 +12,8 @@ pacman::p_load(readxl, readstata13, tidyverse, matrixStats, DescTools, zoo,
                haven, Hmisc, cNORM, mark)
 
 # Load data 
-long_fam_merged_dropped <- read.dta13("family.dta")
-long_indiv_dropped <- read.dta13("indiv.dta")
+long_fam_merged_dropped <- read_dta("data/psid/family.dta")
+long_indiv_dropped <- read_dta("data/psid/indiv.dta")
 
 # Subset for just household heads
 heads <- subset(long_indiv_dropped, relat_to_head %in% c(1,10))
@@ -40,7 +34,7 @@ not_merged_heads <- anti_join(x=heads, y=long_fam_merged_dropped, by= c("int_num
 dim(not_merged_heads) # all clear!
 
 # Load state controls
-ctrls <- read.dta13("state_controls.dta")
+ctrls <- read_dta("data/state_controls.dta")
 #View(ctrls)
 
 # Merge state controls 
@@ -126,5 +120,5 @@ merged_dts_ctrls <- adj_merged_hds %>%
   filter(!is.na(reform_date))
 
 # # Export data
-write_dta(merged_dts_ctrls, path = "merged_dts_ctrls.dta")
-write_dta(adj_merged_hds, path = "adj_merged_hds.dta")
+write_dta(merged_dts_ctrls, path = "data/merged_dts_ctrls.dta")
+write_dta(adj_merged_hds, path = "data/adj_merged_hds.dta")

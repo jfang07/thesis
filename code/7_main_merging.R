@@ -1,8 +1,6 @@
 # Get working directory
 getwd() # we are in the Documents folder
 
-# Go to thesis folder if needed
-setwd("./Thesis")
 
 # Clear environment
 rm(list = ls())
@@ -14,13 +12,13 @@ cat("\014")
 set.seed(1)
 
 # Load packages
-pacman::p_load(readxl, readstata13, tidyverse, matrixStats, DescTools, zoo, 
+pacman::p_load(readxl, readstata13, tidyverse, matrixStats, zoo, 
                haven, Hmisc, cNORM, mark)
 
 # Load  data
-long_indiv_dropped <- read.dta13("indiv.dta")
-merged_exp <- read.dta13("merged_exp.dta")
-adj_merged_hds <- read.dta13("adj_merged_hds.dta")
+long_indiv_dropped <- read_dta("data/psid/indiv.dta")
+merged_exp <- read_dta("data/merged_exp.dta")
+adj_merged_hds <- read_dta("data/adj_merged_hds.dta")
 
 # Merge with adult children, starting with moms
 pairs_mom <- left_join(x = long_indiv_dropped, y = merged_exp, 
@@ -112,4 +110,4 @@ View(unranked)
     nrow(unranked[unranked$sex == 2,]))/nrow(merged_par_dropped[merged_par_dropped$sex == 2,])*100
 
 # Export data
-write_dta(unranked, "unranked.dta")
+write_dta(unranked, "data/unranked.dta")

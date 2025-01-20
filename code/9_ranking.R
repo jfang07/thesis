@@ -1,9 +1,6 @@
 # Get working directory
 getwd() # we are in the Documents folder
 
-# Go to thesis folder if needed
-setwd("./Thesis")
-
 # Clear environment
 rm(list = ls())
 
@@ -14,12 +11,12 @@ cat("\014")
 set.seed(1)
 
 # Load packages
-pacman::p_load(readxl, readstata13, tidyverse, matrixStats, DescTools, zoo, 
+pacman::p_load(readxl, readstata13, tidyverse, matrixStats, zoo, 
                haven, Hmisc, cNORM, mark)
 
 # Load data
-wage_distrib <- read.dta13("wage_distrib.dta")
-unranked <- read.dta13("unranked.dta")
+wage_distrib <- read_dta("data/wage_distrib.dta")
+unranked <- read_dta("data/unranked.dta")
 
 # Generate percentiles per year
 annual_distributions <- wage_distrib %>%
@@ -133,14 +130,14 @@ sum(is.na(test_data$rank_indiv)) # all clear!
 sum(is.na(test_data$rank_hd_exp)) # all clear!
 
 # Export ranked data sets
-write_dta(data, path = "data.dta")
-write_dta(test_data, path = "test_data.dta")
+write_dta(data, path = "data/data.dta")
+write_dta(test_data, path = "data/test_data.dta")
 
 
 # We are done with data manipulation! We will go to Stata for data cleaning and analysis.
 
 # Calculate the ten-year attrition rate
-data <- read.dta13("data.dta")
+data <- read_dta("data.dta")
 counts <- data %>% 
   filter(cohort < 1987) %>% 
   group_by(id) %>% 

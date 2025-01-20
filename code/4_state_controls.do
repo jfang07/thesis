@@ -1,6 +1,6 @@
 * File Name: state_controls.dta
 * Author: Joshua Fang
-* Last Updated: 3/26/2024
+* Last Updated: 1/20/2025
 
 * Clear environment
 clear all
@@ -8,14 +8,13 @@ clear all
 * Get working directory
 pwd
 
-* Change directory to thesis
-cd ..
-cd "Thesis"
+* Change directory to data
+cd data
 
 **# PCE data ------------------------------------------------------
 
 * Load PCE data
-import delimited "DPCERD3A086NBEA.csv", clear
+import delimited "bea/DPCERD3A086NBEA.csv", clear
 
 * Describe data
 d
@@ -40,10 +39,12 @@ label variable pce "Personal Consumption Expenditures deflator"
 list year if !missing(pce)
 
 * Save data set
-save pce, replace
+save bea/pce, replace
 
 **# CPS ASEC data ------------------------------------------------
 
+* Go to CPS subdirectory
+cd cps
 * Prep data set
 set more off
 
@@ -219,16 +220,19 @@ rename statefip state
 * Save data set
 save povrate, replace
 
+* Return to data directory
+cd ..
+
 **# Hartley data ------------------------------------------------
 
 * Load Hartley data
-use ".\Hartley et al. (2022)\JPE-MS-2017407_state-level_data.dta", replace
+use "hartley/JPE-MS-2017407_state-level_data.dta", replace
 
 * Keep only relevant variables
 keep state year afdctanfrecipients_S afdctanf_4bene_S // note that state uses FIPS codes
 
 * Rename variables
-rename state state_fips 
+rename state state_fips
 rename afdctanfrecipients_S recip
 rename afdctanf_4bene_S ben4
 
@@ -236,9 +240,11 @@ rename afdctanf_4bene_S ben4
 keep if year >= 1968 & year < 1980
 
 * Save data set
-save hartley.dta, replace
+save hartley/hartley.dta, replace
 
 **# Robert Moffitt data -----------------------------------------
+* Go to Moffitt subdirectory
+cd moffitt
 
 * Load Moffitt data
 clear all
@@ -246,8 +252,8 @@ infile state year max_at fs_guar avg_mcd pce cpi_med rmax_afdc rfs_guar ravg_mcd
  rben_sum mod_ben_sum nfam_at_jul nrec_at_jul avg_at_ben_fam_jul ///
  avg_at_ben_rec_jul avg_nfam_at_yr avg_nrec_at_yr avg_at_ben_fam_yr ///
  avg_at_ben_rec_yr up med_need st_pop income_pc unemp avg_earn_manuf ///
- using "ben_data.txt" 
- 
+ using "ben_data.txt"
+
 * Keep only relevant variables
 keep state year unemp st_pop // note that st_pop is in thousands
 
@@ -257,7 +263,7 @@ replace st_pop = 1000*st_pop
 * Keep only observations from 1968-1979
 keep if year >= 1968 & year < 1980
 
-* Recode missing values 
+* Recode missing values
 foreach var of varlist _all{
 	ds `var'
 	replace `var' = . if `var' == -1
@@ -266,11 +272,14 @@ foreach var of varlist _all{
 * Save data set
 save moffitt, replace
 
+* Return to data directory
+cd ..
+
 
 **# University of Kentucky data ------------------------------------------------
 
 * Load UK data
-import excel "UKCPR_National_Welfare_Data_Update_020623.xlsx", sheet(Data) first clear
+import excel "ukcpr/UKCPR_National_Welfare_Data_Update_020623.xlsx", sheet(Data) first clear
 
 **# Data Exploration
 
@@ -297,13 +306,13 @@ rename EITCMaximumCredit3Dependents eitc3
 drop ben2 ben3 eitc0 eitc1 eitc2
 
 * Append Moffitt data
-append using moffitt.dta
+append using moffitt/moffitt.dta
 
 * Fill in missing FIPS values
-bysort state (state_fips) : replace state_fips = state_fips[_n-1] if missing(state_fips) 
+bysort state (state_fips) : replace state_fips = state_fips[_n-1] if missing(state_fips)
 
 * Merge Hartley data to fill in missing values
-merge 1:1 state_fips year using hartley.dta, update
+merge 1:1 state_fips year using hartley/hartley.dta, update
 
 * Rename state_fips as state to match PISD
 drop state
@@ -317,13 +326,13 @@ drop recip AFDCTANFCaseloads st_pop AFDCTANF_F*
 
 * Merge with PCE data
 drop _merge
-merge m:1 year using pce.dta
+merge m:1 year using bea/pce.dta
 drop if _merge == 2
 drop _merge
 
 
 * Merge in CPS ASEC data
-merge 1:1 state year using povrate.dta, update
+merge 1:1 state year using cps/povrate.dta, update
 drop _merge
 
 * Summarize data
@@ -334,3 +343,6 @@ sort state year
 
 * Save data
 save state_controls.dta, replace
+
+* Return to main directory
+cd ..
