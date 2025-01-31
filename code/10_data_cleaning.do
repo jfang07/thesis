@@ -102,7 +102,7 @@ label variable rank_hd_exp "Mother's rank"
 label variable rank_indiv "Child's rank"
 label variable rank_hd_exp2 "Mother's rank"
 label variable rank_indiv2 "Child's rank"
-label variable num_fam "Child's family unit size"
+label variable num_fam_hd "Child's family unit size"
 label variable abs_mob_indiv "Indicator for child's absolute upward mobility"
 label variable head "Indicator for child's household headship"
 label variable race_hd "Race of child's household head"
@@ -144,7 +144,7 @@ label variable avg_adj_wages_hd "Average wages of child's household head between
 label variable adj_wages_hd "Wages of child's household head in the past year (2017 $)"
 label variable educ "Child's years of education"
 label variable mar "Indicator for child's marital status"
-label define mar 0 "Unmarried" 1 "Married"
+label define mar 0 "Unmarried" 1 "Married", replace
 label values mar mar
 label variable lfp "Indicator for child's labor force participation"
 label define lfp 0 "Not in labor force" 1 "In labor force"
@@ -182,7 +182,7 @@ foreach var of varlist educ age_hd hours_hd educ_hd adj_wages_hd ///
 
 * Repeat for state controls
 foreach var of varlist  unemp_hd povrate_hd recip_rate_hd adj_ben4_hd adj_eitc3_hd {
-	bysort state (year): ipolate `var' year, gen(`var'_filled)
+	bysort state_hd (year): ipolate `var' year, gen(`var'_filled)
 	drop `var'
 	rename `var'_filled `var'
 }
@@ -244,7 +244,7 @@ label variable rank_hd_exp "Father's rank"
 label variable rank_indiv "Child's rank"
 label variable rank_hd_exp2 "Father's rank"
 label variable rank_indiv2 "Child's rank"
-label variable num_fam "Child's family unit size"
+label variable num_fam_hd "Child's family unit size"
 label variable abs_mob_indiv "Child's birth cohort absolute mobility rate (%)"
 label variable head "Indicator for child's household headship"
 label variable race_hd "Race of child's household head"
@@ -286,7 +286,7 @@ label variable avg_adj_wages_hd "Average wages of child's household head between
 label variable adj_wages_hd "Wages of child's household head in the past year (2017 $)"
 label variable educ "Child's years of education"
 label variable mar "Indicator for child's marital status"
-label define mar 0 "Unmarried" 1 "Married"
+label define mar 0 "Unmarried" 1 "Married", replace
 label values mar mar
 label variable lfp "Indicator for child's labor force participation"
 label define lfp 0 "Not in labor force" 1 "In labor force"

@@ -56,8 +56,8 @@ adj_merged_hds <- merged_hds_ctrls %>%
   mutate(adj_wages = wages/pce*100, adj_ben4 = ben4/pce*100, adj_eitc3 = eitc3/pce*100) %>%  
   group_by(id) %>% 
   mutate(adj_wages = na.approx(adj_wages, na.rm = F),
-         count_wages = count(!is.na(adj_wages)[age %in% 25:55]),
-        avg_adj_wages = mean(na.omit(adj_wages[age %in% 25:55])),
+         count_wages = count(!is.na(adj_wages)[age %in% 25:30]),
+        avg_adj_wages = mean(na.omit(adj_wages[age %in% 25:30])),
         avg_adj_wages = ifelse(is.nan(avg_adj_wages), NA, avg_adj_wages)) %>% 
   ungroup()
 

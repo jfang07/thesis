@@ -6,8 +6,9 @@
 clear all
 
 * Install packages if needed
-*ssc install outreg2
-*ssc install _gwtmean
+ssc install outreg2
+ssc install _gwtmean
+ssc install catplot
 
 * Load data
 use data/cleaner_data.dta, clear
@@ -158,9 +159,12 @@ twoway (histogram rank_hd_exp2 if reform_exp==0, width(5) xlabel(#10) color(blue
        legend(order(1 "Pre-Reform" 2 "Post-Reform")) title("Alternative Distribution of Mothers' Ranks by Reform", size(medlarge))
 graph export output/rank_mom_distrib2.jpg, replace quality(100) width(1500) height(1000)
 
-* Plot race by reform
+* Plot race by reform (still testing)
+graph hbar race_hd reform_exp, ascategory
+graph export output/race_by_reform.jpg, replace quality(100) width(1500) height(1000)
+
 * Need to tweak in graph editor to make title fit
-catplot reform_exp race_hd [aw=weight], ///
+catplot [aweight=weight], over1(reform_exp) over2(race_hd) ///
 percent(reform_exp) ///
 var1opts(relabel(1 "Pre-Reform" 2 "Post-Reform")) ///
 title("Weighted Distribution of Race for Child's Household Head by Reform", ///

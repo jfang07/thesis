@@ -69,8 +69,8 @@ merged <- merge(x=pairs, y=hds, by= c("int_num","year")) %>%
                                   adj_indiv_wages)) %>% 
   group_by(id) %>%
   mutate(adj_indiv_wages = na.approx(adj_indiv_wages, na.rm = F),
-         count_wages = count(!is.na(adj_indiv_wages[age %in% 25:55])),
-         avg_adj_indiv_wages = mean(na.omit(adj_indiv_wages[age %in% 25:55]))) %>% 
+         count_wages = count(!is.na(adj_indiv_wages[age %in% 25:30])),
+         avg_adj_indiv_wages = mean(na.omit(adj_indiv_wages[age %in% 25:30]))) %>% 
   select(-c(indiv_wages, pce_hd)) %>% 
   ungroup()
 #View(merged)
@@ -93,7 +93,7 @@ merged_par_dropped <- merged_par %>%
   mutate(cur_particip = ifelse(afdc_tanf_hd > 0, 1, 0), cohort = year - age,
          hours_hd = ifelse(lag(lfp_hd) == 0, NA, hours_hd)) %>% 
   filter(relat_to_head %in% c(1,10,2,20) 
-         & age %in% 25:55)
+         & age %in% 25:30)
 dim(merged_par_dropped)
 
 # Keep only observations with non-missing values for average long-term wages

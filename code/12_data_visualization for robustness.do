@@ -17,7 +17,7 @@ cd "Thesis"
 *ssc install _gwtmean
 
 * Load data
-use test_data.dta, clear
+use data/test_data.dta, clear
 
 * Describe data
 d
