@@ -1,4 +1,4 @@
-# Effects of Welfare Reform on Intergenerational Mobility for Non-High School Educated, Female-Headed Households
+# Effects of the 1990s Welfare Reform on Intergenerational Mobility 
 * Author: Jade Fang
 * Advisor: YingHua He, Ph.D.
 * Institution: Rice University
