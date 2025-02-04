@@ -68,11 +68,12 @@ ranked %>%
   View()
 
 # Cross-check with available cohort years with parental cohorts with missing ranks
-annual_distributions %>% 
+earliest <- annual_distributions %>% 
   select(cohort) %>% 
   arrange() %>% 
   unique() %>% 
-  View()
+  head(1) %>% 
+  pull()
 # The earliest cohort year is 1922
 
 # Impute using ranks based on the earliest available cohort
@@ -83,10 +84,10 @@ data <- ranked %>%
   rowwise() %>%
   mutate(rank_hd_exp2 = ifelse(is.na(rank_hd_exp2), min(which(
     avg_adj_wages_hd_exp <= annual_distributions$wage_quantiles
-    [which(annual_distributions$cohort == 1922)])) -1, rank_hd_exp2),
+    [which(annual_distributions$cohort == earliest)])) -1, rank_hd_exp2),
     rank_hd_exp = ifelse(is.na(rank_hd_exp), max(which(
       avg_adj_wages_hd_exp >= annual_distributions$wage_quantiles
-      [which(annual_distributions$cohort == 1922)])) -1, rank_hd_exp)) %>%
+      [which(annual_distributions$cohort == earliest)])) -1, rank_hd_exp)) %>%
   ungroup()  %>% 
   filter(hd_exp == 2 & mod_mar_hd_exp == 0 & rank_hd_exp < 50 & avg_educ_mom < 12) 
 )
@@ -117,10 +118,10 @@ test_data <- ranked %>%
   rowwise() %>%
   mutate(rank_hd_exp2 = ifelse(is.na(rank_hd_exp), min(which(
     avg_adj_wages_hd_exp <= annual_distributions$wage_quantiles
-    [which(annual_distributions$cohort == 1922)])) -1, rank_hd_exp2),
+    [which(annual_distributions$cohort == earliest)])) -1, rank_hd_exp2),
     rank_hd_exp = ifelse(is.na(rank_hd_exp2), max(which(
       avg_adj_wages_hd_exp >= annual_distributions$wage_quantiles
-      [which(annual_distributions$cohort == 1922)])) -1, rank_hd_exp)) %>%
+      [which(annual_distributions$cohort == earliest)])) -1, rank_hd_exp)) %>%
   ungroup()  %>% 
   filter(hd_exp == 1 & mod_mar_hd_exp == 1 & avg_educ_mom < 12) 
 )
@@ -137,7 +138,7 @@ write_dta(test_data, path = "data/test_data.dta")
 # We are done with data manipulation! We will go to Stata for data cleaning and analysis.
 
 # Calculate the ten-year attrition rate
-data <- read_dta("data.dta")
+data <- read_dta("data/data.dta")
 counts <- data %>% 
   filter(cohort < 1987) %>% 
   group_by(id) %>% 

@@ -27,28 +27,28 @@ sum
 
 * Just reform (dropped)
 reg rank_indiv rank_hd_exp reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
-mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_hd)
 
 * Export output
 outreg2 using output/rel_mob, tex(frag) replace ///
 keep(rank_indiv rank_hd_exp reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Pooled) label
 
  * Reform + interaction (dropped)
 reg rank_indiv rank_hd_exp reform_exp reform_exp#c.rank_hd_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
-mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_hd)
 
 * Export output
 outreg2 using output/rel_mob, tex(frag) append ///
 keep(rank_indiv rank_hd_exp reform_exp reform_exp#c.rank_hd_exp reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Pooled) label
 
 
@@ -56,101 +56,101 @@ ctitle(Pooled) label
 
 * Just reform, dropped
 reg rank_indiv rank_hd_exp reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
-mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, ///
 cluster(state_hd)
 
 * Export output
 outreg2 using output/rel_mob, tex(frag) append ///
 keep(rank_indiv rank_hd_exp reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Sons) label
 
 * Reform + interaction, dropped
 reg rank_indiv rank_hd_exp reform_exp reform_exp#c.rank_hd_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
-mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, ///
 cluster(state_hd)
 
 * Export output
 outreg2 using output/rel_mob, tex(frag) append ///
 keep(rank_indiv rank_hd_exp reform_exp reform_exp#c.rank_hd_exp reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Sons) label
 
 * Mother-daughter pairs **********************************
 
 * Just reform, dropped
 reg rank_indiv rank_hd_exp reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
-mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, ///
 cluster(state_hd)
 
 * Export output
 outreg2 using output/rel_mob, tex(frag) append ///
 keep(rank_indiv rank_hd_exp reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Daughters) label
 
 * Reform + interaction, dropped
 reg rank_indiv rank_hd_exp reform_exp reform_exp#c.rank_hd_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
-mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, ///
 cluster(state_hd)
 
 * Export output
 outreg2 using output/rel_mob, tex(frag) append ///
 keep(rank_indiv rank_hd_exp reform_exp reform_exp#c.rank_hd_exp reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Daughters) label
 
 /* Absolute mobility */
 
 * Mother-child pairs, dropped
 reg abs_mob_indiv reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
-mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_hd)
 
 * Export output
 outreg2 using output/abs_mob, tex(frag) replace ///
 keep(abs_mob_indiv reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Pooled) label
 
 * Mother-son pairs, dropped
 reg abs_mob_indiv reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
-mod_mar_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, cluster(state_hd)
 
 * Export output
 outreg2 using output/abs_mob, tex(frag) append ///
 keep(abs_mob_indiv reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Sons) label
 
 * Mother-daughter pairs, dropped
 reg abs_mob_indiv reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, cluster(state_hd)
 
 * Export output
 outreg2 using output/abs_mob, tex(frag) append ///
 keep(abs_mob_indiv reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Daughters) label
 
  /* Mechanisms */
@@ -164,239 +164,282 @@ replace col_grad = 0 if educ < 16
 
  * Mother-child pairs, HS grad
 reg hs_grad reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_hd)
+
+* Export output
+outreg2 using output/hs_grad, tex(frag) replace ///
+keep(hs_grad reform_exp i.race_hd hisp_hd  ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+ctitle(Pooled) label
 
  * Mother-child pairs, college grad
 reg col_grad reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_hd)
+
+* Export output
+outreg2 using output/col_grad, tex(frag) replace ///
+keep(col_grad reform_exp i.race_hd hisp_hd  ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+ctitle(Pooled) label
 
  * Mother-child pairs
 reg educ reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_hd)
 
 * Export output
 outreg2 using output/educ, tex(frag) replace ///
 keep(educ reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Pooled) label
 
 * Mother-son pairs, HS grad
 reg hs_grad reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, cluster(state_hd)
+
+* Export output
+outreg2 using output/hs_grad, tex(frag) append ///
+keep(hs_grad reform_exp i.race_hd hisp_hd  ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+ctitle(Sons) label
 
 * Mother-son pairs, college grad
 reg col_grad reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, cluster(state_hd)
+
+* Export output
+outreg2 using output/col_grad, tex(frag) append ///
+keep(col_grad reform_exp i.race_hd hisp_hd  ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+ctitle(Sons) label
 
 * Mother-son pairs
 reg educ reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, cluster(state_hd)
 
 * Export output
 outreg2 using output/educ, tex(frag) append ///
 keep(educ reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Sons) label
 
 * Mother-daughter pairs, HS grad
 reg hs_grad reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, cluster(state_hd)
+
+* Export output
+outreg2 using output/hs_grad, tex(frag) append ///
+keep(hs_grad reform_exp i.race_hd hisp_hd  ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+ctitle(Sons) label
 
 * Mother-daughter pairs, college grad
 reg col_grad reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, cluster(state_hd)
+
+* Export output
+outreg2 using output/col_grad, tex(frag) append ///
+keep(col_grad reform_exp i.race_hd hisp_hd  ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+ctitle(Daughters) label
+
 
 * Mother-daughter pairs
 reg educ reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, cluster(state_hd)
 
 * Export output
 outreg2 using output/educ, tex(frag) append ///
 keep(educ reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Daughters) label
 
 * Hours worked by head ****************************************
 
 * Mother-child pairs
 reg hours_hd reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_hd)
 
 * Export output
 outreg2 using output/hours_hd, tex(frag) replace ///
 keep(hours_hd reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Pooled) label
 
 * Mother-son pairs
 reg hours_hd reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, cluster(state_hd)
 
 * Export output
 outreg2 using output/hours_hd, tex(frag) append ///
 keep(hours_hd reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Sons) label
 
 * Mother-daughter pairs * this regression doesn't make sense
 reg hours_hd reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, cluster(state_hd)
 
 * Export output
 outreg2 using output/hours_hd, tex(frag) append ///
 keep(hours_hd reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Daughters) label
 
  * Marriage ****************************************
 
  * Mother-child pairs
 reg mar reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_hd)
 
 * Export output
 outreg2 using output/mar, tex(frag) replace ///
 keep(reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Pooled) label
 
 * Mother-son pairs
 reg mar reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, cluster(state_hd)
 
 * Export output
 outreg2 using output/mar, tex(frag) append ///
 keep(reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Sons) label
 
 * Mother-daughter pairs
 reg mar reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, cluster(state_hd)
 
 * Export output
 outreg2 using output/mar, tex(frag) append ///
 keep(reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Daughters) label
 
 * Labor force participation ****************************************
 
  * Mother-child pairs
 reg lfp reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_hd)
 
 * Export output
 outreg2 using output/lfp, tex(frag) replace ///
 keep(lfp reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Pooled) label
 
 * Mother-son pairs
 reg lfp reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, cluster(state_hd)
 
 * Export output
 outreg2 using output/lfp, tex(frag) append ///
 keep(lfp reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Sons) label
 
 * Mother-daughter pairs
 reg lfp reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, cluster(state_hd)
 
 * Export output
 outreg2 using output/lfp, tex(frag) append ///
 keep(lfp reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Daughters) label
 
 * Family unit size ****************************************
 
 *  Mother-child pairs
-reg num_fam_hd2 reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+reg num_fam_hd reform_exp i.race_hd hisp_hd  ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_hd)
 
 * Export output
 outreg2 using output/num_fam_hd, tex(frag) replace ///
 keep(reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Pooled) label
 
 * Mother-son pairs
-reg num_fam_hd2 reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+reg num_fam_hd reform_exp i.race_hd hisp_hd  ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, cluster(state_hd)
 
 * Export output
 outreg2 using output/num_fam_hd, tex(frag) append ///
 keep(reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Sons) label
 
 * Mother-daughter pairs
-reg num_fam_hd2 reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+reg num_fam_hd reform_exp i.race_hd hisp_hd  ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, cluster(state_hd)
 
 * Export output
 outreg2 using output/num_fam_hd, tex(frag) append ///
 keep(reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
- mod_mar_hd_exp adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+ adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Daughters) label

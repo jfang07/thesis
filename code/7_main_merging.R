@@ -1,7 +1,6 @@
 # Get working directory
 getwd() # we are in the Documents folder
 
-
 # Clear environment
 rm(list = ls())
 
@@ -93,7 +92,7 @@ merged_par_dropped <- merged_par %>%
   mutate(cur_particip = ifelse(afdc_tanf_hd > 0, 1, 0), cohort = year - age,
          hours_hd = ifelse(lag(lfp_hd) == 0, NA, hours_hd)) %>% 
   filter(relat_to_head %in% c(1,10,2,20) 
-         & age %in% 25:30)
+         & age %in% 25:55)
 dim(merged_par_dropped)
 
 # Keep only observations with non-missing values for average long-term wages

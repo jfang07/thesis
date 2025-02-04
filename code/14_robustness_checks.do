@@ -25,7 +25,7 @@ use cleaner_data.dta, clear
 
 * Just reform, dropped
 reg rank_indiv2 rank_hd_exp2 reform_exp i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
+age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_hd)
 
@@ -38,7 +38,7 @@ ctitle(Pooled) label
 
  * Reform + interaction, dropped
 reg rank_indiv2 rank_hd_exp2 reform_exp reform_exp#c.rank_hd_exp2 i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
+age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
  i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_hd)
 
@@ -54,7 +54,7 @@ ctitle(Pooled) label
 
 * Just reform, dropped
 reg rank_indiv2 rank_hd_exp2 reform_exp i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
+age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, ///
 cluster(state_hd)
@@ -68,7 +68,7 @@ ctitle(Sons) label
 
 * Mother + interaction, dropped
 reg rank_indiv2 rank_hd_exp2 reform_exp reform_exp#c.rank_hd_exp2 i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
+age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, ///
 cluster(state_hd)
@@ -85,7 +85,7 @@ ctitle(Sons) label
 
 * Just reform, dropped
 reg rank_indiv2 rank_hd_exp2 reform_exp i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
+age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, ///
 cluster(state_hd)
@@ -99,7 +99,7 @@ ctitle(Daughters) label
 
 * Reform + interaction, dropped
 reg rank_indiv2 rank_hd_exp2 reform_exp reform_exp#c.rank_hd_exp2 i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
+age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, ///
 cluster(state_hd)
@@ -135,7 +135,7 @@ graph export output/rank_dad_distrib_sons.jpg, replace quality(100) width(1500) 
 
 * Just reform, dropped
 reg rank_indiv rank_hd_exp reform_exp i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages count_wages_hd_exp ///
+age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_hd)
 
@@ -148,7 +148,7 @@ ctitle(Pooled) label
 
  * Reform + interaction, dropped
 reg rank_indiv rank_hd_exp reform_exp reform_exp#c.rank_hd_exp i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages count_wages_hd_exp ///
+age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
  i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_hd)
 
@@ -164,7 +164,7 @@ ctitle(Pooled) label
 
 * Just reform, dropped
 reg rank_indiv rank_hd_exp reform_exp i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages count_wages_hd_exp ///
+age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, ///
 cluster(state_hd)
@@ -178,7 +178,7 @@ ctitle(Sons) label
 
 * Reform + interaction, dropped
 reg rank_indiv rank_hd_exp reform_exp reform_exp#c.rank_hd_exp i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages count_wages_hd_exp ///
+age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, ///
 cluster(state_hd)
@@ -195,7 +195,7 @@ ctitle(Sons) label
 
 * Just reform, dropped
 reg rank_indiv rank_hd_exp reform_exp i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages count_wages_hd_exp ///
+age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, ///
 cluster(state_hd)
@@ -209,7 +209,7 @@ ctitle(Daughters) label
 
 * Reform + interaction, dropped
 reg rank_indiv rank_hd_exp reform_exp reform_exp#c.rank_hd_exp i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages count_wages_hd_exp ///
+age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, ///
 cluster(state_hd)
@@ -225,7 +225,7 @@ ctitle(Daughters) label
 
 * Father-child pairs, dropped
 reg abs_mob_indiv reform_exp i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages count_wages_hd_exp ///
+age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_hd)
 
@@ -238,7 +238,7 @@ ctitle(Pooled) label
 
 * Father-son pairs, dropped
 reg abs_mob_indiv reform_exp i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages count_wages_hd_exp ///
+age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, cluster(state_hd)
 
@@ -252,7 +252,7 @@ ctitle(Sons) label
 
 * Father-daughter pairs, dropped
 reg abs_mob_indiv reform_exp i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom avg_num_fam count_wages count_wages_hd_exp ///
+age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, cluster(state_hd)
 

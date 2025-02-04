@@ -152,7 +152,7 @@ gen cohort = year - age
 * Keep only ages 25-27
 keep if age >= 25 & age <= 27
 
-* Keep only max age for each cohort up to 40
+* Keep only max age for each cohort up to 27
 bys cohort: egen max_age = max(age)
 bys cohort: keep if age == max_age
 
