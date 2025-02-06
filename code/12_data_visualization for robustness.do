@@ -32,7 +32,7 @@ keep(rank_indiv abs_mob_indiv educ lfp mar hours_hd avg_adj_indiv_wages ///
 num_fam_hd age rank_dad avg_age_dad avg_num_fam avg_educ_dad mod_mar_dad ///
 avg_adj_ben4_dad max_adj_ben4_dad adj_ben4_hd adj_eitc3_hd povrate_hd ///
 recip_rate_hd unemp_hd) ///
-eqkeep(N mean sd) label
+eqkeep(mean sd) label dec(2)
 
 * Father-son pairs
 bysort reform_exp: outreg2 [aw=weight] using summary_sons2.tex if sex == 1, ///
@@ -41,7 +41,7 @@ keep(rank_indiv abs_mob_indiv_sex educ lfp mar hours_hd avg_adj_indiv_wages ///
 num_fam_hd age rank_dad avg_age_dad avg_num_fam avg_educ_dad mod_mar_dad ///
 avg_adj_ben4_dad max_adj_ben4_dad adj_ben4_hd adj_eitc3_hd povrate_hd ///
 recip_rate_hd unemp_hd) ///
-eqkeep(N mean sd) label
+eqkeep(mean sd) label dec(2)
 
 * Father-son pairs
 bysort reform_exp: outreg2 [aw=weight] using summary_daughters2.tex if sex == 2, ///
@@ -50,7 +50,7 @@ keep(rank_indiv abs_mob_indiv_sex educ lfp mar hours_hd avg_adj_indiv_wages ///
 num_fam_hd age rank_dad avg_age_dad avg_num_fam avg_educ_dad mod_mar_dad ///
 avg_adj_ben4_dad max_adj_ben4_dad adj_ben4_hd adj_eitc3_hd povrate_hd ///
 recip_rate_hd unemp_hd) ///
-eqkeep(N mean sd) label
+eqkeep(mean sd) label dec(2)
 
 **# Data visualization ----------------------
 

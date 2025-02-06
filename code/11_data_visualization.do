@@ -23,16 +23,16 @@ bys reform_exp sex: sum
 
 
 * Generate summary statistics
-bysort reform_exp:outreg2 [aw=weight] using summary, tex(frag) replace sum(log) ///
-keep(rank_indiv abs_mob_indiv count_wages educ lfp mar hours_hd avg_adj_indiv_wages avg_adj_wages_hd_exp ///
-num_fam_hd age rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom mod_mar_hd_exp ///
+bysort reform_exp:outreg2 [aw=weight] using output/summary, tex(frag) replace sum(log) ///
+keep(rank_indiv abs_mob_indiv  educ lfp mar hours_hd avg_adj_indiv_wages avg_adj_wages_hd_exp ///
+num_fam_hd age black hisp_hd rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom  ///
 count_wages_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd ///
 recip_rate_hd unemp_hd) ///
-eqkeep(N mean sd) label
+eqkeep(mean sd) label dec(2)
 
 * Calculate t-statistics
-foreach var in rank_indiv abs_mob_indiv count_wages educ lfp mar hours_hd avg_adj_indiv_wages ///
-avg_adj_wages_hd_exp num_fam_hd age rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom mod_mar_hd_exp ///
+foreach var in rank_indiv abs_mob_indiv  educ lfp mar hours_hd avg_adj_indiv_wages ///
+avg_adj_wages_hd_exp num_fam_hd age black hisp_hd rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom  ///
 count_wages_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd {
 	di "`var'"
 	ttest `var', by(reform_exp) unequal
@@ -40,35 +40,39 @@ count_wages_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd {
 
 
 * Mother-son pairs
-bysort reform_exp: outreg2 [aw=weight] using summary_sons.tex if sex == 1, ///
-tex(frag) replace sum(log) ///
-keep(rank_indiv abs_mob_indiv count_wages educ lfp mar hours_hd avg_adj_indiv_wages avg_adj_wages_hd_exp ///
-num_fam_hd age rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom mod_mar_hd_exp ///
+bysort reform_exp: outreg2 [aw=weight] using output/summary.tex if sex == 1, ///
+tex(frag) append sum(log) ///
+keep(rank_indiv abs_mob_indiv  educ lfp mar hours_hd avg_adj_indiv_wages avg_adj_wages_hd_exp ///
+num_fam_hd age black hisp_hd rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom  ///
 count_wages_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd ///
 recip_rate_hd unemp_hd) ///
-eqkeep(N mean sd) label
+eqkeep(mean sd) label dec(2)
 
 * Calculate t-statistics
-foreach var in rank_indiv abs_mob_indiv count_wages educ lfp mar hours_hd avg_adj_indiv_wages ///
-avg_adj_wages_hd_exp num_fam_hd age rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom mod_mar_hd_exp ///
+foreach var in rank_indiv abs_mob_indiv  educ lfp mar hours_hd avg_adj_indiv_wages ///
+avg_adj_wages_hd_exp num_fam_hd age black hisp_hd rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom  ///
 count_wages_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd {
 	di "`var'"
 	ttest `var' if sex == 1, by(reform_exp) unequal
 }
 
 
-* Mother-son pairs
-bysort reform_exp: outreg2 [aw=weight] using summary_daughters.tex if sex == 2, ///
-tex(frag) replace sum(log) ///
-keep(rank_indiv abs_mob_indiv count_wages educ lfp mar hours_hd avg_adj_indiv_wages avg_adj_wages_hd_exp ///
-num_fam_hd age rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom mod_mar_hd_exp ///
+* Mother-daughter pairs
+bysort reform_exp: outreg2 [aw=weight] using output/summary.tex if sex == 2, ///
+tex(frag) append sum(log) ///
+keep(rank_indiv abs_mob_indiv  educ lfp mar hours_hd avg_adj_indiv_wages avg_adj_wages_hd_exp ///
+num_fam_hd age black hisp_hd rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom  ///
 count_wages_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd ///
 recip_rate_hd unemp_hd) ///
-eqkeep(N mean sd) label
+sortvar(rank_indiv abs_mob_indiv  educ lfp mar hours_hd avg_adj_indiv_wages avg_adj_wages_hd_exp ///
+num_fam_hd age black hisp_hd rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom  ///
+count_wages_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd ///
+recip_rate_hd unemp_hd) ///
+eqkeep(mean sd) label dec(2)
 
 * Calculate t-statistics
-foreach var in rank_indiv abs_mob_indiv count_wages educ lfp mar hours_hd avg_adj_indiv_wages ///
-avg_adj_wages_hd_exp num_fam_hd age rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom mod_mar_hd_exp ///
+foreach var in rank_indiv abs_mob_indiv  educ lfp mar hours_hd avg_adj_indiv_wages ///
+avg_adj_wages_hd_exp num_fam_hd age black hisp_hd rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom  ///
 count_wages_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd {
 	di "`var'"
 	ttest `var' if sex == 2, by(reform_exp) unequal
@@ -164,25 +168,25 @@ graph hbar race_hd reform_exp, ascategory
 graph export output/race_by_reform.jpg, replace quality(100) width(1500) height(1000)
 
 * Need to tweak in graph editor to make title fit
-catplot [aweight=weight], over1(reform_exp) over2(race_hd) ///
-percent(reform_exp) ///
-var1opts(relabel(1 "Pre-Reform" 2 "Post-Reform")) ///
-title("Weighted Distribution of Race for Child's Household Head by Reform", ///
-size(medsmall)) blabel(bar, format(%4.1f)) asyvars
+*catplot [aweight=weight], over1(reform_exp) over2(race_hd) ///
+*percent(reform_exp) ///
+*var1opts(relabel(1 "Pre-Reform" 2 "Post-Reform")) ///
+*title("Weighted Distribution of Race for Child's Household Head by Reform", ///
+*size(medsmall)) blabel(bar, format(%4.1f)) asyvars
 
 * Export plot
-graph export output/race_by_reform.jpg, replace quality(100) width(1500) height(1000)
+*graph export output/race_by_reform.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot Hispanicity by reform
-catplot reform_exp hisp_hd [aw=weight], ///
-percent(reform_exp) ///
-var1opts(relabel(1 "Pre-Reform" 2 "Post-Reform")) ///
-var2opts(relabel(1 "Not Hispanic" 2 "Hispanic")) ///
-title("Weighted Distribution of Hispanicity for Child's Household Head by Reform", ///
-size(medsmall)) blabel(bar, format(%4.1f)) asyvars
+*catplot reform_exp hisp_hd [aw=weight], ///
+*percent(reform_exp) ///
+*var1opts(relabel(1 "Pre-Reform" 2 "Post-Reform")) ///
+*var2opts(relabel(1 "Not Hispanic" 2 "Hispanic")) ///
+*title("Weighted Distribution of Hispanicity for Child's Household Head by Reform", ///
+*size(medsmall)) blabel(bar, format(%4.1f)) asyvars
 
 * Export plot
-graph export output/hisp_by_reform.jpg, replace quality(100) width(1500) height(1000)
+*graph export output/hisp_by_reform.jpg, replace quality(100) width(1500) height(1000)
 
 * Mother-child pairs **********************************
 
@@ -363,45 +367,45 @@ graph export output/wage_obs_by_sex.jpg, replace quality(100) width(1500) height
 graph export output/hisp_by_sex.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot race by reform for sons
-catplot reform_exp race_hd [aw=weight] if sex == 1, ///
-percent(reform_exp) ///
-var1opts(relabel(1 "Pre-Reform" 2 "Post-Reform")) ///
-title("Weighted Distribution of Race for Sons by Reform", ///
-size(medium)) blabel(bar, format(%4.1f)) asyvars
+*catplot reform_exp race_hd [aw=weight] if sex == 1, ///
+*percent(reform_exp) ///
+*var1opts(relabel(1 "Pre-Reform" 2 "Post-Reform")) ///
+*title("Weighted Distribution of Race for Sons by Reform", ///
+*size(medium)) blabel(bar, format(%4.1f)) asyvars
 
 * Export plot
 graph export output/race_by_reform_sons.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot Hispanicity by reform for sons
-catplot reform_exp hisp_hd [aw=weight] if sex == 1, ///
-percent(reform_exp) ///
-var1opts(relabel(1 "Pre-Reform" 2 "Post-Reform")) ///
-var2opts(relabel(1 "Not Hispanic" 2 "Hispanic")) ///
-title("Weighted Distribution of Hispanicity for Sons by Reform", ///
-size(medium)) blabel(bar, format(%4.1f)) asyvars
+*catplot reform_exp hisp_hd [aw=weight] if sex == 1, ///
+*percent(reform_exp) ///
+*var1opts(relabel(1 "Pre-Reform" 2 "Post-Reform")) ///
+*var2opts(relabel(1 "Not Hispanic" 2 "Hispanic")) ///
+*title("Weighted Distribution of Hispanicity for Sons by Reform", ///
+*size(medium)) blabel(bar, format(%4.1f)) asyvars
 
 * Export plot
-graph export output/hisp_by_reform_sons.jpg, replace quality(100) width(1500) height(1000)
+*graph export output/hisp_by_reform_sons.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot race by reform for daughters
 * Need to tweak in graph editor to make sure title fits
-catplot reform_exp race_hd [aw=weight] if sex == 2, ///
-percent(reform_exp) ///
-var1opts(relabel(1 "Pre-Reform" 2 "Post-Reform")) ///
-title("Weighted Distribution of Race for Daughter's Household Head by Reform", ///
-size(medsmall)) blabel(bar, format(%4.1f)) asyvars
+*catplot reform_exp race_hd [aw=weight] if sex == 2, ///
+*percent(reform_exp) ///
+*var1opts(relabel(1 "Pre-Reform" 2 "Post-Reform")) ///
+*title("Weighted Distribution of Race for Daughter's Household Head by Reform", ///
+*size(medsmall)) blabel(bar, format(%4.1f)) asyvars
 
 * Export plot
-graph export output/race_by_reform_daughters.jpg, replace quality(100) width(1500) height(1000)
+*graph export output/race_by_reform_daughters.jpg, replace quality(100) width(1500) height(1000)
 
 * Plot Hispanicity by reform for daughters
 * Need to tweak in graph editor to make sure the title fits
-catplot reform_exp hisp_hd [aw=weight] if sex == 2, ///
-percent(reform_exp) ///
-var1opts(relabel(1 "Pre-Reform" 2 "Post-Reform")) ///
-var2opts(relabel(1 "Not Hispanic" 2 "Hispanic")) ///
-title("Weighted Distribution of Hispanicity for Daughter's Household Head by Reform", ///
-size(medsmall)) blabel(bar, format(%4.1f)) asyvars
+*catplot reform_exp hisp_hd [aw=weight] if sex == 2, ///
+*percent(reform_exp) ///
+*var1opts(relabel(1 "Pre-Reform" 2 "Post-Reform")) ///
+*var2opts(relabel(1 "Not Hispanic" 2 "Hispanic")) ///
+*title("Weighted Distribution of Hispanicity for Daughter's Household Head by Reform", ///
+*size(medsmall)) blabel(bar, format(%4.1f)) asyvars
 
 * Export plot
 graph export output/hisp_by_reform_daughters.jpg, replace quality(100) width(1500) height(1000)

@@ -33,10 +33,9 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_
 
 * Export output
 outreg2 using output/rel_mob, tex(frag) replace ///
-keep(rank_indiv rank_hd_exp reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Pooled) label
+keep(rank_hd_exp reform_exp) ///
+ctitle(Pooled) label dec(2) ///
+addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the child's state level.)
 
  * Reform + interaction (dropped)
 reg rank_indiv rank_hd_exp reform_exp reform_exp#c.rank_hd_exp i.race_hd hisp_hd  ///
@@ -46,10 +45,8 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_
 
 * Export output
 outreg2 using output/rel_mob, tex(frag) append ///
-keep(rank_indiv rank_hd_exp reform_exp reform_exp#c.rank_hd_exp reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Pooled) label
+keep(rank_hd_exp reform_exp reform_exp#c.rank_hd_exp) ///
+ctitle(Pooled) label dec(2)
 
 
 * Mother-son pairs **********************************
@@ -63,10 +60,8 @@ cluster(state_hd)
 
 * Export output
 outreg2 using output/rel_mob, tex(frag) append ///
-keep(rank_indiv rank_hd_exp reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Sons) label
+keep(rank_hd_exp reform_exp) ///
+ctitle(Sons) label dec(2)
 
 * Reform + interaction, dropped
 reg rank_indiv rank_hd_exp reform_exp reform_exp#c.rank_hd_exp i.race_hd hisp_hd  ///
@@ -77,10 +72,8 @@ cluster(state_hd)
 
 * Export output
 outreg2 using output/rel_mob, tex(frag) append ///
-keep(rank_indiv rank_hd_exp reform_exp reform_exp#c.rank_hd_exp reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Sons) label
+keep(rank_hd_exp reform_exp reform_exp#c.rank_hd_exp) ///
+ctitle(Sons) label dec(2)
 
 * Mother-daughter pairs **********************************
 
@@ -93,10 +86,8 @@ cluster(state_hd)
 
 * Export output
 outreg2 using output/rel_mob, tex(frag) append ///
-keep(rank_indiv rank_hd_exp reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Daughters) label
+keep(rank_hd_exp reform_exp) ///
+ctitle(Daughters) label dec(2)
 
 * Reform + interaction, dropped
 reg rank_indiv rank_hd_exp reform_exp reform_exp#c.rank_hd_exp i.race_hd hisp_hd  ///
@@ -107,10 +98,8 @@ cluster(state_hd)
 
 * Export output
 outreg2 using output/rel_mob, tex(frag) append ///
-keep(rank_indiv rank_hd_exp reform_exp reform_exp#c.rank_hd_exp reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Daughters) label
+keep(rank_hd_exp reform_exp reform_exp#c.rank_hd_exp) ///
+ctitle(Daughters) label dec(2)
 
 /* Absolute mobility */
 
@@ -122,10 +111,9 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_
 
 * Export output
 outreg2 using output/abs_mob, tex(frag) replace ///
-keep(abs_mob_indiv reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Pooled) label
+keep(reform_exp) ///
+ctitle(Pooled) label dec(2) ///
+addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the child's state level.)
 
 * Mother-son pairs, dropped
 reg abs_mob_indiv reform_exp i.race_hd hisp_hd  ///
@@ -135,10 +123,8 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, cl
 
 * Export output
 outreg2 using output/abs_mob, tex(frag) append ///
-keep(abs_mob_indiv reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Sons) label
+keep(reform_exp) ///
+ctitle(Sons) label dec(2)
 
 * Mother-daughter pairs, dropped
 reg abs_mob_indiv reform_exp i.race_hd hisp_hd  ///
@@ -148,10 +134,8 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, cl
 
 * Export output
 outreg2 using output/abs_mob, tex(frag) append ///
-keep(abs_mob_indiv reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Daughters) label
+keep(reform_exp) ///
+ctitle(Daughters) label dec(2)
 
  /* Mechanisms */
 
@@ -170,10 +154,9 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_
 
 * Export output
 outreg2 using output/hs_grad, tex(frag) replace ///
-keep(hs_grad reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Pooled) label
+keep(hs_grad reform_exp) ///
+ctitle(Pooled) label dec(2) ///
+addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the child's state level.)
 
  * Mother-child pairs, college grad
 reg col_grad reform_exp i.race_hd hisp_hd  ///
@@ -183,10 +166,9 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_
 
 * Export output
 outreg2 using output/col_grad, tex(frag) replace ///
-keep(col_grad reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Pooled) label
+keep(col_grad reform_exp) ///
+ctitle(Pooled) label dec(2) ///
+addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the child's state level.)
 
  * Mother-child pairs
 reg educ reform_exp i.race_hd hisp_hd  ///
@@ -196,10 +178,9 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_
 
 * Export output
 outreg2 using output/educ, tex(frag) replace ///
-keep(educ reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Pooled) label
+keep(educ reform_exp) ///
+ctitle(Pooled) label dec(2) ///
+addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the child's state level.)
 
 * Mother-son pairs, HS grad
 reg hs_grad reform_exp i.race_hd hisp_hd  ///
@@ -209,10 +190,8 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, cl
 
 * Export output
 outreg2 using output/hs_grad, tex(frag) append ///
-keep(hs_grad reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Sons) label
+keep(hs_grad reform_exp) ///
+ctitle(Sons) label dec(2)
 
 * Mother-son pairs, college grad
 reg col_grad reform_exp i.race_hd hisp_hd  ///
@@ -222,10 +201,8 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, cl
 
 * Export output
 outreg2 using output/col_grad, tex(frag) append ///
-keep(col_grad reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Sons) label
+keep(col_grad reform_exp) ///
+ctitle(Sons) label dec(2)
 
 * Mother-son pairs
 reg educ reform_exp i.race_hd hisp_hd  ///
@@ -235,10 +212,8 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, cl
 
 * Export output
 outreg2 using output/educ, tex(frag) append ///
-keep(educ reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Sons) label
+keep(educ reform_exp) ///
+ctitle(Sons) label dec(2)
 
 * Mother-daughter pairs, HS grad
 reg hs_grad reform_exp i.race_hd hisp_hd  ///
@@ -248,10 +223,8 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, cl
 
 * Export output
 outreg2 using output/hs_grad, tex(frag) append ///
-keep(hs_grad reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Sons) label
+keep(hs_grad reform_exp) ///
+ctitle(Sons) label dec(2)
 
 * Mother-daughter pairs, college grad
 reg col_grad reform_exp i.race_hd hisp_hd  ///
@@ -261,10 +234,8 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, cl
 
 * Export output
 outreg2 using output/col_grad, tex(frag) append ///
-keep(col_grad reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Daughters) label
+keep(col_grad reform_exp) ///
+ctitle(Daughters) label dec(2)
 
 
 * Mother-daughter pairs
@@ -275,10 +246,8 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, cl
 
 * Export output
 outreg2 using output/educ, tex(frag) append ///
-keep(educ reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Daughters) label
+keep(educ reform_exp) ///
+ctitle(Daughters) label dec(2)
 
 * Hours worked by head ****************************************
 
@@ -290,10 +259,9 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_
 
 * Export output
 outreg2 using output/hours_hd, tex(frag) replace ///
-keep(hours_hd reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Pooled) label
+keep(reform_exp) ///
+ctitle(Pooled) label dec(2) ///
+addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the child's state level.)
 
 * Mother-son pairs
 reg hours_hd reform_exp i.race_hd hisp_hd  ///
@@ -303,10 +271,8 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, cl
 
 * Export output
 outreg2 using output/hours_hd, tex(frag) append ///
-keep(hours_hd reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Sons) label
+keep(reform_exp) ///
+ctitle(Sons) label dec(2)
 
 * Mother-daughter pairs * this regression doesn't make sense
 reg hours_hd reform_exp i.race_hd hisp_hd  ///
@@ -316,10 +282,8 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, cl
 
 * Export output
 outreg2 using output/hours_hd, tex(frag) append ///
-keep(hours_hd reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Daughters) label
+keep(reform_exp) ///
+ctitle(Daughters) label dec(2)
 
  * Marriage ****************************************
 
@@ -331,10 +295,9 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_
 
 * Export output
 outreg2 using output/mar, tex(frag) replace ///
-keep(reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Pooled) label
+keep(reform_exp) ///
+ctitle(Pooled) label dec(2) ///
+addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the child's state level.)
 
 * Mother-son pairs
 reg mar reform_exp i.race_hd hisp_hd  ///
@@ -344,10 +307,8 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, cl
 
 * Export output
 outreg2 using output/mar, tex(frag) append ///
-keep(reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Sons) label
+keep(reform_exp) ///
+ctitle(Sons) label dec(2)
 
 * Mother-daughter pairs
 reg mar reform_exp i.race_hd hisp_hd  ///
@@ -357,10 +318,8 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, cl
 
 * Export output
 outreg2 using output/mar, tex(frag) append ///
-keep(reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Daughters) label
+keep(reform_exp) ///
+ctitle(Daughters) label dec(2)
 
 * Labor force participation ****************************************
 
@@ -372,10 +331,9 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_
 
 * Export output
 outreg2 using output/lfp, tex(frag) replace ///
-keep(lfp reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Pooled) label
+keep(reform_exp) ///
+ctitle(Pooled) label dec(2) ///
+addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the child's state level.)
 
 * Mother-son pairs
 reg lfp reform_exp i.race_hd hisp_hd  ///
@@ -385,10 +343,8 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, cl
 
 * Export output
 outreg2 using output/lfp, tex(frag) append ///
-keep(lfp reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Sons) label
+keep(reform_exp) ///
+ctitle(Sons) label dec(2)
 
 * Mother-daughter pairs
 reg lfp reform_exp i.race_hd hisp_hd  ///
@@ -398,10 +354,8 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, cl
 
 * Export output
 outreg2 using output/lfp, tex(frag) append ///
-keep(lfp reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Daughters) label
+keep(reform_exp) ///
+ctitle(Daughters) label dec(2)
 
 * Family unit size ****************************************
 
@@ -413,10 +367,9 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_
 
 * Export output
 outreg2 using output/num_fam_hd, tex(frag) replace ///
-keep(reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Pooled) label
+keep(reform_exp) ///
+ctitle(Pooled) label dec(2) ///
+addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the child's state level.)
 
 * Mother-son pairs
 reg num_fam_hd reform_exp i.race_hd hisp_hd  ///
@@ -426,10 +379,8 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, cl
 
 * Export output
 outreg2 using output/num_fam_hd, tex(frag) append ///
-keep(reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Sons) label
+keep(reform_exp) ///
+ctitle(Sons) label dec(2)
 
 * Mother-daughter pairs
 reg num_fam_hd reform_exp i.race_hd hisp_hd  ///
@@ -439,7 +390,5 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, cl
 
 * Export output
 outreg2 using output/num_fam_hd, tex(frag) append ///
-keep(reform_exp i.race_hd hisp_hd  ///
-avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
- adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Daughters) label
+keep(reform_exp) ///
+ctitle(Daughters) label dec(2)

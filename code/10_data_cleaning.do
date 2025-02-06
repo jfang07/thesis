@@ -76,6 +76,10 @@ tab race_hd
 replace race_hd = 3 if race_hd == 5 & year < 2004 // grouping pre-2004 Latino with Indigenous
 replace race_hd = 4 if race_hd == 5 & year >= 2004 // grouping post-2005 Pacific Islander with Asian
 
+* Generate Black indiciator
+gen black = 1 if race_hd == 2
+replace black = 0 if race_hd != 2
+
 * Check race again
 tab race_hd
 
@@ -106,6 +110,7 @@ label variable num_fam_hd "Family unit size"
 label variable abs_mob_indiv "Abs. mobility indicator"
 label variable head "Household head indicator"
 label variable race_hd "Race of head"
+label variable black "Black indicator"
 label variable hisp_hd "Hispanicity of head"
 label variable age "Age"
 label variable count_wages "Count of non-missing wages, ages 25-30"
@@ -149,6 +154,8 @@ label values mar mar
 label variable lfp "Labor force particip. indicator"
 label define lfp 0 "Not in labor force" 1 "In labor force"
 label values lfp lfp
+label define black 0 "Not Black" 1 "Black"
+label values black black
 
 * Save data set
 save data/cleaner_data.dta, replace
@@ -221,6 +228,10 @@ list id if race_hd == 6
 tab race_hd if id == 5012007 // supposed to be 2
 replace race_hd = 2 if race_hd == 6
 
+* Generate Black indiciator
+gen black = 1 if race_hd == 2
+replace black = 0 if race_hd != 2
+
 * Recode relationship to head as a head indicator
 replace relat_to_head = 0 if relat_to_head == 20 | relat_to_head == 2
 replace relat_to_head = 1 if relat_to_head == 10
@@ -248,6 +259,7 @@ label variable num_fam_hd "Family unit size"
 label variable abs_mob_indiv "Abs. mobility indicator"
 label variable head "Household head indicator"
 label variable race_hd "Race of head"
+label variable black "Black indicator"
 label variable hisp_hd "Hispanicity of head"
 label variable age "Age"
 label variable age_sq "Age squared"
@@ -291,6 +303,8 @@ label values mar mar
 label variable lfp "Labor force particip. indicator"
 label define lfp 0 "Not in labor force" 1 "In labor force"
 label values lfp lfp
+label define black 0 "Not Black" 1 "Black"
+label values black black
 
 * Load data
 save data/cleaner_test_data.dta, replace

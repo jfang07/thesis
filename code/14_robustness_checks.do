@@ -31,10 +31,8 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_
 
 * Export output
 outreg2 using output/rel_mob2, tex(frag) replace ///
-keep(rank_indiv2 rank_hd_exp2 reform_exp i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam avg_adj_ben4_hd_exp ///
-max_adj_ben4_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Pooled) label
+keep(rank_hd_exp2 reform_exp) ///
+ctitle(Pooled) label dec(2)
 
  * Reform + interaction, dropped
 reg rank_indiv2 rank_hd_exp2 reform_exp reform_exp#c.rank_hd_exp2 i.race_hd hisp_hd  ///
@@ -44,10 +42,8 @@ adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 
 * Export output
 outreg2 using output/rel_mob2, tex(frag) append ///
-keep(rank_hd_exp2 reform_exp reform_exp#c.rank_hd_exp2 reform_exp i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam avg_adj_ben4_hd_exp ///
-max_adj_ben4_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Pooled) label
+keep(rank_hd_exp2 reform_exp reform_exp#c.rank_hd_exp2 reform_exp) ///
+ctitle(Pooled) label dec(2)
 
 
 * Mother-son pairs **********************************
@@ -61,10 +57,8 @@ cluster(state_hd)
 
 * Export output
 outreg2 using output/rel_mob2, tex(frag) append ///
-keep(rank_indiv2 rank_hd_exp2 reform_exp i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam avg_adj_ben4_hd_exp ///
-max_adj_ben4_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Sons) label
+keep(rank_hd_exp2 reform_exp) ///
+ctitle(Sons) label dec(2)
 
 * Mother + interaction, dropped
 reg rank_indiv2 rank_hd_exp2 reform_exp reform_exp#c.rank_hd_exp2 i.race_hd hisp_hd  ///
@@ -75,10 +69,8 @@ cluster(state_hd)
 
 * Export output
 outreg2 using output/rel_mob2, tex(frag) append ///
-keep(rank_hd_exp2 reform_exp reform_exp#c.rank_hd_exp2 reform_exp i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam avg_adj_ben4_hd_exp ///
-max_adj_ben4_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Sons) label
+keep(rank_hd_exp2 reform_exp reform_exp#c.rank_hd_exp2 reform_exp) ///
+ctitle(Sons) label dec(2)
 
 * Mother-daughter pairs **********************************
 
@@ -92,10 +84,8 @@ cluster(state_hd)
 
 * Export output
 outreg2 using output/rel_mob2, tex(frag) append ///
-keep(rank_indiv2 rank_hd_exp2 reform_exp i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam avg_adj_ben4_hd_exp ///
-max_adj_ben4_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Daughters) label
+keep(rank_hd_exp2 reform_exp) ///
+ctitle(Daughters) label dec(2)
 
 * Reform + interaction, dropped
 reg rank_indiv2 rank_hd_exp2 reform_exp reform_exp#c.rank_hd_exp2 i.race_hd hisp_hd  ///
@@ -106,10 +96,8 @@ cluster(state_hd)
 
 * Export output
 outreg2 using output/rel_mob2, tex(frag) append ///
-keep(rank_hd_exp2 reform_exp reform_exp#c.rank_hd_exp2 reform_exp i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam avg_adj_ben4_hd_exp ///
-max_adj_ben4_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Daughters) label
+keep(rank_hd_exp2 reform_exp reform_exp#c.rank_hd_exp2 reform_exp) ///
+ctitle(Daughters) label dec(2)
 
 * #2: Placebo test with target population as male-headed, two-parent Family units whose wives
 * have less than 12 years of education when the child was under 18
@@ -141,10 +129,10 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_
 
 * Export output
 outreg2 using output/test_rel_mob, tex(frag) replace ///
-keep(rank_indiv rank_hd_exp reform_exp i.race_hd hisp_hd  ///
+keep(rank_hd_exp reform_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam avg_adj_ben4_hd_exp ///
 max_adj_ben4_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Pooled) label
+ctitle(Pooled) label dec(2)
 
  * Reform + interaction, dropped
 reg rank_indiv rank_hd_exp reform_exp reform_exp#c.rank_hd_exp i.race_hd hisp_hd  ///
@@ -157,7 +145,7 @@ outreg2 using output/test_rel_mob, tex(frag) append ///
 keep(rank_hd_exp reform_exp reform_exp#c.rank_hd_exp reform_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam avg_adj_ben4_hd_exp ///
 max_adj_ben4_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Pooled) label
+ctitle(Pooled) label dec(2)
 
 
 * Father-son pairs **********************************
@@ -171,10 +159,10 @@ cluster(state_hd)
 
 * Export output
 outreg2 using output/test_rel_mob, tex(frag) append ///
-keep(rank_indiv rank_hd_exp reform_exp i.race_hd hisp_hd  ///
+keep(rank_hd_exp reform_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam avg_adj_ben4_hd_exp ///
 max_adj_ben4_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Sons) label
+ctitle(Sons) label dec(2)
 
 * Reform + interaction, dropped
 reg rank_indiv rank_hd_exp reform_exp reform_exp#c.rank_hd_exp i.race_hd hisp_hd  ///
@@ -188,7 +176,7 @@ outreg2 using output/test_rel_mob, tex(frag) append ///
 keep(rank_hd_exp reform_exp reform_exp#c.rank_hd_exp reform_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam avg_adj_ben4_hd_exp ///
 max_adj_ben4_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Sons) label
+ctitle(Sons) label dec(2)
 
 * Father-daughter pairs **********************************
 
@@ -202,10 +190,10 @@ cluster(state_hd)
 
 * Export output
 outreg2 using output/test_rel_mob, tex(frag) append ///
-keep(rank_indiv rank_hd_exp reform_exp i.race_hd hisp_hd  ///
+keep(rank_hd_exp reform_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam avg_adj_ben4_hd_exp ///
 max_adj_ben4_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Daughters) label
+ctitle(Daughters) label dec(2)
 
 * Reform + interaction, dropped
 reg rank_indiv rank_hd_exp reform_exp reform_exp#c.rank_hd_exp i.race_hd hisp_hd  ///
@@ -219,7 +207,7 @@ outreg2 using output/test_rel_mob, tex(frag) append ///
 keep(rank_hd_exp reform_exp reform_exp#c.rank_hd_exp reform_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam avg_adj_ben4_hd_exp ///
 max_adj_ben4_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Daughters) label
+ctitle(Daughters) label dec(2)
 
 /* Absolute mobility */
 
@@ -231,10 +219,10 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_
 
 * Export output
 outreg2 using output/test_abs_mob, tex(frag) replace ///
-keep(abs_mob_indiv reform_exp i.race_hd hisp_hd  ///
+keep(reform_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam avg_adj_ben4_hd_exp ///
 max_adj_ben4_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Pooled) label
+ctitle(Pooled) label dec(2)
 
 * Father-son pairs, dropped
 reg abs_mob_indiv reform_exp i.race_hd hisp_hd  ///
@@ -244,10 +232,10 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, cl
 
 * Export output
 outreg2 using output/test_abs_mob, tex(frag) append ///
-keep(abs_mob_indiv reform_exp i.race_hd hisp_hd  ///
+keep(reform_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam avg_adj_ben4_hd_exp ///
 max_adj_ben4_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Sons) label
+ctitle(Sons) label dec(2)
 
 
 * Father-daughter pairs, dropped
@@ -259,7 +247,7 @@ i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, cl
 
 * Export output
 outreg2 using output/test_abs_mob, tex(frag) append ///
-keep(abs_mob_indiv reform_exp i.race_hd hisp_hd  ///
+keep(reform_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam avg_adj_ben4_hd_exp ///
 max_adj_ben4_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
-ctitle(Daughters) label
+ctitle(Daughters) label dec(2)
