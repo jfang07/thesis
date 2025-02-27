@@ -206,6 +206,9 @@ long_fam_merged$afdc_tanf <- ifelse(long_fam_merged$afdc_tanf %in% c(999998,9999
 long_fam_merged$wages <- ifelse(long_fam_merged$wages >= 9999999 | long_fam_merged$wages == 9, NA, long_fam_merged$wages)
 long_fam_merged$hours <- ifelse(long_fam_merged$hours %in% c(9999, 7800), NA, long_fam_merged$hours)
 
+# Fix miscoded race
+long_fam_merged$race <- ifelse(long_fam_merged$race == 0, 1, long_fam_merged$race)
+
 # Convert wage brackets to averages in the bracket
 long_fam_merged$wages <- case_when(
   long_fam_merged$wages == 1 ~ 250,

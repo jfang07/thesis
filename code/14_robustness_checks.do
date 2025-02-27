@@ -8,102 +8,49 @@ clear all
 * Get working directory
 pwd
 
-* Set working directory
-cd ..
-cd "Thesis"
-
 * Install packages if needed
 *ssc install outreg2
 *ssc install _gwtmean
+*ssc install coefplot
 
-*#1: relcalculate relative mobility results with non-strict inequality
-use cleaner_data.dta, clear
+*#1: event study and pre-trends
+use data/cleaner_data.dta, clear
 
 /* Relative mobility */
 
 * Mother-child pairs **********************************
 
-* Just reform, dropped
-reg rank_indiv2 rank_hd_exp2 reform_exp i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages ///
-adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+* Just reform (dropped) original
+reg rank_indiv rank_hd_exp reform_exp i.race_hd hisp_hd  ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_hd)
 
-* Export output
-outreg2 using output/rel_mob2, tex(frag) replace ///
-keep(rank_hd_exp2 reform_exp) ///
-ctitle(Pooled) label dec(2)
+* Just reform (dropped) interaction with year
+reg rank_indiv rank_hd_exp i.year##reform_exp i.race_hd hisp_hd  ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+i.state_hd i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_hd)
 
- * Reform + interaction, dropped
-reg rank_indiv2 rank_hd_exp2 reform_exp reform_exp#c.rank_hd_exp2 i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages ///
-adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
- i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_hd)
+* Just reform (dropped) interaction with cohort
+reg rank_indiv rank_hd_exp i.cohort##reform_exp i.race_hd hisp_hd  ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+i.state_hd i.year i.mod_state_hd_exp [aweight = weight], cluster(state_hd
 
-* Export output
-outreg2 using output/rel_mob2, tex(frag) append ///
-keep(rank_hd_exp2 reform_exp reform_exp#c.rank_hd_exp2 reform_exp) ///
-ctitle(Pooled) label dec(2)
+* Just reform (dropped) interaction with cohort
+reg rank_indiv rank_hd_exp i.cohort#reform_exp i.race_hd hisp_hd  ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(state_hd)
 
-
-* Mother-son pairs **********************************
-
-* Just reform, dropped
-reg rank_indiv2 rank_hd_exp2 reform_exp i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages ///
-adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
-i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, ///
-cluster(state_hd)
-
-* Export output
-outreg2 using output/rel_mob2, tex(frag) append ///
-keep(rank_hd_exp2 reform_exp) ///
-ctitle(Sons) label dec(2)
-
-* Mother + interaction, dropped
-reg rank_indiv2 rank_hd_exp2 reform_exp reform_exp#c.rank_hd_exp2 i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages ///
-adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
-i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, ///
-cluster(state_hd)
-
-* Export output
-outreg2 using output/rel_mob2, tex(frag) append ///
-keep(rank_hd_exp2 reform_exp reform_exp#c.rank_hd_exp2 reform_exp) ///
-ctitle(Sons) label dec(2)
-
-* Mother-daughter pairs **********************************
-
-
-* Just reform, dropped
-reg rank_indiv2 rank_hd_exp2 reform_exp i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages ///
-adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
-i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, ///
-cluster(state_hd)
-
-* Export output
-outreg2 using output/rel_mob2, tex(frag) append ///
-keep(rank_hd_exp2 reform_exp) ///
-ctitle(Daughters) label dec(2)
-
-* Reform + interaction, dropped
-reg rank_indiv2 rank_hd_exp2 reform_exp reform_exp#c.rank_hd_exp2 i.race_hd hisp_hd  ///
-age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam count_wages ///
-adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
-i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, ///
-cluster(state_hd)
-
-* Export output
-outreg2 using output/rel_mob2, tex(frag) append ///
-keep(rank_hd_exp2 reform_exp reform_exp#c.rank_hd_exp2 reform_exp) ///
-ctitle(Daughters) label dec(2)
+coefplot ., keep(year#reform_exp) xlab(1/19) vert  ytitle(Coefficient)
 
 * #2: Placebo test with target population as male-headed, two-parent Family units whose wives
 * have less than 12 years of education when the child was under 18
 
 * Load data
-use cleaner_test_data.dta, clear
+use data/cleaner_test_data.dta, clear
 
 * Describe data
 d
