@@ -15,7 +15,7 @@ set.seed(1)
 # install.packages("pacman")
 
 # Load packages
-pacman::p_load(readxl, tidyverse, matrixStats, DescTools, zoo, 
+pacman::p_load(readxl, tidyverse, matrixStats, zoo, 
                haven, Hmisc, cNORM, mark)
 
 # INDIVIDUAL#############################################################
@@ -27,9 +27,6 @@ individual <- read_dta("data/psid/individual_raw.dta")
 
 # Check dimensions
 dim(individual)
-
-# Get variables
-names(individual)
 
 # Data wrangling -----------------------
 
@@ -283,7 +280,7 @@ long_indiv_filled <- long_indiv2 %>%
   group_by(id) %>% 
   mutate(educ = na.approx(educ, na.rm = F),
          age = na.approx(age, na.rm = F)) %>% 
-  fill(c(educ, age), .direction = "downup") %>% 
+  fill(educ, .direction = "downup") %>% 
   ungroup()
 #View(long_indiv_filled)
 

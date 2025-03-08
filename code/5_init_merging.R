@@ -8,7 +8,7 @@ cat("\014")
 set.seed(1)
 
 # Load packages
-pacman::p_load(readxl, readstata13, tidyverse, matrixStats, DescTools, zoo, 
+pacman::p_load(readxl, readstata13, tidyverse, matrixStats, zoo, 
                haven, Hmisc, cNORM, mark)
 
 # Load data 

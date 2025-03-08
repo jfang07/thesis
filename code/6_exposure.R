@@ -5,11 +5,11 @@ rm(list = ls())
 # Clear console
 cat("\014")
 
-# Save working directory
-wd <- getwd()
 # Set random seed for reproducibility
 set.seed(1)
-install.packages("pacman")
+
+#install.packages("pacman")
+
 # Load packages
 pacman::p_load(tidyverse, matrixStats, zoo, 
                haven, Hmisc, cNORM, mark, DescTools)
@@ -20,9 +20,9 @@ merged_dts_ctrls <- read_dta("data/merged_dts_ctrls.dta")
 mom_educ <- long_indiv_dropped %>% 
   select(id, educ, year) 
 
-# Subset for ages under 18
+# Subset for ages under 5
 children_exposure <- long_indiv_dropped %>% 
-  filter(age < 18) %>% 
+  filter(age < 5 & weight > 0) %>% 
   select(c(age, id, id_mom, id_dad, int_num, year))
 #View(children_exposure)
 
@@ -48,7 +48,11 @@ exposure <- merge(x = children_mom_educ, y = merged_dts_ctrls, by = c("int_num",
          reform_exp = ifelse(any(year >= year(reform_date)), 1, 0))  %>% 
   ungroup() %>% 
   filter(!is.na(hd_exp)) %>% 
-  mutate(cohort_hd_exp = year - age.x)
+  mutate(cohort_hd_exp = year - age.y) %>% 
+  group_by(id.x) %>% 
+  mutate(cohort_hd_exp = ifelse(length(Mode(cohort_hd_exp, na.rm = T)) > 1, 
+                                sample(cohort_hd_exp, 1), 
+                                Mode(cohort_hd_exp)))
 dim(exposure)
 #View(exposure)
 
@@ -64,7 +68,7 @@ exposure_filled <- exposure %>%
   mutate(age.y = na.approx(age.y, na.rm = F),
          educ_mom = na.approx(educ_mom, na.rm = F),
          educ = na.approx(educ, na.rm = F)) %>% 
-  fill(c(educ_mom, educ, age.y, id_hd_exp,hd_exp, cohort_hd_exp), .direction = "downup") %>% 
+  fill(c(educ_mom, educ, id_hd_exp,hd_exp, cohort_hd_exp), .direction = "downup") %>% 
   ungroup() %>% 
   group_by(state, year) %>% 
   fill(c(adj_ben4, adj_eitc3), .direction = "downup") %>% 
@@ -87,20 +91,9 @@ mut_exposure <- exposure_filled %>%
          avg_educ_hd_exp = mean(educ, na.rm = T),
          avg_adj_ben4_hd_exp = mean(adj_ben4, na.rm = T), 
          mod_mar_hd_exp = ifelse(length(Mode(mar, na.rm = T)) > 1, NA, Mode(mar, na.rm = T)),
-         max_adj_ben4_hd_exp = ifelse(length(!is.na(adj_ben4)) == 0, NA, max(adj_ben4)),
-         cohort_hd_exp = year - age.y) %>% 
+         max_adj_ben4_hd_exp = ifelse(length(!is.na(adj_ben4)) == 0, NA, max(adj_ben4))) %>% 
   ungroup()
 dim(mut_exposure)
-
-# Fill in more missing values for modal state
-mut_exposure_filled <- mut_exposure %>% 
-  group_by(id.x) %>%
-  mutate(mod_state_hd_exp = ifelse(is.na(mod_state_hd_exp) & any(!is.na(afdc_tanf >= 0)), 
-                                   state[afdc_tanf == max(afdc_tanf)], 
-                                   mut_exposure$mod_state_hd_exp),
-         mod_state_hd_exp = ifelse(is.na(mod_state_hd_exp), sample(state, 1),
-                                   mut_exposure$mod_state_hd_exp))  %>% 
-  ungroup()
 
 # Check missing values
 for (var in names(mut_exposure)){
@@ -108,25 +101,34 @@ for (var in names(mut_exposure)){
   print(sum(is.na(mut_exposure[[var]])))
 } 
 
-# Keep only relevant variables
-exposure_subset <- mut_exposure_filled %>% 
-  select(c(id.x,id_hd_exp, cohort_hd_exp, avg_adj_ben4_hd_exp, max_adj_ben4_hd_exp,
+# Fill in more missing values for modal state
+# mut_exposure_filled <- mut_exposure %>% 
+#   group_by(id.x) %>%
+#   mutate(mod_state_hd_exp = ifelse(is.na(mod_state_hd_exp) & any(!is.na(afdc_tanf >= 0)), 
+#                                    state[afdc_tanf == max(afdc_tanf)], 
+#                                    mut_exposure$mod_state_hd_exp),
+#          mod_state_hd_exp = ifelse(is.na(mod_state_hd_exp), sample(state, 1),
+#                                    mut_exposure$mod_state_hd_exp))  %>% 
+#   ungroup()
+
+
+# Check missing values
+for (var in names(mut_exposure_filled)){
+  print(var)
+  print(sum(is.na(mut_exposure_filled[[var]])))
+} 
+
+
+# Keep only relevant variables calculated from previous merging
+merged_exp <- mut_exposure %>% 
+  select(c(id.x,id_hd_exp, hd_exp, cohort_hd_exp, avg_adj_ben4_hd_exp, max_adj_ben4_hd_exp,
            mod_state_hd_exp, mod_mar_hd_exp, avg_age_hd_exp, avg_num_fam, avg_educ_mom, 
            avg_educ_hd_exp, reform_exp)) %>% 
+  rename(id = id.x) %>% 
   unique()
 #View(exposure_subset)
 
-# Merge with exposure and collapse
-# need to figure out why there are duplicates
-merged_exp <- left_join(x = unique(exposure[c("id.x", "id_hd_exp", "hd_exp")]),
-                        y = exposure_subset, 
-                        by = c("id.x", "id_hd_exp")) %>% 
-  rename(id = id.x) %>% 
-  group_by(id, id_hd_exp) %>% 
-  filter(row_number(id) == sample(length(id), 1)) %>% 
-  ungroup()
-dim(merged_exp)
-#View(merged_exp)
+
 
 # Export data set
 write_dta(merged_exp, path = "data/merged_exp.dta")
