@@ -50,9 +50,11 @@ exposure <- merge(x = children_mom_educ, y = merged_dts_ctrls, by = c("int_num",
   filter(!is.na(hd_exp)) %>% 
   mutate(cohort_hd_exp = year - age.y) %>% 
   group_by(id.x) %>% 
-  mutate(cohort_hd_exp = ifelse(length(Mode(cohort_hd_exp, na.rm = T)) > 1, 
-                                sample(cohort_hd_exp, 1), 
-                                Mode(cohort_hd_exp)))
+  mutate(cohort_hd_exp = ifelse(length(Mode(cohort_hd_exp)) > 1, 
+                                min(Mode(cohort_hd_exp)), 
+                                Mode(cohort_hd_exp))) %>% 
+  ungroup()
+
 dim(exposure)
 #View(exposure)
 
@@ -99,23 +101,6 @@ dim(mut_exposure)
 for (var in names(mut_exposure)){
   print(var)
   print(sum(is.na(mut_exposure[[var]])))
-} 
-
-# Fill in more missing values for modal state
-# mut_exposure_filled <- mut_exposure %>% 
-#   group_by(id.x) %>%
-#   mutate(mod_state_hd_exp = ifelse(is.na(mod_state_hd_exp) & any(!is.na(afdc_tanf >= 0)), 
-#                                    state[afdc_tanf == max(afdc_tanf)], 
-#                                    mut_exposure$mod_state_hd_exp),
-#          mod_state_hd_exp = ifelse(is.na(mod_state_hd_exp), sample(state, 1),
-#                                    mut_exposure$mod_state_hd_exp))  %>% 
-#   ungroup()
-
-
-# Check missing values
-for (var in names(mut_exposure_filled)){
-  print(var)
-  print(sum(is.na(mut_exposure_filled[[var]])))
 } 
 
 

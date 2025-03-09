@@ -1,5 +1,3 @@
-# Get working directory
-getwd() # we are in the Documents folder
 
 # Clear environment
 rm(list = ls())
@@ -11,7 +9,7 @@ cat("\014")
 set.seed(1)
 
 # Load packages
-pacman::p_load(readxl, readstata13, tidyverse, matrixStats, zoo, 
+pacman::p_load(readxl, readstata13, tidyverse, DescTools, matrixStats, zoo, 
                haven, Hmisc, cNORM, mark)
 
 # Load  data
@@ -62,8 +60,12 @@ names(hds)
 #View(hds)
 
 # Merge pairs with heads and add individual wage variables
+# Impute missing wages with heads' if not participating in LF
 merged <- merge(x=pairs, y=hds, by= c("int_num","year")) %>% 
-  mutate(adj_indiv_wages = ifelse(indiv_wages == 0 & lag(lfp) == 0, NA, indiv_wages/pce_hd*100),
+  filter(weight > 0) %>% 
+  mutate(adj_indiv_wages = ifelse(indiv_wages == 0 & lag(lfp) == 0 & relat_to_head %in% c(2,20),
+                                  adj_wages_hd, 
+                                  indiv_wages/pce_hd*100),
          adj_indiv_wages = ifelse(relat_to_head %in% c(1,10), adj_wages_hd, 
                                   adj_indiv_wages)) %>% 
   group_by(id) %>%
@@ -89,10 +91,15 @@ for (var in names(merged_par)){
 # Filter and drop to keep only desired data
 names(merged_par)
 merged_par_dropped <- merged_par %>% 
-  mutate(cur_particip = ifelse(afdc_tanf_hd > 0, 1, 0), cohort = year - age,
-         hours_hd = ifelse(lag(lfp_hd) == 0, NA, hours_hd)) %>% 
+  mutate(cur_particip = ifelse(afdc_tanf_hd > 0, 1, 0),
+         cohort = year - age) %>% 
+  group_by(id) %>% 
+  mutate(cohort = ifelse(length(Mode(cohort[age > 1])) > 1,
+                         min(Mode(cohort[age > 1])),
+                         Mode(cohort[age > 1]))) %>% 
+  ungroup() %>% 
   filter(relat_to_head %in% c(1,10,2,20) 
-         & age %in% 25:55)
+         & age %in% 25:30)
 dim(merged_par_dropped)
 
 # Keep only observations with non-missing values for average long-term wages
