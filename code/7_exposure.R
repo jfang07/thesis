@@ -47,13 +47,7 @@ exposure <- merge(x = children_mom_educ, y = merged_dts_ctrls, by = c("int_num",
            TRUE ~ NA_real_), 
          reform_exp = ifelse(any(year >= year(reform_date)), 1, 0))  %>% 
   ungroup() %>% 
-  filter(!is.na(hd_exp)) %>% 
-  mutate(cohort_hd_exp = year - age.y) %>% 
-  group_by(id.x) %>% 
-  mutate(cohort_hd_exp = ifelse(length(Mode(cohort_hd_exp)) > 1, 
-                                min(Mode(cohort_hd_exp)), 
-                                Mode(cohort_hd_exp))) %>% 
-  ungroup()
+  filter(!is.na(hd_exp)) 
 
 dim(exposure)
 #View(exposure)
@@ -70,7 +64,7 @@ exposure_filled <- exposure %>%
   mutate(age.y = na.approx(age.y, na.rm = F),
          educ_mom = na.approx(educ_mom, na.rm = F),
          educ = na.approx(educ, na.rm = F)) %>% 
-  fill(c(educ_mom, educ, id_hd_exp,hd_exp, cohort_hd_exp), .direction = "downup") %>% 
+  fill(c(educ_mom, educ, id_hd_exp,hd_exp), .direction = "downup") %>% 
   ungroup() %>% 
   group_by(state, year) %>% 
   fill(c(adj_ben4, adj_eitc3), .direction = "downup") %>% 

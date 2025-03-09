@@ -20,7 +20,7 @@ unranked <- read_dta("data/unranked.dta")
 
 # Generate percentiles per year
 annual_distributions <- wage_distrib %>%
-  group_by(cohort) %>%
+  group_by(cohort,year) %>%
   summarise(
     wage_quantiles = list(wtd.quantile(adj_wages, weights = asecwt, probs = seq(0, 1, by = 0.01)))
   ) %>%
@@ -29,24 +29,20 @@ annual_distributions <- wage_distrib %>%
   ungroup()
 View(annual_distributions)
 
-# Rank PISD average wages based on CPS ASEC wage distributions
+# Rank PISD wages based on CPS ASEC wage distributions
 suppressWarnings(
 ranked <- unranked %>%
-  group_by(cohort) %>%
+  group_by(cohort, year) %>%
   rowwise() %>%
-  mutate(rank_indiv2 = ifelse(any(annual_distributions$cohort == cohort), min(which(
-    avg_adj_indiv_wages <= annual_distributions$wage_quantiles
-    [which(annual_distributions$cohort == cohort)])) -1, NA),
-    rank_indiv = ifelse(any(annual_distributions$cohort == cohort), max(which(
+  mutate(rank_indiv = ifelse(any(annual_distributions$cohort == cohort &
+                                   annual_distributions$year == year), max(which(
       avg_adj_indiv_wages >= annual_distributions$wage_quantiles
-      [which(annual_distributions$cohort == cohort)])) -1, NA)) %>%
+      [which(annual_distributions$cohort == cohort & 
+               annual_distributions$year == year)])) -1, NA)) %>%
   ungroup() %>%
   group_by(cohort_hd_exp) %>%
   rowwise() %>%
-  mutate(rank_hd_exp2 = ifelse(any(annual_distributions$cohort == cohort_hd_exp), min(which(
-      avg_adj_wages_hd_exp <= annual_distributions$wage_quantiles
-      [which(annual_distributions$cohort == cohort_hd_exp)])) -1, NA),
-      rank_hd_exp = ifelse(any(annual_distributions$cohort == cohort_hd_exp), max(which(
+  mutate(rank_hd_exp = ifelse(any(annual_distributions$cohort == cohort_hd_exp), max(which(
         avg_adj_wages_hd_exp >= annual_distributions$wage_quantiles
         [which(annual_distributions$cohort == cohort_hd_exp)])) -1, NA)) %>%
   ungroup()
@@ -82,10 +78,7 @@ suppressWarnings(
 data <- ranked %>%
   group_by(cohort_hd_exp) %>%
   rowwise() %>%
-  mutate(rank_hd_exp2 = ifelse(is.na(rank_hd_exp2), min(which(
-    avg_adj_wages_hd_exp <= annual_distributions$wage_quantiles
-    [which(annual_distributions$cohort == earliest)])) -1, rank_hd_exp2),
-    rank_hd_exp = ifelse(is.na(rank_hd_exp), max(which(
+  mutate(rank_hd_exp = ifelse(is.na(rank_hd_exp), max(which(
       avg_adj_wages_hd_exp >= annual_distributions$wage_quantiles
       [which(annual_distributions$cohort == earliest)])) -1, rank_hd_exp)) %>%
   ungroup()  %>%
