@@ -45,7 +45,18 @@ exposure <- merge(x = children_mom_educ, y = merged_dts_ctrls, by = c("int_num",
            id_hd_exp == id_mom.x ~ 2,
            id_hd_exp == id.x ~ 3,
            TRUE ~ NA_real_), 
-         reform_exp = ifelse(any(year >= year(reform_date)), 1, 0))  %>% 
+         reform_exp = ifelse(any(year >= year(reform_date)), 1, 0),
+         reform_exp1 = ifelse(any(year >= year(reform_date) - 1), 1, 0),
+         reform_exp2 = ifelse(any(year >= year(reform_date) - 2), 1, 0),
+         reform_exp3 = ifelse(any(year >= year(reform_date) - 3), 1, 0),
+         reform_exp4 = ifelse(any(year >= year(reform_date) - 4), 1, 0),
+         reform_exp5 = ifelse(any(year >= year(reform_date) - 5), 1, 0),
+         reform_exp6 = ifelse(any(year >= year(reform_date) - 6), 1, 0),
+         reform_exp7 = ifelse(any(year >= year(reform_date) - 7), 1, 0),
+         reform_exp8 = ifelse(any(year >= year(reform_date) - 8), 1, 0),
+         reform_exp9 = ifelse(any(year >= year(reform_date) - 9), 1, 0),
+         reform_exp10 = ifelse(any(year >= year(reform_date) - 10), 1, 0) 
+         )  %>% 
   ungroup() %>% 
   filter(!is.na(hd_exp)) 
 
@@ -100,9 +111,9 @@ for (var in names(mut_exposure)){
 
 # Keep only relevant variables calculated from previous merging
 merged_exp <- mut_exposure %>% 
-  select(c(id.x,id_hd_exp, hd_exp, cohort_hd_exp, avg_adj_ben4_hd_exp, max_adj_ben4_hd_exp,
+  select(c(id.x,id_hd_exp, hd_exp, avg_adj_ben4_hd_exp, max_adj_ben4_hd_exp,
            mod_state_hd_exp, mod_mar_hd_exp, avg_age_hd_exp, avg_num_fam, avg_educ_mom, 
-           avg_educ_hd_exp, reform_exp)) %>% 
+           avg_educ_hd_exp, starts_with("reform_exp"))) %>% 
   rename(id = id.x) %>% 
   unique()
 #View(exposure_subset)
@@ -111,3 +122,4 @@ merged_exp <- mut_exposure %>%
 
 # Export data set
 write_dta(merged_exp, path = "data/merged_exp.dta")
+

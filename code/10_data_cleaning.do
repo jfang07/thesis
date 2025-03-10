@@ -102,10 +102,8 @@ count if missing(abs_mob_indiv)
 drop if missing(reform_exp)
 
 * Label variables and values
-label variable rank_hd_exp "Mother's rank"
+label variable avg_rank_hd_exp "Mother's rank"
 label variable rank_indiv "Rank"
-label variable rank_hd_exp2 "Mother's rank"
-label variable rank_indiv2 "Rank"
 label variable num_fam_hd "Family unit size"
 label variable abs_mob_indiv "Abs. mobility indicator"
 label variable head "Household head indicator"
@@ -251,10 +249,8 @@ count if missing(abs_mob_indiv)
 drop if missing(reform_exp)
 
 * Label variables and values
-label variable rank_hd_exp "Father's rank"
+label variable avg_rank_hd_exp "Father's rank"
 label variable rank_indiv "Rank"
-label variable rank_hd_exp2 "Father's rank"
-label variable rank_indiv2 "Rank"
 label variable num_fam_hd "Family unit size"
 label variable abs_mob_indiv "Abs. mobility indicator"
 label variable head "Household head indicator"

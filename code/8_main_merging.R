@@ -9,7 +9,7 @@ cat("\014")
 set.seed(1)
 
 # Load packages
-pacman::p_load(readxl, readstata13, tidyverse, DescTools, matrixStats, zoo, 
+pacman::p_load(readxl, tidyverse, matrixStats, zoo, DescTools,
                haven, Hmisc, cNORM, mark)
 
 # Load  data
@@ -63,7 +63,7 @@ names(hds)
 # Impute missing wages with heads' if not participating in LF
 merged <- merge(x=pairs, y=hds, by= c("int_num","year")) %>% 
   filter(weight > 0) %>% 
-  mutate(adj_indiv_wages = ifelse(indiv_wages == 0 & lag(lfp) == 0 & relat_to_head %in% c(2,20),
+  mutate(adj_indiv_wages = ifelse(indiv_wages == 0 & relat_to_head %in% c(2,20),
                                   adj_wages_hd, 
                                   indiv_wages/pce_hd*100),
          adj_indiv_wages = ifelse(relat_to_head %in% c(1,10), adj_wages_hd, 
@@ -94,9 +94,10 @@ merged_par_dropped <- merged_par %>%
   mutate(cur_particip = ifelse(afdc_tanf_hd > 0, 1, 0),
          cohort = year - age) %>% 
   group_by(id) %>% 
-  mutate(cohort = ifelse(length(Mode(cohort[age > 1])) > 1,
-                         min(Mode(cohort[age > 1])),
-                         Mode(cohort[age > 1]))) %>% 
+  mutate(cohort = ifelse(length(Mode(cohort[age > 1], na.rm = T)) > 1,
+                         min(Mode(cohort[age > 1], na.rm = T)),
+                         Mode(cohort[age > 1], na.rm = T)),
+         cohort = ifelse(is.na(cohort), min(year - age), cohort)) %>% 
   ungroup() %>% 
   filter(relat_to_head %in% c(1,10,2,20) 
          & age %in% 25:30)
