@@ -36,6 +36,12 @@ ranked <- unranked %>%
                annual_distributions$year == year)])) -1, NA)) %>%
   ungroup() 
 
+# Average ranks 25-30
+ranked <- ranked %>% 
+  group_by(id) %>% 
+  mutate(avg_rank_indiv = mean(na.omit(rank_indiv[age %in% 25:30]))) %>% 
+  ungroup()
+
 # Restrict to only mothers
 data <- ranked %>%
   filter(hd_exp == 2 & mod_mar_hd_exp == 0 & avg_educ_mom < 12)
