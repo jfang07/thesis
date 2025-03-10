@@ -32,14 +32,14 @@ ranked <- unranked %>%
   mutate(rank_indiv = ifelse(!is.na(adj_indiv_wages) & any(annual_distributions$cohort == cohort &
                                    annual_distributions$year == year), max(which(
       adj_indiv_wages >= annual_distributions$wage_quantiles
-      [which(annual_distributions$cohort == cohort & 
+      [which(annual_distributions$cohort == cohort &
                annual_distributions$year == year)])) -1, NA)) %>%
-  ungroup() 
+  ungroup()
 
 # Average ranks 25-30
-ranked <- ranked %>% 
-  group_by(id) %>% 
-  mutate(avg_rank_indiv = mean(na.omit(rank_indiv[age %in% 25:30]))) %>% 
+ranked <- ranked %>%
+  group_by(id) %>%
+  mutate(avg_rank_indiv = mean(na.omit(rank_indiv[age %in% 25:30]))) %>%
   ungroup()
 
 # Restrict to only mothers
@@ -47,7 +47,7 @@ data <- ranked %>%
   filter(hd_exp == 2 & mod_mar_hd_exp == 0 & avg_educ_mom < 12)
 
 # Restrict to fathers for robustness check
-test_data <- ranked %>% 
+test_data <- ranked %>%
   filter(hd_exp == 1 & mod_mar_hd_exp == 1 & avg_educ_mom >= 12)
 
 # Export ranked data sets

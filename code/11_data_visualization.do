@@ -8,7 +8,6 @@ clear all
 * Install packages if needed
 ssc install outreg2
 ssc install _gwtmean
-ssc install catplot
 
 * Load data
 use data/cleaner_data.dta, clear
@@ -103,6 +102,7 @@ bys year sex: egen n_sex = count(id)
 
 * Generate necessary percentages for plotting
 egen pct_wage_obs_sex = wtmean((adj_indiv_wages > 0)*100), weight(weight) by (year sex)
+egen pct_reform = wtmean((reform_exp == 1)*100), weight(weight) by (cohort)
 bys year sex: egen ct_lfp = total(lfp*weight)
 bys year sex: egen ct = total(weight)
 gen pct_lfp_sex = ct_lfp/ct*100
@@ -145,12 +145,6 @@ twoway (histogram rank_indiv if reform_exp==0, width(5) color(blue%30) xlabel(#1
        legend(order(1 "Pre-Reform" 2 "Post-Reform" )) title("Distribution of Children's Ranks by Reform", size(medlarge))
 graph export output/rank_distrib.jpg, replace quality(100) width(1500) height(1000)
 
-* Distribution of exclusive ranks
-twoway (histogram rank_indiv2 if reform_exp==0, width(5) color(blue%30) xlabel(#10)) ///
-       (histogram rank_indiv2 if reform_exp ==1, width(5) color(red%30) xlabel(#10)), ///
-       legend(order(1 "Pre-Reform" 2 "Post-Reform" )) title("Alternative Distribution of Children's Ranks by Reform", size(medlarge))
-graph export output/rank_distrib2.jpg, replace quality(100) width(1500) height(1000)
-
 * Distribution of mothers' inclusive ranks
 twoway (histogram rank_hd_exp if reform_exp==0, width(5) xlabel(#10) color(blue%30))  ///
        (histogram rank_hd_exp if reform_exp==1, width(5) xlabel(#10) color(red%30)), ///
@@ -163,30 +157,6 @@ twoway (histogram rank_hd_exp2 if reform_exp==0, width(5) xlabel(#10) color(blue
        legend(order(1 "Pre-Reform" 2 "Post-Reform")) title("Alternative Distribution of Mothers' Ranks by Reform", size(medlarge))
 graph export output/rank_mom_distrib2.jpg, replace quality(100) width(1500) height(1000)
 
-* Plot race by reform (still testing)
-graph hbar race_hd reform_exp, ascategory
-graph export output/race_by_reform.jpg, replace quality(100) width(1500) height(1000)
-
-* Need to tweak in graph editor to make title fit
-*catplot [aweight=weight], over1(reform_exp) over2(race_hd) ///
-*percent(reform_exp) ///
-*var1opts(relabel(1 "Pre-Reform" 2 "Post-Reform")) ///
-*title("Weighted Distribution of Race for Child's Household Head by Reform", ///
-*size(medsmall)) blabel(bar, format(%4.1f)) asyvars
-
-* Export plot
-*graph export output/race_by_reform.jpg, replace quality(100) width(1500) height(1000)
-
-* Plot Hispanicity by reform
-*catplot reform_exp hisp_hd [aw=weight], ///
-*percent(reform_exp) ///
-*var1opts(relabel(1 "Pre-Reform" 2 "Post-Reform")) ///
-*var2opts(relabel(1 "Not Hispanic" 2 "Hispanic")) ///
-*title("Weighted Distribution of Hispanicity for Child's Household Head by Reform", ///
-*size(medsmall)) blabel(bar, format(%4.1f)) asyvars
-
-* Export plot
-*graph export output/hisp_by_reform.jpg, replace quality(100) width(1500) height(1000)
 
 * Mother-child pairs **********************************
 
@@ -227,6 +197,16 @@ title("Weighted AFDC/TANF Participation Rate Over Time", size(medlarge))
 
 * Export plot
 graph export output/particip.jpg, replace quality(100) width(1500) height(1000)
+
+* Plot AFDC/TANF participation rate over time
+twoway line avg_cur_particip year, sort ///
+xlabel(#10) xtitle("Year") ylabel(#10) ///
+ytitle("Weighted AFDC/TANF Participation Rate (%)", size(medsmall)) ///
+title("Weighted AFDC/TANF Participation Rate Over Time", size(medlarge))
+
+* Export plot
+graph export output/mar.jpg, replace quality(100) width(1500) height(1000)
+
 
 * Plot marriage rate over time
 twoway line avg_mar year, sort ///

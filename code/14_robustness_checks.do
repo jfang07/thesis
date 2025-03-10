@@ -20,27 +20,43 @@ use data/cleaner_data.dta, clear
 
 * Mother-child pairs **********************************
 
-* Just reform (dropped) original
+
+* Just reform  original
 reg avg_rank_indiv avg_rank_hd_exp reform_exp reform_exp1 reform_exp2 reform_exp3 reform_exp4 reform_exp5 reform_exp6 reform_exp7 reform_exp8 reform_exp9 reform_exp10 i.race_hd hisp_hd  ///
 avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
 adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
-i.year i.state_hd i.cohort i.mod_state_hd_exp [aweight = weight], cluster(mod_state_hd_exp)
+i.year i.mod_state_hd_exp i.state_hd i.cohort  [aweight = weight], cluster(mod_state_hd_exp)
+
+reg avg_rank_indiv avg_rank_hd_exp reform_exp reform_exp1 reform_exp2 reform_exp3 reform_exp4 reform_exp5 reform_exp6 reform_exp7 reform_exp8 reform_exp9 reform_exp10 i.race_hd hisp_hd  ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+i.year##i.mod_state_hd_exp i.state_hd i.cohort  [aweight = weight], cluster(mod_state_hd_exp)
 
 * Mother-son pairs **********************************
 
-* Just reform (dropped) original
+* Just reform  original
 reg avg_rank_indiv avg_rank_hd_exp reform_exp reform_exp1 reform_exp2 reform_exp3 reform_exp4 reform_exp5 reform_exp6 reform_exp7 reform_exp8 reform_exp9 reform_exp10 i.race_hd hisp_hd  ///
 avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
 adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
-i.year i.state_hd i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, cluster(mod_state_hd_exp) 
+i.year i.mod_state_hd_exp i.state_hd i.cohort  [aweight = weight] if sex == 1, cluster(mod_state_hd_exp)
+
+reg avg_rank_indiv avg_rank_hd_exp reform_exp reform_exp1 reform_exp2 reform_exp3 reform_exp4 reform_exp5 reform_exp6 reform_exp7 reform_exp8 reform_exp9 reform_exp10 i.race_hd hisp_hd  ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+i.year##i.mod_state_hd_exp i.state_hd i.cohort  [aweight = weight] if sex == 1, cluster(mod_state_hd_exp)
 
 * Mother-daughter pairs
 
-* Just reform (dropped) original
+* Just reform  original
 reg avg_rank_indiv avg_rank_hd_exp reform_exp reform_exp1 reform_exp2 reform_exp3 reform_exp4 reform_exp5 reform_exp6 reform_exp7 reform_exp8 reform_exp9 reform_exp10 i.race_hd hisp_hd  ///
 avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
 adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
-i.year i.state_hd i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, cluster(mod_state_hd_exp) 
+i.year i.mod_state_hd_exp i.state_hd i.cohort  [aweight = weight] if sex == 2, cluster(mod_state_hd_exp)
+
+reg avg_rank_indiv avg_rank_hd_exp reform_exp reform_exp1 reform_exp2 reform_exp3 reform_exp4 reform_exp5 reform_exp6 reform_exp7 reform_exp8 reform_exp9 reform_exp10 i.race_hd hisp_hd  ///
+avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
+adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
+i.year##i.mod_state_hd_exp i.state_hd i.cohort  [aweight = weight] if sex == 2, cluster(mod_state_hd_exp)
 
 coefplot ., keep(year#reform_exp) xlab(1/19) vert  ytitle(Coefficient)
 
@@ -66,7 +82,7 @@ graph export output/rank_dad_distrib_sons.jpg, replace quality(100) width(1500) 
 
 * Father-child pairs **********************************
 
-* Just reform, dropped
+* Just reform
 reg avg_rank_indiv avg_rank_hd_exp reform_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
@@ -79,7 +95,7 @@ age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  
 max_adj_ben4_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Pooled) label dec(2)
 
- * Reform + interaction, dropped
+ * Reform + interaction
 reg avg_rank_indiv avg_rank_hd_exp reform_exp reform_exp#c.avg_rank_hd_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
@@ -95,7 +111,7 @@ ctitle(Pooled) label dec(2)
 
 * Father-son pairs **********************************
 
-* Just reform, dropped
+* Just reform
 reg avg_rank_indiv avg_rank_hd_exp reform_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
@@ -109,7 +125,7 @@ age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  
 max_adj_ben4_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Sons) label dec(2)
 
-* Reform + interaction, dropped
+* Reform + interaction
 reg avg_rank_indiv avg_rank_hd_exp reform_exp reform_exp#c.avg_rank_hd_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
@@ -126,7 +142,7 @@ ctitle(Sons) label dec(2)
 * Father-daughter pairs **********************************
 
 
-* Just reform, dropped
+* Just reform
 reg avg_rank_indiv avg_rank_hd_exp reform_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
@@ -140,7 +156,7 @@ age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  
 max_adj_ben4_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Daughters) label dec(2)
 
-* Reform + interaction, dropped
+* Reform + interaction
 reg avg_rank_indiv avg_rank_hd_exp reform_exp reform_exp#c.avg_rank_hd_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
@@ -156,7 +172,7 @@ ctitle(Daughters) label dec(2)
 
 /* Absolute mobility */
 
-* Father-child pairs, dropped
+* Father-child pairs
 reg abs_mob_indiv reform_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
@@ -169,7 +185,7 @@ age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  
 max_adj_ben4_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) ///
 ctitle(Pooled) label dec(2)
 
-* Father-son pairs, dropped
+* Father-son pairs
 reg abs_mob_indiv reform_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
@@ -183,7 +199,7 @@ max_adj_ben4_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd) 
 ctitle(Sons) label dec(2)
 
 
-* Father-daughter pairs, dropped
+* Father-daughter pairs
 reg abs_mob_indiv reform_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
