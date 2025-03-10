@@ -24,25 +24,25 @@ use data/cleaner_data.dta, clear
 reg avg_rank_indiv avg_rank_hd_exp reform_exp i.race_hd hisp_hd  ///
 avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
 adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
-i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(mod_state_hd_exp)
+i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(mod_state_hd_exp)
 
 * Just reform (dropped) interaction with year
 reg avg_rank_indiv avg_rank_hd_exp i.year##reform_exp i.race_hd hisp_hd  ///
 avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
 adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
-i.state_hd i.cohort i.mod_state_hd_exp [aweight = weight], cluster(mod_state_hd_exp)
+i.cohort i.mod_state_hd_exp [aweight = weight], cluster(mod_state_hd_exp)
 
 * Just reform (dropped) interaction with cohort
 reg avg_rank_indiv avg_rank_hd_exp i.cohort##reform_exp i.race_hd hisp_hd  ///
 avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
 adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
-i.state_hd i.year i.mod_state_hd_exp [aweight = weight], cluster(state_hd
+i.year i.mod_state_hd_exp [aweight = weight], cluster(state_hd
 
 * Just reform (dropped) interaction with cohort
 reg avg_rank_indiv avg_rank_hd_exp i.cohort#reform_exp i.race_hd hisp_hd  ///
 avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
 adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
-i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(mod_state_hd_exp)
+i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(mod_state_hd_exp)
 
 coefplot ., keep(year#reform_exp) xlab(1/19) vert  ytitle(Coefficient)
 
@@ -72,7 +72,7 @@ graph export output/rank_dad_distrib_sons.jpg, replace quality(100) width(1500) 
 reg avg_rank_indiv avg_rank_hd_exp reform_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
-i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(mod_state_hd_exp)
+i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(mod_state_hd_exp)
 
 * Export output
 outreg2 using output/test_rel_mob, tex(frag) replace ///
@@ -85,7 +85,7 @@ ctitle(Pooled) label dec(2)
 reg avg_rank_indiv avg_rank_hd_exp reform_exp reform_exp#c.avg_rank_hd_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
- i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(mod_state_hd_exp)
+ i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(mod_state_hd_exp)
 
 * Export output
 outreg2 using output/test_rel_mob, tex(frag) append ///
@@ -101,7 +101,7 @@ ctitle(Pooled) label dec(2)
 reg avg_rank_indiv avg_rank_hd_exp reform_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
-i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, ///
+i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, ///
 cluster(mod_state_hd_exp)
 
 * Export output
@@ -115,7 +115,7 @@ ctitle(Sons) label dec(2)
 reg avg_rank_indiv avg_rank_hd_exp reform_exp reform_exp#c.avg_rank_hd_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
-i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, ///
+i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, ///
 cluster(mod_state_hd_exp)
 
 * Export output
@@ -132,7 +132,7 @@ ctitle(Sons) label dec(2)
 reg avg_rank_indiv avg_rank_hd_exp reform_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
-i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, ///
+i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, ///
 cluster(mod_state_hd_exp)
 
 * Export output
@@ -146,7 +146,7 @@ ctitle(Daughters) label dec(2)
 reg avg_rank_indiv avg_rank_hd_exp reform_exp reform_exp#c.avg_rank_hd_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
-i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, ///
+i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, ///
 cluster(mod_state_hd_exp)
 
 * Export output
@@ -162,7 +162,7 @@ ctitle(Daughters) label dec(2)
 reg abs_mob_indiv reform_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
-i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(mod_state_hd_exp)
+i.year i.cohort i.mod_state_hd_exp [aweight = weight], cluster(mod_state_hd_exp)
 
 * Export output
 outreg2 using output/test_abs_mob, tex(frag) replace ///
@@ -175,7 +175,7 @@ ctitle(Pooled) label dec(2)
 reg abs_mob_indiv reform_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom  avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
-i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, cluster(mod_state_hd_exp)
+i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 1, cluster(mod_state_hd_exp)
 
 * Export output
 outreg2 using output/test_abs_mob, tex(frag) append ///
@@ -189,7 +189,7 @@ ctitle(Sons) label dec(2)
 reg abs_mob_indiv reform_exp i.race_hd hisp_hd  ///
 age_hd age_hd_sq avg_age_hd_exp avg_age_hd_exp_sq avg_educ_hd_exp avg_educ_mom avg_num_fam count_wages ///
 adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
-i.state_hd i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, cluster(mod_state_hd_exp)
+i.year i.cohort i.mod_state_hd_exp [aweight = weight] if sex == 2, cluster(mod_state_hd_exp)
 
 
 * Export output
