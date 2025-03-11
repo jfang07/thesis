@@ -27,6 +27,7 @@ avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
 adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.year i.mod_state_hd_exp i.state_hd i.cohort  [aweight = weight], cluster(mod_state_hd_exp)
 
+* Interacted FEs
 reg avg_rank_indiv avg_rank_hd_exp reform_exp reform_exp1 reform_exp2 reform_exp3 reform_exp4 reform_exp5 reform_exp6 reform_exp7 reform_exp8 reform_exp9 reform_exp10 i.race_hd hisp_hd  ///
 avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
 adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
@@ -40,12 +41,13 @@ avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
 adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.year i.mod_state_hd_exp i.state_hd i.cohort  [aweight = weight] if sex == 1, cluster(mod_state_hd_exp)
 
+* Interacted FEs
 reg avg_rank_indiv avg_rank_hd_exp reform_exp reform_exp1 reform_exp2 reform_exp3 reform_exp4 reform_exp5 reform_exp6 reform_exp7 reform_exp8 reform_exp9 reform_exp10 i.race_hd hisp_hd  ///
 avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
 adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.year##i.mod_state_hd_exp i.state_hd i.cohort  [aweight = weight] if sex == 1, cluster(mod_state_hd_exp)
 
-* Mother-daughter pairs
+* Mother-daughter pairs **********************************
 
 * Just reform  original
 reg avg_rank_indiv avg_rank_hd_exp reform_exp reform_exp1 reform_exp2 reform_exp3 reform_exp4 reform_exp5 reform_exp6 reform_exp7 reform_exp8 reform_exp9 reform_exp10 i.race_hd hisp_hd  ///
@@ -53,12 +55,13 @@ avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
 adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.year i.mod_state_hd_exp i.state_hd i.cohort  [aweight = weight] if sex == 2, cluster(mod_state_hd_exp)
 
+* Interacted FEs
 reg avg_rank_indiv avg_rank_hd_exp reform_exp reform_exp1 reform_exp2 reform_exp3 reform_exp4 reform_exp5 reform_exp6 reform_exp7 reform_exp8 reform_exp9 reform_exp10 i.race_hd hisp_hd  ///
 avg_age_hd_exp avg_age_hd_exp_sq avg_educ_mom avg_num_fam ///
 adj_ben4_hd  adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd ///
 i.year##i.mod_state_hd_exp i.state_hd i.cohort  [aweight = weight] if sex == 2, cluster(mod_state_hd_exp)
 
-coefplot ., keep(year#reform_exp) xlab(1/19) vert  ytitle(Coefficient)
+
 
 * #2: Placebo test with target population as male-headed, two-parent Family units whose wives
 * have less than 12 years of education when the child was under 18
