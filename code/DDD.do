@@ -40,7 +40,7 @@ i.year i.state_hd i.cohort i.mod_state_hd_exp [aweight = weight], cluster(mod_st
 outreg2 using output/rel_mob, tex(frag) replace ///
 keep(avg_rank_hd_exp reform_exp) ///
 ctitle(Pooled) label dec(2) ///
-addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the child's state level.)
+addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the level of the mother's modal state during the exposure period.)
 
  * Reform + interaction
 reg avg_rank_indiv avg_rank_hd_exp reform_exp##risk reform_exp#c.avg_rank_hd_exp i.race_hd hisp_hd  ///
@@ -118,7 +118,7 @@ i.year i.state_hd i.cohort i.mod_state_hd_exp [aweight = weight], cluster(mod_st
 outreg2 using output/abs_mob, tex(frag) replace ///
 keep(reform_exp) ///
 ctitle(Pooled) label dec(2) ///
-addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the child's state level.)
+addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the level of the mother's modal state during the exposure period.)
 
 * Mother-son pairs
 reg abs_mob_indiv reform_exp##risk i.race_hd hisp_hd  ///
@@ -161,7 +161,7 @@ i.year i.state_hd i.cohort i.mod_state_hd_exp [aweight = weight], cluster(mod_st
 outreg2 using output/hs_grad, tex(frag) replace ///
 keep(hs_grad reform_exp) ///
 ctitle(Pooled) label dec(2) ///
-addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the child's state level.)
+addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the level of the mother's modal state during the exposure period.)
 
  * Mother-child pairs, college grad
 reg col_grad reform_exp##risk i.race_hd hisp_hd  ///
@@ -173,7 +173,7 @@ i.year i.state_hd i.cohort i.mod_state_hd_exp [aweight = weight], cluster(mod_st
 outreg2 using output/col_grad, tex(frag) replace ///
 keep(col_grad reform_exp) ///
 ctitle(Pooled) label dec(2) ///
-addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the child's state level.)
+addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the level of the mother's modal state during the exposure period.)
 
  * Mother-child pairs
 reg educ reform_exp##risk i.race_hd hisp_hd  ///
@@ -185,7 +185,7 @@ i.year i.state_hd i.cohort i.mod_state_hd_exp [aweight = weight], cluster(mod_st
 outreg2 using output/educ, tex(frag) replace ///
 keep(educ reform_exp) ///
 ctitle(Pooled) label dec(2) ///
-addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the child's state level.)
+addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the level of the mother's modal state during the exposure period.)
 
 * Mother-son pairs, HS grad
 reg hs_grad reform_exp##risk i.race_hd hisp_hd  ///
@@ -266,7 +266,7 @@ i.year i.state_hd i.cohort i.mod_state_hd_exp [aweight = weight], cluster(mod_st
 outreg2 using output/hours_hd, tex(frag) replace ///
 keep(reform_exp) ///
 ctitle(Pooled) label dec(2) ///
-addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the child's state level.)
+addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the level of the mother's modal state during the exposure period.)
 
 * Mother-son pairs
 reg hours_hd reform_exp##risk i.race_hd hisp_hd  ///
@@ -302,7 +302,7 @@ i.year i.state_hd i.cohort i.mod_state_hd_exp [aweight = weight], cluster(mod_st
 outreg2 using output/mar, tex(frag) replace ///
 keep(reform_exp) ///
 ctitle(Pooled) label dec(2) ///
-addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the child's state level.)
+addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the level of the mother's modal state during the exposure period.)
 
 * Mother-son pairs
 reg mar reform_exp##risk i.race_hd hisp_hd  ///
@@ -338,7 +338,7 @@ i.year i.state_hd i.cohort i.mod_state_hd_exp [aweight = weight], cluster(mod_st
 outreg2 using output/lfp, tex(frag) replace ///
 keep(reform_exp) ///
 ctitle(Pooled) label dec(2) ///
-addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the child's state level.)
+addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the level of the mother's modal state during the exposure period.)
 
 * Mother-son pairs
 reg lfp reform_exp##risk i.race_hd hisp_hd  ///
@@ -374,7 +374,7 @@ i.year i.state_hd i.cohort i.mod_state_hd_exp [aweight = weight], cluster(mod_st
 outreg2 using output/num_fam_hd, tex(frag) replace ///
 keep(reform_exp) ///
 ctitle(Pooled) label dec(2) ///
-addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the child's state level.)
+addnote (Note: all regressions include covariates, fixed effects, and error-clustering at the level of the mother's modal state during the exposure period.)
 
 * Mother-son pairs
 reg num_fam_hd reform_exp##risk i.race_hd hisp_hd  ///
