@@ -249,6 +249,10 @@ gen abs_mob_indiv = 1 if avg_adj_indiv_wages > avg_adj_wages_hd_exp
 replace abs_mob_indiv = 0 if avg_adj_indiv_wages <= avg_adj_wages_hd_exp
 count if missing(abs_mob_indiv)
 
+* Add log wages
+gen lwage = log(adj_indiv_wages)
+gen lavg_wage = log(avg_adj_indiv_wages)
+
 * Drop observations without reform indicator
 drop if missing(reform_exp)
 
