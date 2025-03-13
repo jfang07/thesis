@@ -10,7 +10,7 @@ clear all
 *ssc install outreg2
 
 * Load data
-use data/data.dta, clear
+use data/data18.dta, clear
 
 * Describe data
 d
@@ -166,7 +166,7 @@ save data/cleaner_data.dta, replace
 **# Repeat for placebo test
 
 * Data cleaning ******************************
-use data/test_data.dta, clear
+use data/test_data18.dta, clear
 
 * Check missing values
 foreach var of varlist _all {

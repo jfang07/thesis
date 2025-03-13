@@ -101,4 +101,3 @@ test_data18 <- ranked18 %>%
 write_dta(ranked18, path = "data/ranked18.dta")
 write_dta(data18, path = "data/data18.dta")
 write_dta(test_data18, path = "data/test_data18.dta")
-
