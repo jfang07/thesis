@@ -114,7 +114,7 @@ for (var in names(mut_exposure)){
 merged_exp <- mut_exposure %>% 
   select(c(id.x,id_hd_exp, hd_exp, avg_adj_ben4_hd_exp, max_adj_ben4_hd_exp,
            mod_state_hd_exp, mod_mar_hd_exp, avg_age_hd_exp, avg_num_fam, avg_educ_mom, 
-           avg_educ_hd_exp, starts_with("reform_exp"))) %>% 
+           avg_educ_hd_exp, reform_age, starts_with("reform_exp"))) %>% 
   rename(id = id.x) %>% 
   unique()
 #View(exposure_subset)
@@ -195,7 +195,7 @@ mut_exposure18 <- exposure_filled18 %>%
 merged_exp18 <- mut_exposure18 %>% 
   select(c(id.x,id_hd_exp, hd_exp, avg_adj_ben4_hd_exp, max_adj_ben4_hd_exp,
            mod_state_hd_exp, mod_mar_hd_exp, avg_age_hd_exp, avg_num_fam, avg_educ_mom, 
-           avg_educ_hd_exp, starts_with("reform"))) %>% 
+           avg_educ_hd_exp, reform_age, starts_with("reform_exp"))) %>% 
   rename(id = id.x) %>% 
   unique()
 #View(exposure_subset)
