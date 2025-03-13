@@ -55,7 +55,8 @@ exposure <- merge(x = children_mom_educ, y = merged_dts_ctrls, by = c("int_num",
          reform_exp7 = ifelse(any(year >= year(reform_date) - 7), 1, 0),
          reform_exp8 = ifelse(any(year >= year(reform_date) - 8), 1, 0),
          reform_exp9 = ifelse(any(year >= year(reform_date) - 9), 1, 0),
-         reform_exp10 = ifelse(any(year >= year(reform_date) - 10), 1, 0) 
+         reform_exp10 = ifelse(any(year >= year(reform_date) - 10), 1, 0),
+         reform_age = min(age.x[reform_exp == 1])
          )  %>% 
   ungroup() %>% 
   filter(!is.na(hd_exp)) 
@@ -158,7 +159,8 @@ exposure18 <- merge(x = children_mom_educ18, y = merged_dts_ctrls, by = c("int_n
          reform_exp7 = ifelse(any(year >= year(reform_date) - 7), 1, 0),
          reform_exp8 = ifelse(any(year >= year(reform_date) - 8), 1, 0),
          reform_exp9 = ifelse(any(year >= year(reform_date) - 9), 1, 0),
-         reform_exp10 = ifelse(any(year >= year(reform_date) - 10), 1, 0) 
+         reform_exp10 = ifelse(any(year >= year(reform_date) - 10), 1, 0),
+         reform_age = min(age.x[reform_exp == 1])
   )  %>% 
   ungroup() %>% 
   filter(!is.na(hd_exp)) 
@@ -193,7 +195,7 @@ mut_exposure18 <- exposure_filled18 %>%
 merged_exp18 <- mut_exposure18 %>% 
   select(c(id.x,id_hd_exp, hd_exp, avg_adj_ben4_hd_exp, max_adj_ben4_hd_exp,
            mod_state_hd_exp, mod_mar_hd_exp, avg_age_hd_exp, avg_num_fam, avg_educ_mom, 
-           avg_educ_hd_exp, starts_with("reform_exp"))) %>% 
+           avg_educ_hd_exp, starts_with("reform"))) %>% 
   rename(id = id.x) %>% 
   unique()
 #View(exposure_subset)
