@@ -45,7 +45,7 @@ exposure <- merge(x = children_mom_educ, y = merged_dts_ctrls, by = c("int_num",
            id_hd_exp == id_mom.x ~ 2,
            id_hd_exp == id.x ~ 3,
            TRUE ~ NA_real_),
-         reform_exp = ifelse(any(year >= year(reform_date)), 1, 0),
+         reform_exp = ifelse(any(year >= year(reform_date)), 1, 0)
          )  %>%
   ungroup() %>%
   filter(!is.na(hd_exp))
@@ -101,7 +101,7 @@ for (var in names(mut_exposure)){
 merged_exp <- mut_exposure %>%
   select(c(id.x,id_hd_exp, hd_exp,
            mod_state_hd_exp, mod_mar_hd_exp, avg_age_hd_exp, avg_num_fam, avg_educ_mom,
-           avg_educ_hd_exp, reform_age, reform_exp))) %>%
+           avg_educ_hd_exp, reform_exp)) %>%
   rename(id = id.x) %>%
   unique()
 #View(exposure_subset)
@@ -137,8 +137,7 @@ exposure18 <- merge(x = children_mom_educ18, y = merged_dts_ctrls, by = c("int_n
            id_hd_exp == id.x ~ 3,
            TRUE ~ NA_real_),
          reform_exp = ifelse(any(year >= year(reform_date)), 1, 0),
-         reform_age = min(age.x[year >= year(reform_date))])
-  )  %>%
+         reform_age = ifelse(reform_exp == 1, min(age.x[year >= year(reform_date)]), NA)) %>%
   ungroup() %>%
   filter(!is.na(hd_exp))
 
@@ -170,7 +169,7 @@ mut_exposure18 <- exposure_filled18 %>%
 merged_exp18 <- mut_exposure18 %>%
   select(c(id.x,id_hd_exp, hd_exp,
            mod_state_hd_exp, mod_mar_hd_exp, avg_age_hd_exp, avg_num_fam, avg_educ_mom,
-           avg_educ_hd_exp, reform_age, starts_with("reform_exp"))) %>%
+           avg_educ_hd_exp, reform_age, reform_exp)) %>%
   rename(id = id.x) %>%
   unique()
 #View(exposure_subset)

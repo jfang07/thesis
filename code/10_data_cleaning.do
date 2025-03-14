@@ -29,8 +29,8 @@ foreach var of varlist _all {
 }
 
 * Use LOCF to fill in time-invariant variables
-foreach var of varlist race_hd hisp_hd avg_adj_ben4_hd_exp ///
-max_adj_ben4_hd_exp reform_exp avg_age_hd_exp mod_state_hd_exp ///
+foreach var of varlist race_hd hisp_hd  ///
+ reform_exp avg_age_hd_exp mod_state_hd_exp ///
 avg_adj_wages_hd avg_adj_indiv_wages  avg_adj_wages_hd_exp {
     bysort id (year): replace `var' = `var'[_n-1] if missing(`var')
 }
@@ -120,26 +120,24 @@ label variable count_wages_hd_exp "Mother's count of non-missing wages, ages 25-
 label variable age_sq "Age squared"
 label variable age_hd "Age of head"
 label variable age_hd_sq "Age of head squared"
-label variable avg_age_hd_exp "Mother's avg. age, child under 18"
-label variable avg_age_hd_exp_sq "Mother's avg. age squared, child under 18"
+label variable avg_age_hd_exp "Mother's avg. age, child under 5"
+label variable avg_age_hd_exp_sq "Mother's avg. age squared, child under 5"
 label variable adj_ben4_hd "State AFDC/TANF 4-person benefit standard (2017 $)"
 label variable adj_eitc3_hd "Max. 3-person EITC (2017 $)"
 label variable povrate_hd "State poverty rate (%)"
 label variable recip_rate_hd "State AFDC/TANF recipiency rate (%)"
 label variable unemp_hd "State unemploymet rate (%)"
-label variable reform_exp "Reform exposure indicator for mother, child under 18"
+label variable reform_exp "Reform exposure indicator for mother, child under 5"
 label define race_hd 1 "White" 2 "Black" 3 "Native/Latino" 4 "Asian/Pacific Islander" 7 "Other"
 label values race_hd race_hd
 label define hisp_hd 0 "Not Hispanic" 1 "Hispanic"
 label values hisp_hd hisp_hd
 label define head 0 "Spouse of head" 1 "Head"
 label values head head
-label variable avg_adj_ben4_hd_exp "Mother's avg. AFDC/TANF 4-person benefit standard, child under 18"
-label variable max_adj_ben4_hd_exp "Mother's max. AFDC/TANF 4-person benefit standard, child under 18"
-label variable avg_num_fam "Mother's avg. family unit size, child under 18"
-label variable avg_educ_mom "Mother's avg. years of education, child under 18"
-label variable mod_state_hd_exp "Mother's modal state, child under 18"
-label variable mod_mar_hd_exp "Indicator for mother's modal marital status, child under 18"
+label variable avg_num_fam "Mother's avg. family unit size, child under 5"
+label variable avg_educ_mom "Mother's avg. years of education, child under 5"
+label variable mod_state_hd_exp "Mother's modal state, child under 5"
+label variable mod_mar_hd_exp "Indicator for mother's modal marital status, child under 5"
 label variable sex_hd "Sex of head"
 label variable state_hd "State of"
 label variable cur_particip "Current AFDC/TANF participation of head"
@@ -175,8 +173,7 @@ foreach var of varlist _all {
 }
 
 * Use LOCF to fill in time-invariant variables
-foreach var of varlist race_hd hisp_hd avg_adj_ben4_hd_exp ///
-max_adj_ben4_hd_exp reform_exp avg_age_hd_exp mod_state_hd_exp ///
+foreach var of varlist race_hd hisp_hd reform_exp avg_age_hd_exp mod_state_hd_exp ///
 avg_adj_wages_hd avg_adj_indiv_wages  avg_adj_wages_hd_exp {
     bysort id (year): replace `var' = `var'[_n-1] if missing(`var')
 }
@@ -271,27 +268,26 @@ label variable count_wages "Count of non-missing wages, ages 25-30"
 label variable count_wages_hd_exp "Father's wage observation frequency, ages 25-30"
 label variable age_hd "Age of head"
 label variable age_hd_sq "Age of head squared"
-label variable avg_age_hd_exp "Father's avg. age, child under 18"
-label variable avg_age_hd_exp_sq "Father's avg. age, child under 18 squared"
+label variable reform_age "Age at reform"
+label variable avg_age_hd_exp "Father's avg. age, child under 5"
+label variable avg_age_hd_exp_sq "Father's avg. age, child under 5 squared"
 label variable adj_ben4_hd "State AFDC/TANF 4-person benefit standard (2017 $)"
 label variable adj_eitc3_hd "Max. 3-person EITC (2017 $)"
 label variable povrate_hd "State poverty rate (%)"
 label variable recip_rate_hd "STATE AFDC/TANF recipiency rate (%)"
 label variable unemp_hd "State unemploymet rate (%)"
-label variable reform_exp "Reform exposure indicator for father, child under 18"
+label variable reform_exp "Reform exposure indicator for father, child under 5"
 label define race_hd 1 "White" 2 "Black" 3 "Native/Latino" 4 "Asian/Pacific Islander" 7 "Other"
 label values race_hd race_hd
 label define hisp_hd 0 "Not Hispanic" 1 "Hispanic"
 label values hisp_hd hisp_hd
 label define head 0 "Spouse of head" 1 "Head"
 label values head head
-label variable avg_adj_ben4_hd_exp "Father's avg. AFDC/TANF 4-person benefit standard, child under 18"
-label variable max_adj_ben4_hd_exp "Father's max. AFDC/TANF 4-person benefit standard, child under 18"
-label variable avg_num_fam "Father's avg. family unit size, child under 18"
-label variable avg_educ_mom "Mother's avg. years of education, child under 18"
-label variable avg_educ_hd_exp "Father's avg. years of education, child under 18"
-label variable mod_state_hd_exp "Father's modal state, child under 18"
-label variable mod_mar_hd_exp "Indicator for mother's modal marital status, child under 18"
+label variable avg_num_fam "Father's avg. family unit size, child under 5"
+label variable avg_educ_mom "Mother's avg. years of education, child under 5"
+label variable avg_educ_hd_exp "Father's avg. years of education, child under 5"
+label variable mod_state_hd_exp "Father's modal state, child under 5"
+label variable mod_mar_hd_exp "Indicator for mother's modal marital status, child under 5"
 label variable sex_hd "Sex of head"
 label variable state_hd "State of head"
 label variable cur_particip "Current AFDC/TANF participation of head"
