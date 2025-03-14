@@ -102,6 +102,10 @@ count if missing(abs_mob_indiv)
 gen lwage = log(adj_indiv_wages)
 gen lavg_wage = log(avg_adj_indiv_wages)
 
+* Generate woman indicator
+gen woman = 1 if sex == 2
+replace woman = 0 if sex == 1
+
 * Drop observations without reform indicator
 drop if missing(reform_exp)
 
@@ -112,6 +116,7 @@ label variable num_fam_hd "Family unit size"
 label variable abs_mob_indiv "Abs. mobility indicator"
 label variable head "Household head indicator"
 label variable race_hd "Race of head"
+label variable woman "Woman indicator"
 label variable black "Black indicator"
 label variable hisp_hd "Hispanicity of head"
 label variable age "Age"

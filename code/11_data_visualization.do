@@ -20,18 +20,25 @@ sum
 bys reform_exp: sum
 bys reform_exp sex: sum
 
+* Generate summary statistics without sorting
+outreg2 [aw=weight] using output/summary, tex(frag) replace sum(log) ///
+keep(avg_rank_indiv abs_mob_indiv  educ lfp mar hours_hd avg_adj_indiv_wages avg_adj_wages_hd_exp ///
+num_fam_hd age black woman hisp_hd avg_rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom  ///
+count_wages_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd ///
+recip_rate_hd unemp_hd) ///
+eqkeep(mean sd N) label
 
 * Generate summary statistics
 bysort reform_exp:outreg2 [aw=weight] using output/summary, tex(frag) replace sum(log) ///
-keep(rank_indiv abs_mob_indiv  educ lfp mar hours_hd avg_adj_indiv_wages avg_adj_wages_hd_exp ///
-num_fam_hd age black hisp_hd rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom  ///
+keep(avg_rank_indiv abs_mob_indiv  educ lfp mar hours_hd avg_adj_indiv_wages avg_adj_wages_hd_exp ///
+num_fam_hd age black hisp_hd avg_rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom  ///
 count_wages_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd ///
 recip_rate_hd unemp_hd) ///
 eqkeep(mean sd) label dec(2)
 
 * Calculate t-statistics
-foreach var in rank_indiv abs_mob_indiv  educ lfp mar hours_hd avg_adj_indiv_wages ///
-avg_adj_wages_hd_exp num_fam_hd age black hisp_hd rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom  ///
+foreach var in avg_rank_indiv abs_mob_indiv  educ lfp mar hours_hd avg_adj_indiv_wages ///
+avg_adj_wages_hd_exp num_fam_hd age black hisp_hd avg_rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom  ///
 count_wages_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd {
 	di "`var'"
 	ttest `var', by(reform_exp) unequal
@@ -41,15 +48,15 @@ count_wages_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd {
 * Mother-son pairs
 bysort reform_exp: outreg2 [aw=weight] using output/summary.tex if sex == 1, ///
 tex(frag) append sum(log) ///
-keep(rank_indiv abs_mob_indiv  educ lfp mar hours_hd avg_adj_indiv_wages avg_adj_wages_hd_exp ///
-num_fam_hd age black hisp_hd rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom  ///
+keep(avg_rank_indiv abs_mob_indiv  educ lfp mar hours_hd avg_adj_indiv_wages avg_adj_wages_hd_exp ///
+num_fam_hd age black hisp_hd avg_rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom  ///
 count_wages_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd ///
 recip_rate_hd unemp_hd) ///
 eqkeep(mean sd) label dec(2)
 
 * Calculate t-statistics
-foreach var in rank_indiv abs_mob_indiv  educ lfp mar hours_hd avg_adj_indiv_wages ///
-avg_adj_wages_hd_exp num_fam_hd age black hisp_hd rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom  ///
+foreach var in avg_rank_indiv abs_mob_indiv  educ lfp mar hours_hd avg_adj_indiv_wages ///
+avg_adj_wages_hd_exp num_fam_hd age black hisp_hd avg_rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom  ///
 count_wages_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd {
 	di "`var'"
 	ttest `var' if sex == 1, by(reform_exp) unequal
@@ -59,19 +66,19 @@ count_wages_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd {
 * Mother-daughter pairs
 bysort reform_exp: outreg2 [aw=weight] using output/summary.tex if sex == 2, ///
 tex(frag) append sum(log) ///
-keep(rank_indiv abs_mob_indiv  educ lfp mar hours_hd avg_adj_indiv_wages avg_adj_wages_hd_exp ///
-num_fam_hd age black hisp_hd rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom  ///
+keep(avg_rank_indiv abs_mob_indiv  educ lfp mar hours_hd avg_adj_indiv_wages avg_adj_wages_hd_exp ///
+num_fam_hd age black hisp_hd avg_rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom  ///
 count_wages_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd ///
 recip_rate_hd unemp_hd) ///
-sortvar(rank_indiv abs_mob_indiv  educ lfp mar hours_hd avg_adj_indiv_wages avg_adj_wages_hd_exp ///
-num_fam_hd age black hisp_hd rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom  ///
+sortvar(avg_rank_indiv abs_mob_indiv  educ lfp mar hours_hd avg_adj_indiv_wages avg_adj_wages_hd_exp ///
+num_fam_hd age black hisp_hd -avg_rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom  ///
 count_wages_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd ///
 recip_rate_hd unemp_hd) ///
 eqkeep(mean sd) label dec(2)
 
 * Calculate t-statistics
-foreach var in rank_indiv abs_mob_indiv  educ lfp mar hours_hd avg_adj_indiv_wages ///
-avg_adj_wages_hd_exp num_fam_hd age black hisp_hd rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom  ///
+foreach var in avg_rank_indiv abs_mob_indiv  educ lfp mar hours_hd avg_adj_indiv_wages ///
+avg_adj_wages_hd_exp num_fam_hd age black hisp_hd avg_rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom  ///
 count_wages_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd {
 	di "`var'"
 	ttest `var' if sex == 2, by(reform_exp) unequal
@@ -82,17 +89,17 @@ count_wages_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd {
 * Generate necessary averages/percentages for plotting
 * Still need to decide on cohort vs. year
 egen avg_abs_mob_indiv = wtmean(abs_mob_indiv*100), weight(weight) by(cohort)
-egen avg_rank_indiv = wtmean(rank_indiv), weight(weight) by(cohort)
-egen avg_rank_hd_exp = wtmean(rank_hd_exp), weight(weight) by(cohort)
+egen agg_rank_indiv = wtmean(avg_rank_indiv), weight(weight) by(cohort)
+egen agg_rank_hd_exp = wtmean(avg_rank_hd_exp), weight(weight) by(cohort)
 egen avg_abs_mob_indiv_yr = wtmean(abs_mob_indiv*100), weight(weight) by(year)
-egen avg_rank_indiv_yr = wtmean(rank_indiv), weight(weight) by(year)
-egen avg_rank_hd_exp_yr = wtmean(rank_hd_exp), weight(weight) by(year)
+egen avg_rank_indiv_yr = wtmean(avg_rank_indiv), weight(weight) by(year)
+egen avg_rank_hd_exp_yr = wtmean(avg_rank_hd_exp), weight(weight) by(year)
 egen avg_cur_particip = wtmean(cur_particip*100), weight(weight) by(year)
 egen avg_mar = wtmean(mar*100), weight(weight) by(year)
 egen avg_abs_mob_indiv_sex = wtmean(abs_mob_indiv*100), weight(weight) by(cohort sex)
-egen avg_rank_indiv_sex = wtmean(rank_indiv), weight(weight) by(cohort sex)
+egen avg_rank_indiv_sex = wtmean(avg_rank_indiv), weight(weight) by(cohort sex)
 egen avg_abs_mob_indiv_sex_yr = wtmean(abs_mob_indiv*100), weight(weight) by(year sex)
-egen avg_rank_indiv_sex_yr = wtmean(rank_indiv), weight(weight) by(year sex)
+egen avg_rank_indiv_sex_yr = wtmean(avg_rank_indiv), weight(weight) by(year sex)
 egen avg_cur_particip_sex = wtmean(cur_particip*100), weight(weight) by(year sex)
 egen avg_mar_sex = wtmean(mar*100), weight(weight) by(year sex)
 egen avg_wag = wtmean(adj_indiv_wages*100), weight(weight) by(age)
@@ -140,29 +147,23 @@ ytitle("Counts")
 graph export output/count_wages_hd_exp.jpg, replace quality(100) width(1500) height(1000)
 
 * Distribution of inclusive ranks
-twoway (histogram rank_indiv if reform_exp==0, width(5) color(blue%30) xlabel(#10)) ///
-       (histogram rank_indiv if reform_exp ==1, width(5) color(red%30) xlabel(#10)), ///
+twoway (histogram avg_rank_indiv if reform_exp==0, width(5) color(blue%30) xlabel(#10)) ///
+       (histogram avg_rank_indiv if reform_exp ==1, width(5) color(red%30) xlabel(#10)), ///
        legend(order(1 "Pre-Reform" 2 "Post-Reform" )) title("Distribution of Children's Ranks by Reform", size(medlarge))
 graph export output/rank_distrib.jpg, replace quality(100) width(1500) height(1000)
 
 * Distribution of mothers' inclusive ranks
-twoway (histogram rank_hd_exp if reform_exp==0, width(5) xlabel(#10) color(blue%30))  ///
-       (histogram rank_hd_exp if reform_exp==1, width(5) xlabel(#10) color(red%30)), ///
+twoway (histogram avg_rank_hd_exp if reform_exp==0, width(5) xlabel(#10) color(blue%30))  ///
+       (histogram avg_rank_hd_exp if reform_exp==1, width(5) xlabel(#10) color(red%30)), ///
        legend(order(1 "Pre-Reform" 2 "Post-Reform" )) title("Distribution of Mothers' Ranks by Reform", size(medlarge))
 graph export output/rank_mom_distrib.jpg, replace quality(100) width(1500) height(1000)
-
-* Distribution of mothers' exclusive ranks
-twoway (histogram rank_hd_exp2 if reform_exp==0, width(5) xlabel(#10) color(blue%30))  ///
-       (histogram rank_hd_exp2 if reform_exp==1, width(5) xlabel(#10) color(red%30)), ///
-       legend(order(1 "Pre-Reform" 2 "Post-Reform")) title("Alternative Distribution of Mothers' Ranks by Reform", size(medlarge))
-graph export output/rank_mom_distrib2.jpg, replace quality(100) width(1500) height(1000)
 
 
 * Mother-child pairs **********************************
 
 * Plot individual ranks over cohort birth years
-twoway line avg_rank_indiv cohort, sort || ///
-line avg_rank_hd_exp cohort, sort ///
+twoway line agg_rank_indiv cohort, sort || ///
+line agg_rank_hd_exp cohort, sort ///
 legend(label(1 "Child") label(2 "Mother")) ///
 xlabel(#10) xtitle("Year") ylabel(#10) ///
 ytitle("Weighted Mean Percentile Rank", size(medium)) ///
@@ -391,49 +392,26 @@ graph export output/race_by_reform_sons.jpg, replace quality(100) width(1500) he
 graph export output/hisp_by_reform_daughters.jpg, replace quality(100) width(1500) height(1000)
 
 * Distribution of inclusive ranks for sons
-twoway (histogram rank_indiv if reform_exp==0 & sex == 1, width(5) color(blue%30) xlabel(#10)) ///
-       (histogram rank_indiv if reform_exp ==1 & sex == 1, width(5) color(red%30) xlabel(#10)), ///
+twoway (histogram avg_rank_indiv if reform_exp==0 & sex == 1, width(5) color(blue%30) xlabel(#10)) ///
+       (histogram avg_rank_indiv if reform_exp ==1 & sex == 1, width(5) color(red%30) xlabel(#10)), ///
        legend(order(1 "Pre-Reform" 2 "Post-Reform" )) title("Distribution of Sons' Ranks by Reform", size(medlarge))
 graph export output/rank_distrib_sons.jpg, replace quality(100) width(1500) height(1000)
 
-* Distribution of exclusive ranks for sons
-twoway (histogram rank_indiv2 if reform_exp==0 & sex == 1, width(5) color(blue%30) xlabel(#10)) ///
-       (histogram rank_indiv2 if reform_exp ==1 & sex == 1, width(5) color(red%30) xlabel(#10)), ///
-       legend(order(1 "Pre-Reform" 2 "Post-Reform" )) title("Alternative Distribution of Sons' Ranks by Reform", size(medlarge))
-graph export output/rank_distrib2_sons.jpg, replace quality(100) width(1500) height(1000)
-
 * Distribution of mothers' inclusive ranks for sons
-twoway (histogram rank_hd_exp if reform_exp==0 & sex == 1, width(5) xlabel(#10) color(blue%30))  ///
-       (histogram rank_hd_exp if reform_exp==1 & sex == 1, width(5) xlabel(#10) color(red%30)), ///
+twoway (histogram avg_rank_hd_exp if reform_exp==0 & sex == 1, width(5) xlabel(#10) color(blue%30))  ///
+       (histogram avg_rank_hd_exp if reform_exp==1 & sex == 1, width(5) xlabel(#10) color(red%30)), ///
        legend(order(1 "Pre-Reform" 2 "Post-Reform" )) title("Distribution of Mothers' Ranks for Sons by Reform", size(medlarge))
 graph export output/rank_mom_distrib_sons.jpg, replace quality(100) width(1500) height(1000)
 
-* Distribution of mothers' exclusive ranks for sons
-twoway (histogram rank_hd_exp2 if reform_exp==0 & sex == 1, width(5) xlabel(#10) color(blue%30))  ///
-       (histogram rank_hd_exp2 if reform_exp==1 & sex == 1, width(5) xlabel(#10) color(red%30)), ///
-       legend(order(1 "Pre-Reform" 2 "Post-Reform")) title("Alternative Distribution of Mothers' Ranks for Sons by Reform", size(medlarge))
-graph export output/rank_mom_distrib2_sons.jpg, replace quality(100) width(1500) height(1000)
-
 * Distribution of inclusive ranks for daughters
-twoway (histogram rank_indiv if reform_exp==0 & sex == 2, width(5) color(blue%30) xlabel(#10)) ///
-       (histogram rank_indiv if reform_exp ==1 & sex == 2, width(5) color(red%30) xlabel(#10)), ///
+twoway (histogram avg_rank_indiv if reform_exp==0 & sex == 2, width(5) color(blue%30) xlabel(#10)) ///
+       (histogram avg_rank_indiv if reform_exp ==1 & sex == 2, width(5) color(red%30) xlabel(#10)), ///
        legend(order(1 "Pre-Reform" 2 "Post-Reform" )) title("Distribution of Daughters' Ranks by Reform", size(medlarge))
 graph export output/rank_distrib_daughters.jpg, replace quality(100) width(1500) height(1000)
 
-* Distribution of exclusive ranks for daughters
-twoway (histogram rank_indiv2 if reform_exp==0 & sex == 2, width(5) color(blue%30) xlabel(#10)) ///
-       (histogram rank_indiv2 if reform_exp ==1 & sex == 2, width(5) color(red%30) xlabel(#10)), ///
-       legend(order(1 "Pre-Reform" 2 "Post-Reform" )) title("Alternative Distribution of Daughters' Ranks by Reform", size(medlarge))
-graph export output/rank_distrib2_daughters.jpg, replace quality(100) width(1500) height(1000)
 
 * Distribution of mothers' inclusive ranks for daughters
-twoway (histogram rank_hd_exp if reform_exp==0 & sex == 2, width(5) xlabel(#10) color(blue%30))  ///
-       (histogram rank_hd_exp if reform_exp==1 & sex == 2, width(5) xlabel(#10) color(red%30)), ///
+twoway (histogram avg_rank_hd_exp if reform_exp==0 & sex == 2, width(5) xlabel(#10) color(blue%30))  ///
+       (histogram avg_rank_hd_exp if reform_exp==1 & sex == 2, width(5) xlabel(#10) color(red%30)), ///
        legend(order(1 "Pre-Reform" 2 "Post-Reform" )) title("Distribution of Mothers' Ranks for Daughters by Reform", size(medlarge))
 graph export output/rank_mom_distrib_daughters.jpg, replace quality(100) width(1500) height(1000)
-
-* Distribution of mothers' exclusive ranks for daughters
-twoway (histogram rank_hd_exp2 if reform_exp==0 & sex == 2, width(5) xlabel(#10) color(blue%30))  ///
-       (histogram rank_hd_exp2 if reform_exp==1 & sex == 2, width(5) xlabel(#10) color(red%30)), ///
-       legend(order(1 "Pre-Reform" 2 "Post-Reform")) title("Alternative Distribution of Mothers' Ranks for Daughters by Reform", size(medlarge))
-graph export output/rank_mom_distrib2_daughters.jpg, replace quality(100) width(1500) height(1000)
