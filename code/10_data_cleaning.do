@@ -10,7 +10,7 @@ clear all
 *ssc install outreg2
 
 * Load data
-use data/data18.dta, clear
+use data/data.dta, clear
 
 * Describe data
 d
