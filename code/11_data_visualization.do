@@ -49,8 +49,7 @@ count_wages_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd recip_rate_hd unemp_hd {
 bysort reform_exp: outreg2 [aw=weight] using output/summary.tex if sex == 1, ///
 tex(frag) append sum(log) ///
 keep(avg_rank_indiv abs_mob_indiv  educ lfp mar hours_hd avg_adj_indiv_wages avg_adj_wages_hd_exp ///
-num_fam_hd age black hisp_hd avg_rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom  ///
-count_wages_hd_exp adj_ben4_hd adj_eitc3_hd povrate_hd ///
+num_fam_hd age black hisp_hd avg_rank_hd_exp avg_age_hd_exp avg_num_fam avg_educ_mom  /// adj_ben4_hd adj_eitc3_hd povrate_hd ///
 recip_rate_hd unemp_hd) ///
 eqkeep(mean sd) label dec(2)
 
